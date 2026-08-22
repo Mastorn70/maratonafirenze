@@ -230,6 +230,7 @@ textarea.text-input{resize:vertical;}
 .session.logged-ok{background:rgba(52,211,153,.04);}
 .session.logged-skip{background:rgba(248,113,113,.04);}
 .s-day{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:.28rem;}
+.s-date{font-family:'DM Mono',monospace;font-size:.62rem;font-weight:400;letter-spacing:0;color:var(--txt3);opacity:.7;}
 .s-type{display:flex;align-items:center;gap:.28rem;margin-bottom:.3rem;}
 .s-type-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .s-type-lbl{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
@@ -1448,10 +1449,12 @@ function renderSessionCell(s,wi){
     : `<div class="s-km">${s.km===42.195?'42.2':s.km} km</div>`;
   const p=store[activePid];
   const hasEdit=p.sessionEdits&&p.sessionEdits[`w${wi}_d${s.day}`];
+  const sessDate=addDays(START,wi*7+s.day);
+  const sessDateStr=`${sessDate.getDate()}/${sessDate.getMonth()+1}`;
   return `
   <div class="session ${loggedCls}${hasEdit?' has-edits':''}" onclick="openSessionAction('${key}',${wi},${s.day})">
     <div class="s-status-badge">${badge}</div>
-    <div class="s-day">${s.dayName}</div>
+    <div class="s-day">${s.dayName} <span class="s-date">${sessDateStr}</span></div>
     <div class="s-type">
       <div class="s-type-dot" style="background:${sm.color}"></div>
       <span class="s-type-lbl" style="color:${sm.color}">${s.special||sm.label}</span>
