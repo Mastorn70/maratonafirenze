@@ -1,0 +1,3019 @@
+{
+  "_meta": {
+    "app": "Maratona Firenze",
+    "version": 2,
+    "exportedAt": "2026-08-21T20:06:31.150Z",
+    "totalAthletes": 5
+  },
+  "athletes": {
+    "a_1787290799774": {
+      "name": "Valerio",
+      "profileKey": "advanced",
+      "goalMin": 195,
+      "runDays": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "crossDay": 1,
+      "garaTestWeek": 5,
+      "log": {},
+      "sessionEdits": {
+        "w0_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w0_d6": {
+          "type": "lungo",
+          "km": 20,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 50,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d4": {
+          "type": "medio",
+          "km": 12,
+          "desc": "3 km risc. + 7 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d6": {
+          "type": "lungo",
+          "km": 24,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d4": {
+          "type": "medio",
+          "km": 11,
+          "desc": "3 km risc. + 6 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w4_d6": {
+          "type": "lungo",
+          "km": 26,
+          "dur": 55,
+          "desc": "Lungo con 9 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d0": {
+          "type": "rest",
+          "dur": 55,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa sciolta. Preparazione settimana gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d6": {
+          "type": "test",
+          "km": 21,
+          "desc": "Mezza maratona test. Conferma la forma.",
+          "zone": "halfTest",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Recupero post gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d6": {
+          "type": "lungo",
+          "km": 30,
+          "desc": "Lungo con 11 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d5": {
+          "type": "easy",
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w7_d6": {
+          "type": "lungo",
+          "km": 16,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d0": {
+          "type": "rest",
+          "dur": 40,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Lungo con 7 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 65,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d6": {
+          "type": "lungo",
+          "km": 34,
+          "dur": 50,
+          "desc": "IL lungo più importante. km 10–31 a ritmo MP. Testa tutto.",
+          "zone": "longMP",
+          "special": "🏔 PICCO",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d6": {
+          "type": "lungo",
+          "km": 23,
+          "desc": "Lungo con 8 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d6": {
+          "type": "lungo",
+          "km": 10,
+          "desc": "Lungo con 4 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d6": {
+          "type": "race",
+          "km": 42.195,
+          "desc": "Parti 5–8\" lento nei primi 5 km. Dal km 30 dai tutto!",
+          "zone": "race",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa rilassata. Visualizza il percorso di Firenze.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        }
+      },
+      "createdAt": "2026-08-21",
+      "updatedAt": "2026-08-21"
+    },
+    "athlete": {
+      "name": "Pamela",
+      "profileKey": "advanced",
+      "goalMin": 220,
+      "runDays": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "crossDay": 1,
+      "garaTestWeek": 5,
+      "log": {},
+      "sessionEdits": {
+        "w0_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d5": {
+          "type": "easy",
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w0_d6": {
+          "type": "lungo",
+          "km": 20,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d3": {
+          "type": "easy",
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w1_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d4": {
+          "type": "medio",
+          "km": 12,
+          "desc": "3 km risc. + 7 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d6": {
+          "type": "lungo",
+          "km": 24,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d4": {
+          "type": "medio",
+          "km": 11,
+          "desc": "3 km risc. + 6 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w4_d6": {
+          "type": "lungo",
+          "km": 26,
+          "dur": 55,
+          "desc": "Lungo con 9 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d0": {
+          "type": "rest",
+          "dur": 55,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa sciolta. Preparazione settimana gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d6": {
+          "type": "test",
+          "km": 21,
+          "desc": "Mezza maratona test. Conferma la forma.",
+          "zone": "halfTest",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Recupero post gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d6": {
+          "type": "lungo",
+          "km": 30,
+          "desc": "Lungo con 11 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d5": {
+          "type": "easy",
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w7_d6": {
+          "type": "lungo",
+          "km": 16,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d0": {
+          "type": "rest",
+          "dur": 40,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Lungo con 7 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 65,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d6": {
+          "type": "lungo",
+          "km": 33,
+          "dur": 50,
+          "desc": "IL lungo più importante. km 10–31 a ritmo MP. Testa tutto.",
+          "zone": "longMP",
+          "special": "🏔 PICCO",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d6": {
+          "type": "lungo",
+          "km": 23,
+          "desc": "Lungo con 8 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d6": {
+          "type": "lungo",
+          "km": 10,
+          "desc": "Lungo con 4 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d6": {
+          "type": "race",
+          "km": 42.195,
+          "desc": "Parti 5–8\" lento nei primi 5 km. Dal km 30 dai tutto!",
+          "zone": "race",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa rilassata. Visualizza il percorso di Firenze.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        }
+      },
+      "createdAt": "2026-08-21"
+    },
+    "a_1787332146057": {
+      "name": "Max",
+      "profileKey": "advanced",
+      "goalMin": 220,
+      "runDays": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "crossDay": 1,
+      "garaTestWeek": 5,
+      "log": {},
+      "sessionEdits": {
+        "w0_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d5": {
+          "type": "easy",
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "dur": 50,
+          "km": 8
+        },
+        "w0_d6": {
+          "type": "lungo",
+          "km": 20,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d4": {
+          "type": "medio",
+          "km": 12,
+          "desc": "3 km risc. + 7 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d6": {
+          "type": "lungo",
+          "km": 24,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d4": {
+          "type": "medio",
+          "km": 11,
+          "desc": "3 km risc. + 6 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w4_d6": {
+          "type": "lungo",
+          "km": 26,
+          "dur": 55,
+          "desc": "Lungo con 9 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d0": {
+          "type": "rest",
+          "dur": 55,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa sciolta. Preparazione settimana gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d6": {
+          "type": "test",
+          "km": 21,
+          "desc": "Mezza maratona test. Conferma la forma.",
+          "zone": "halfTest",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Recupero post gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d6": {
+          "type": "lungo",
+          "km": 30,
+          "desc": "Lungo con 11 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d5": {
+          "type": "easy",
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w7_d6": {
+          "type": "lungo",
+          "km": 16,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d0": {
+          "type": "rest",
+          "dur": 40,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Lungo con 7 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 65,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d6": {
+          "type": "lungo",
+          "km": 33,
+          "dur": 50,
+          "desc": "IL lungo più importante. km 10–31 a ritmo MP. Testa tutto.",
+          "zone": "longMP",
+          "special": "🏔 PICCO",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d6": {
+          "type": "lungo",
+          "km": 23,
+          "desc": "Lungo con 8 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d6": {
+          "type": "lungo",
+          "km": 10,
+          "desc": "Lungo con 4 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d6": {
+          "type": "race",
+          "km": 42.195,
+          "desc": "Parti 5–8\" lento nei primi 5 km. Dal km 30 dai tutto!",
+          "zone": "race",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa rilassata. Visualizza il percorso di Firenze.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        }
+      },
+      "createdAt": "2026-08-21",
+      "activities": [],
+      "duplicatedFrom": "athlete"
+    },
+    "a_1787342409912": {
+      "name": "Maurizio",
+      "profileKey": "advanced",
+      "goalMin": 195,
+      "runDays": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "crossDay": 1,
+      "garaTestWeek": 5,
+      "log": {},
+      "sessionEdits": {
+        "w0_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w0_d6": {
+          "type": "lungo",
+          "km": 20,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 50,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d4": {
+          "type": "medio",
+          "km": 12,
+          "desc": "3 km risc. + 7 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d6": {
+          "type": "lungo",
+          "km": 24,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d4": {
+          "type": "medio",
+          "km": 11,
+          "desc": "3 km risc. + 6 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w4_d6": {
+          "type": "lungo",
+          "km": 26,
+          "dur": 55,
+          "desc": "Lungo con 9 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d0": {
+          "type": "rest",
+          "dur": 55,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa sciolta. Preparazione settimana gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d6": {
+          "type": "test",
+          "km": 21,
+          "desc": "Mezza maratona test. Conferma la forma.",
+          "zone": "halfTest",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Recupero post gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d6": {
+          "type": "lungo",
+          "km": 30,
+          "desc": "Lungo con 11 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d5": {
+          "type": "easy",
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w7_d6": {
+          "type": "lungo",
+          "km": 16,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d0": {
+          "type": "rest",
+          "dur": 40,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Lungo con 7 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 65,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d6": {
+          "type": "lungo",
+          "km": 34,
+          "dur": 50,
+          "desc": "IL lungo più importante. km 10–31 a ritmo MP. Testa tutto.",
+          "zone": "longMP",
+          "special": "🏔 PICCO",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d6": {
+          "type": "lungo",
+          "km": 23,
+          "desc": "Lungo con 8 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d6": {
+          "type": "lungo",
+          "km": 10,
+          "desc": "Lungo con 4 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d6": {
+          "type": "race",
+          "km": 42.195,
+          "desc": "Parti 5–8\" lento nei primi 5 km. Dal km 30 dai tutto!",
+          "zone": "race",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa rilassata. Visualizza il percorso di Firenze.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        }
+      },
+      "createdAt": "2026-08-21",
+      "updatedAt": "2026-08-21",
+      "activities": [],
+      "duplicatedFrom": "a_1787290799774"
+    },
+    "a_1787342418127": {
+      "name": "Marco",
+      "profileKey": "advanced",
+      "goalMin": 220,
+      "runDays": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "crossDay": 1,
+      "garaTestWeek": 5,
+      "log": {},
+      "sessionEdits": {
+        "w0_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d5": {
+          "type": "easy",
+          "desc": "Bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "dur": 50,
+          "km": 8
+        },
+        "w0_d6": {
+          "type": "lungo",
+          "km": 20,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w0_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w1_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d4": {
+          "type": "medio",
+          "km": 12,
+          "desc": "3 km risc. + 7 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d6": {
+          "type": "lungo",
+          "km": 24,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w2_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Corsa continua aerobica. Idratazione ogni 20'.",
+          "zone": "longEasy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w3_d4": {
+          "type": "medio",
+          "km": 11,
+          "desc": "3 km risc. + 6 km soglia + 2 km def.",
+          "zone": "threshold",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d5": {
+          "type": "easy",
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w4_d6": {
+          "type": "lungo",
+          "km": 26,
+          "dur": 55,
+          "desc": "Lungo con 9 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w4_d0": {
+          "type": "rest",
+          "dur": 55,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa sciolta. Preparazione settimana gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d6": {
+          "type": "test",
+          "km": 21,
+          "desc": "Mezza maratona test. Conferma la forma.",
+          "zone": "halfTest",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w5_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Recupero post gara test.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d6": {
+          "type": "lungo",
+          "km": 30,
+          "desc": "Lungo con 11 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w6_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d5": {
+          "type": "easy",
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21",
+          "km": 8
+        },
+        "w7_d6": {
+          "type": "lungo",
+          "km": 16,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w7_d0": {
+          "type": "rest",
+          "dur": 40,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d6": {
+          "type": "lungo",
+          "km": 21,
+          "desc": "Lungo con 7 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w8_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 65,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d6": {
+          "type": "lungo",
+          "km": 33,
+          "dur": 50,
+          "desc": "IL lungo più importante. km 10–31 a ritmo MP. Testa tutto.",
+          "zone": "longMP",
+          "special": "🏔 PICCO",
+          "editedAt": "2026-08-21"
+        },
+        "w9_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d6": {
+          "type": "lungo",
+          "km": 23,
+          "desc": "Lungo con 8 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w10_d3": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d6": {
+          "type": "lungo",
+          "km": 17,
+          "desc": "Lungo con 6 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w11_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d1": {
+          "type": "easy",
+          "km": 8,
+          "desc": "Corsa di recupero. Ritmo istintivo, FC bassa.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 40,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d6": {
+          "type": "lungo",
+          "km": 10,
+          "desc": "Lungo con 4 km centrali a ritmo MP.",
+          "zone": "longMP",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w12_d3": {
+          "type": "easy",
+          "km": 6,
+          "desc": "Corsa sciolta aggiuntiva.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d0": {
+          "type": "rest",
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d1": {
+          "type": "easy",
+          "km": 10,
+          "desc": "",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d5": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa, bici, nuoto o ellittica a intensità moderata.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d6": {
+          "type": "race",
+          "km": 42.195,
+          "desc": "Parti 5–8\" lento nei primi 5 km. Dal km 30 dai tutto!",
+          "zone": "race",
+          "special": "",
+          "editedAt": "2026-08-21"
+        },
+        "w13_d3": {
+          "type": "easy",
+          "km": 8,
+          "dur": 55,
+          "desc": "Corsa rilassata. Visualizza il percorso di Firenze.",
+          "zone": "easy",
+          "special": "",
+          "editedAt": "2026-08-21"
+        }
+      },
+      "createdAt": "2026-08-21",
+      "activities": [],
+      "duplicatedFrom": "a_1787332146057"
+    }
+  }
+}
