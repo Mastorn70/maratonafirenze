@@ -12,15 +12,20 @@
   --txt:#eef0f4;--txt2:#9498a8;--txt3:#5a5e70;
   --easy:#34d399;--medio:#fbbf24;--lungo:#fb7185;--rep:#a78bfa;--cross:#38bdf8;
 }
+[data-theme="light"]{
+  --bg:#f4f5f7;--surf:#ffffff;--card:#eef0f4;--b1:#d8dae0;--b2:#c0c3ce;
+  --txt:#1a1b1e;--txt2:#4a4e5e;--txt3:#8a8e9e;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;transition:background .25s,color .25s;}
 button{font-family:'Inter',sans-serif;cursor:pointer;}
 input,textarea,select{font-family:'Inter',sans-serif;}
 .mono{font-family:'DM Mono',monospace;}
 .syne{font-family:'Syne',sans-serif;}
 .hidden{display:none!important;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .fade{animation:fadeUp .3s ease both;}
 
 /* ── SCREENS ── */
@@ -686,6 +691,12 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 <!-- Print container — populated by printPlan(), hidden on screen -->
 <div id="printContainer"></div>
 <!-- ════ SCREENS ════ -->
+<!-- ════ LOADING ════ -->
+<div id="scr-loading" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;background:var(--bg);z-index:9999;">
+  <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--txt)">Maratona Firenze</div>
+  <div style="width:36px;height:36px;border:3px solid var(--b1);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;"></div>
+  <div id="loading-msg" style="font-size:.72rem;color:var(--txt3);font-family:'DM Mono',monospace;">connessione a Firebase...</div>
+</div>
 <div id="scr-profiles" class="screen hidden"></div>
 <div id="scr-wizard"  class="screen hidden"></div>
 
@@ -777,8 +788,112 @@ const TARGET_PRESETS = [
 // ═══════════════════════════════════════════════════════════════
 // STORAGE
 // ═══════════════════════════════════════════════════════════════
-function loadStore(){ try{return JSON.parse(localStorage.getItem('mfv3')||'{}')}catch{return{}} }
-function saveStore(s){ try{localStorage.setItem('mfv3',JSON.stringify(s))}catch{} }
+// ── FIREBASE ────────────────────────────────────────────────────
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBjA6MvfL6qWHeiQDtASYVZcePIXE1zHMc",
+  authDomain: "running-7a13f.firebaseapp.com",
+  databaseURL: "https://running-7a13f-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "running-7a13f",
+  storageBucket: "running-7a13f.firebasestorage.app",
+  messagingSenderId: "95747151149",
+  appId: "1:95747151149:web:d4b5173eb7e95c2ff26fa4"
+};
+let _db = null, _dbRef = null, _fbInitialized = false, _saveTimeout = null;
+
+async function initFirebase() {
+  if (_fbInitialized) return;
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { getDatabase, ref, set, onValue } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    const app = initializeApp(FIREBASE_CONFIG);
+    _db = getDatabase(app);
+    _dbRef = { ref, set, onValue };
+    _fbInitialized = true;
+    console.log('Firebase connesso \u2713');
+  } catch(e) {
+    console.warn('Firebase non disponibile, uso localStorage:', e);
+  }
+}
+
+function loadStore() {
+  try { return JSON.parse(localStorage.getItem('mfv3') || '{}'); } catch { return {}; }
+}
+
+function saveStore(s) {
+  try { localStorage.setItem('mfv3', JSON.stringify(s)); } catch {}
+  if (!_fbInitialized) return;
+  clearTimeout(_saveTimeout);
+  _saveTimeout = setTimeout(() => {
+    const { ref, set } = _dbRef;
+    set(ref(_db, 'athletes'), s).catch(e => console.warn('Firebase write error:', e));
+  }, 600);
+}
+
+async function syncFromFirebase() {
+  // Timeout di sicurezza: se Firebase non risponde in 5s, mostra i dati locali
+  const fallbackTimer = setTimeout(() => hideLoading('locale'), 5000);
+
+  await initFirebase();
+  if (!_fbInitialized) {
+    clearTimeout(fallbackTimer);
+    hideLoading('locale');
+    return;
+  }
+  const { ref, onValue } = _dbRef;
+  let firstLoad = true;
+  onValue(ref(_db, 'athletes'), (snapshot) => {
+    clearTimeout(fallbackTimer);
+    const data = snapshot.val();
+    if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+      store = data;
+      try { localStorage.setItem('mfv3', JSON.stringify(store)); } catch {}
+    }
+    if (firstLoad) {
+      firstLoad = false;
+      hideLoading('firebase');
+      renderProfiles();
+    } else {
+      // Aggiornamento in tempo reale successivo al primo
+      renderProfiles();
+      if (activePid && store[activePid]) {
+        const p = store[activePid];
+        plan = buildPlan({
+          profileKey: p.profileKey || 'intermediate',
+          goalMin: p.goalMin || 210,
+          runDays: p.runDays || [0,2,4,6],
+          crossDay: p.crossDay ?? 1,
+          garaTestWeek: p.garaTestWeek ?? 8,
+          garaTestDay: p.garaTestDay ?? 6
+        });
+        zones = calcZones(p.goalMin || 210);
+        applySessionEdits();
+        if (document.getElementById('scr-plan') && document.getElementById('scr-plan').style.display !== 'none') renderTab();
+        showSyncBadge();
+      }
+    }
+  }, (error) => {
+    clearTimeout(fallbackTimer);
+    console.warn('Firebase read error:', error);
+    hideLoading('locale');
+  });
+}
+
+function hideLoading(source) {
+  const el = document.getElementById('scr-loading');
+  if (!el) return;
+  el.style.opacity = '0';
+  el.style.transition = 'opacity .3s';
+  setTimeout(() => { el.style.display = 'none'; }, 320);
+  if (source === 'locale') console.log('App avviata da localStorage');
+}
+
+function showSyncBadge() {
+  const badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  badge.textContent = '\u2601 sync';
+  badge.style.opacity = '1';
+  setTimeout(() => { badge.style.opacity = '0'; }, 2000);
+}
 
 // ═══════════════════════════════════════════════════════════════
 // UTILS
@@ -1226,6 +1341,8 @@ function renderTopbar(){
     </div>
     <div class="zone-chips" id="zoneChips">${chips}</div>
     <div class="tab-bar">${tabs}</div>
+    <span id="sync-badge" style="font-size:.58rem;font-family:'DM Mono',monospace;color:var(--accent);opacity:0;transition:opacity .5s;flex-shrink:0;">☁ sync</span>
+    <button id="theme-toggle" onclick="toggleTheme()" title="Cambia tema" style="background:none;border:1px solid var(--b1);border-radius:6px;padding:.3rem .5rem;font-size:.9rem;color:var(--txt2);cursor:pointer;flex-shrink:0;transition:all .2s;">🌙</button>
     <div class="athlete-menu" id="athleteMenu">
       <button class="athlete-menu-btn" onclick="toggleAthleteMenu()">⚙ Atleta ▾</button>
       <div class="athlete-menu-drop hidden" id="athleteMenuDrop">
@@ -3929,8 +4046,26 @@ function printPlan() {
 // ═══════════════════════════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════════════════════════
-store = loadStore();
-renderProfiles();
+function toggleTheme(){
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = next === 'light' ? '☀️' : '🌙';
+  try { localStorage.setItem('mf-theme', next); } catch {}
+}
+function applyTheme(){
+  const t = localStorage.getItem('mf-theme') || 'dark';
+  if (t === 'light') {
+    document.documentElement.setAttribute('data-theme','light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+
+applyTheme();
+store = loadStore();   // carica localStorage come fallback
+syncFromFirebase();    // Firebase carica i dati e poi chiama renderProfiles()
 </script>
 </body>
 </html>
