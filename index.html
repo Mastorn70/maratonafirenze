@@ -24,6 +24,13 @@ input,textarea,select{font-family:'Inter',sans-serif;}
 .mono{font-family:'DM Mono',monospace;}
 .syne{font-family:'Syne',sans-serif;}
 .hidden{display:none!important;}
+.wtype-list{display:flex;flex-direction:column;gap:.5rem;}
+.wtype-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.wtype-day{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--txt2);min-width:55px;flex-shrink:0;}
+.wtype-btns{display:flex;gap:.3rem;flex-wrap:wrap;}
+.wtype-btn{background:var(--surf);border:1px solid var(--b1);border-radius:5px;color:var(--txt2);font-size:.68rem;padding:.28rem .55rem;cursor:pointer;transition:all .15s;}
+.wtype-btn.sel{border-color:var(--tc);color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent);}
+.wtype-btn:hover:not(.sel){border-color:var(--b2);color:var(--txt);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .fade{animation:fadeUp .3s ease both;}
@@ -868,7 +875,8 @@ async function syncFromFirebase() {
           runDays: p.runDays || [0,2,4,6],
           crossDay: p.crossDay ?? 1,
           garaTestWeek: p.garaTestWeek ?? 8,
-          garaTestDay: p.garaTestDay ?? 6
+          garaTestDay: p.garaTestDay ?? 6,
+          dayTypes: p.dayTypes || {}
         });
         zones = calcZones(p.goalMin || 210);
         applySessionEdits();
@@ -940,7 +948,7 @@ function hide(id){el(id).classList.add('hidden');}
 // PLAN ENGINE
 // ═══════════════════════════════════════════════════════════════
 function buildPlan(cfg){
-  const {profileKey,goalMin,runDays,crossDay,garaTestWeek,garaTestDay=6,raceDay=6}=cfg;
+  const {profileKey,goalMin,runDays,crossDay,garaTestWeek,garaTestDay=6,raceDay=6,dayTypes={}}=cfg;
   const prof=PROFILES_DEF[profileKey];
   const z=calcZones(goalMin);
   const BASE_LONG=[20,21,24,17,26,28,30,16,21,prof.peakLong,23,17,10,5];
@@ -954,7 +962,7 @@ function buildPlan(cfg){
     const rd=[...runDays].sort((a,b)=>a-b);
     const specialDay=isRace?raceDay:garaTestDay;
     const specialIndex=rd.indexOf(specialDay);
-    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex>=0?specialIndex:rd.length-1);
+    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex>=0?specialIndex:rd.length-1,rd,dayTypes);
     const sessions=[];
     for(let day=0;day<7;day++){
       if(rd.includes(day)){
@@ -973,7 +981,7 @@ function buildPlan(cfg){
   return weeks;
 }
 
-function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex){
+function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex,rd=[],dayTypes={}){
   if(isRace) {
     const raceSessions = [
     {type:'easy',km:8,  desc:'Corsa rilassata. Visualizza il percorso di Firenze.',zone:'easy'},
@@ -1015,6 +1023,24 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialI
     {type:'easy',km:bE-2,desc:'Corsa sciolta aggiuntiva.',zone:'easy'},
     {type:'rep', km:bR-2,desc:'2 km risc. + 5×1000m (rec. 90") + 2 km def.',zone:'rep'},
   ];
+  // Se dayTypes e' definito, assegna il tipo preferito a ciascun giorno
+  if(rd.length && dayTypes && Object.keys(dayTypes).length){
+    const sortedDays=[...rd].sort((a,b)=>a-b);
+    const result=[];
+    const used=new Set();
+    for(const day of sortedDays){
+      const pref=dayTypes[String(day)] || dayTypes[day];
+      let found=-1;
+      for(let i=0;i<pool.length;i++){
+        if(!used.has(i) && pool[i].type===pref){found=i;break;}
+      }
+      if(found===-1){
+        for(let i=0;i<pool.length;i++){if(!used.has(i)){found=i;break;}}
+      }
+      if(found!==-1){used.add(found);result.push(pool[found]);}
+    }
+    if(result.length===n) return result;
+  }
   return pool.slice(0,n);
 }
 
@@ -1022,7 +1048,7 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialI
 // APP STATE
 // ═══════════════════════════════════════════════════════════════
 let store={}, activePid=null, plan=[], zones={}, expandedWeek=-1, activeTab='plan';
-let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6};
+let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'}};
 
 // ═══════════════════════════════════════════════════════════════
 // PROFILES SCREEN
@@ -1042,7 +1068,7 @@ function renderProfiles(){
       ${entries.map(([pid,p])=>{
         const pd=PROFILES_DEF[p.profileKey||'intermediate']||PROFILES_DEF.intermediate;
         const allS=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6})
+          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}})
           .flatMap(w=>w.sessions).filter(s=>s.type!=='rest');
         const done=Object.keys(p.log||{}).length;
         const pct=allS.length?Math.round(done/allS.length*100):0;
@@ -1091,7 +1117,7 @@ function buildRing(pct,r,stroke,color,label){
 // ═══════════════════════════════════════════════════════════════
 function startWizard(){
   wizStep=0;
-  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6};
+  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'}};
   hide('scr-profiles');
   show('scr-wizard');
   renderWizStep();
@@ -1133,6 +1159,19 @@ function renderWizStep(){
       return `<button class="day-btn ${isSel?'cross-sel':isRun?'disabled':''}" onclick="wSetCross(${i})">${d}</button>`;
     }).join('');
     const presets=TARGET_PRESETS.map(t=>`<button class="preset-btn ${wizCfg.goalMin===t.m?'sel':''}" onclick="wSetGoal(${t.m})">${t.l}</button>`).join('');
+    const RUN_TYPES=[
+      {type:'easy',  label:'Facile',  color:'#34d399'},
+      {type:'medio', label:'Medio',   color:'#fbbf24'},
+      {type:'lungo', label:'Lungo',   color:'#fb7185'},
+      {type:'rep',   label:'Ripetute',color:'#a78bfa'},
+    ];
+    const dayTypesRows = wizCfg.runDays.sort((a,b)=>a-b).map(i => {
+      const typeBtns = RUN_TYPES.map(rt => {
+        const sel = (wizCfg.dayTypes||{})[i]===rt.type;
+        return `<button class="wtype-btn ${sel?'sel':''}" style="--tc:${rt.color}" onclick="wSetDayType(${i},'${rt.type}')">${rt.label}</button>`;
+      }).join('');
+      return `<div class="wtype-row"><span class="wtype-day">${DAYS_L[i]}</span><div class="wtype-btns">${typeBtns}</div></div>`;
+    }).join('');
     body=`
       <div style="margin-bottom:1.1rem">
         <label class="field-label">OBIETTIVO — <span id="wGoalLbl" style="color:var(--accent);font-family:'DM Mono',monospace">${fmtGoal(wizCfg.goalMin)}</span> · MP <span id="wMpLbl" style="color:var(--gold);font-family:'DM Mono',monospace">${fmtPace(Math.round(wizCfg.goalMin*60/42.195))}</span> /km</label>
@@ -1147,6 +1186,11 @@ function renderWizStep(){
         <div class="day-grid">${runDaysBtns}</div>
         ${wizCfg.runDays.length!==p.runs?`<p style="font-size:.72rem;color:#f87171;margin-top:.4rem">Seleziona esattamente ${p.runs} giorni</p>`:''}
       </div>
+      ${wizCfg.runDays.length===p.runs?`
+      <div style="margin-bottom:1.1rem">
+        <label class="field-label">TIPO ALLENAMENTO PER GIORNO</label>
+        <div class="wtype-list">${dayTypesRows}</div>
+      </div>`:''}
       <div>
         <label class="field-label">GIORNO CROSS TRAINING</label>
         <div class="day-grid">${crossBtns}</div>
@@ -1211,7 +1255,7 @@ function wizFinish(){
     hide('scr-wizard');
     activePid=pid;
     plan=buildPlan({profileKey:store[pid].profileKey||'intermediate',goalMin:store[pid].goalMin||210,
-      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8,garaTestDay:store[pid].garaTestDay??6});
+      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8,garaTestDay:store[pid].garaTestDay??6,dayTypes:store[pid].dayTypes||{}});
     zones=calcZones(store[pid].goalMin||210);
     applySessionEdits();
     show('scr-plan');
@@ -1246,6 +1290,19 @@ function wToggleRun(i){
   renderWizStep();
 }
 function wSetCross(i){if(!wizCfg.runDays.includes(i)){wizCfg.crossDay=i;renderWizStep();}}
+function wSetDayType(day, type){
+  if(!wizCfg.dayTypes) wizCfg.dayTypes={};
+  wizCfg.dayTypes[day]=type;
+  // Update only the buttons for this row without full re-render
+  document.querySelectorAll(`.wtype-row`).forEach(row=>{
+    const dayLabel=row.querySelector('.wtype-day').textContent;
+    if(dayLabel!==DAYS_L[day]) return;
+    row.querySelectorAll('.wtype-btn').forEach(btn=>{
+      const t=btn.getAttribute('onclick').match(/'([^']+)'\)$/)[1];
+      btn.classList.toggle('sel', t===type);
+    });
+  });
+}
 function wSetGoal(m){wizCfg.goalMin=m;renderWizStep();}
 function wSliderMove(v){
   wizCfg.goalMin=parseInt(v);
@@ -1294,7 +1351,7 @@ function selectProfile(pid){
   activePid=pid;
   const p=store[pid];
   plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6});
+    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}});
   zones=calcZones(p.goalMin||210);
   applySessionEdits();
   expandedWeek=currentWeekIdx();
@@ -2100,7 +2157,7 @@ function importOneJSON(input){
       saveStore(store);
       input.value='';
       plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6});
+        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}});
       zones=calcZones(p.goalMin||210);
       renderTopbar();
       renderTab();
@@ -2362,6 +2419,7 @@ function rebuildEditorPlan() {
     crossDay:     p.crossDay     ?? 1,
     garaTestWeek: p.garaTestWeek ?? 8,
     garaTestDay:  p.garaTestDay  ?? 6,
+    dayTypes:     p.dayTypes     || {},
   });
   zones = calcZones(p.goalMin || 210);
 
