@@ -422,7 +422,7 @@ table.ptable tr:last-child td{border-bottom:none;}
   border-style:solid!important;border-color:var(--teal)!important;
   background:rgba(45,212,191,.1)!important;}
 /* Garmin export panel */
-.garmin-panel{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;}
+.garmin-panel{display:none!important;}
 .garmin-panel-hdr{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;
   background:rgba(0,112,193,.1);border-bottom:1px solid var(--b1);}
 .garmin-logo{font-size:1.1rem;}
@@ -1349,7 +1349,6 @@ function renderTopbar(){
         <button class="amenu-item" onclick="openPlanEditor()">🗓 Modifica Piano</button>
         <button class="amenu-item" onclick="editAthleteSettings();closeAthleteMenu()">✏️ Modifica impostazioni</button>
           <button class="amenu-item" onclick="duplicateActiveProfile();closeAthleteMenu()">📄 Duplica piano su nuovo atleta</button>
-        <button class="amenu-item" onclick="closeAthleteMenu();switchTab('plan');setTimeout(()=>{const g=document.getElementById('garminPanel');if(g){g.scrollIntoView({behavior:'smooth'});}},200)">⌚ Esporta per Garmin</button>
         <button class="amenu-item" onclick="printPlan();closeAthleteMenu()">🖨 Stampa / Salva PDF</button>
         <button class="amenu-item" onclick="exportOneJSON();closeAthleteMenu()">💾 Esporta profilo (JSON)</button>
         <button class="amenu-item" onclick="exportSecureBackup();closeAthleteMenu()">🔐 Backup protetto di tutti i profili</button>
