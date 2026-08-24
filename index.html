@@ -24,6 +24,17 @@ input,textarea,select{font-family:'Inter',sans-serif;}
 .mono{font-family:'DM Mono',monospace;}
 .syne{font-family:'Syne',sans-serif;}
 .hidden{display:none!important;}
+.prule-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.4rem;}
+.prule-item{display:flex;align-items:center;gap:.4rem;background:var(--surf);border:1px solid var(--b1);border-radius:7px;padding:.45rem .7rem;flex:1;min-width:90px;}
+.prule-item:hover{border-color:var(--pc);}
+.prule-lbl{font-size:.68rem;color:var(--txt2);flex:1;white-space:nowrap;}
+.prule-input{width:44px;background:transparent;border:none;border-bottom:1px solid var(--b2);color:var(--txt);font-family:'DM Mono',monospace;font-size:.85rem;text-align:center;padding:.1rem 0;outline:none;}
+.prule-input:focus{border-bottom-color:var(--accent);}
+.prule-unit{font-size:.62rem;color:var(--txt3);}
+.prule-km-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.35rem;margin-top:.4rem;}
+.prule-km-cell{display:flex;align-items:center;gap:.3rem;background:var(--surf);border:1px solid var(--b1);border-radius:6px;padding:.3rem .5rem;}
+.prule-week{font-size:.62rem;color:var(--txt2);flex:1;white-space:nowrap;}
+.prule-week em{font-style:normal;font-size:.55rem;opacity:.7;}
 .wtype-list{display:flex;flex-direction:column;gap:.5rem;}
 .wtype-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
 .wtype-day{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--txt2);min-width:55px;flex-shrink:0;}
@@ -843,12 +854,13 @@ function saveStore(s) {
 
 async function syncFromFirebase() {
   // Timeout di sicurezza: se Firebase non risponde in 5s, mostra i dati locali
-  const fallbackTimer = setTimeout(() => hideLoading('locale'), 5000);
+  const fallbackTimer = setTimeout(() => { hideLoading('locale'); renderProfiles(); }, 5000);
 
   await initFirebase();
   if (!_fbInitialized) {
     clearTimeout(fallbackTimer);
     hideLoading('locale');
+    renderProfiles();
     return;
   }
   const { ref, onValue } = _dbRef;
@@ -876,7 +888,8 @@ async function syncFromFirebase() {
           crossDay: p.crossDay ?? 1,
           garaTestWeek: p.garaTestWeek ?? 8,
           garaTestDay: p.garaTestDay ?? 6,
-          dayTypes: p.dayTypes || {}
+          dayTypes: p.dayTypes || {},
+          planRules: p.planRules || {}
         });
         zones = calcZones(p.goalMin || 210);
         applySessionEdits();
@@ -891,6 +904,7 @@ async function syncFromFirebase() {
     clearTimeout(fallbackTimer);
     console.warn('Firebase read error:', error);
     hideLoading('locale');
+    renderProfiles();
   });
 }
 
@@ -948,10 +962,11 @@ function hide(id){el(id).classList.add('hidden');}
 // PLAN ENGINE
 // ═══════════════════════════════════════════════════════════════
 function buildPlan(cfg){
-  const {profileKey,goalMin,runDays,crossDay,garaTestWeek,garaTestDay=6,raceDay=6,dayTypes={}}=cfg;
+  const {profileKey,goalMin,runDays,crossDay,garaTestWeek,garaTestDay=6,raceDay=6,dayTypes={},planRules={}}=cfg;
+  const _pr=planRules;
   const prof=PROFILES_DEF[profileKey];
   const z=calcZones(goalMin);
-  const BASE_LONG=[20,21,24,17,26,28,30,16,21,prof.peakLong,23,17,10,5];
+  const BASE_LONG=(_pr.longKm&&_pr.longKm.length===14)?[..._pr.longKm]:[20,21,24,17,26,28,30,16,21,prof.peakLong,23,17,10,5];
   if(garaTestWeek!==null) BASE_LONG[garaTestWeek]=21;
   const weeks=[];
   for(let wi=0;wi<14;wi++){
@@ -962,7 +977,7 @@ function buildPlan(cfg){
     const rd=[...runDays].sort((a,b)=>a-b);
     const specialDay=isRace?raceDay:garaTestDay;
     const specialIndex=rd.indexOf(specialDay);
-    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex>=0?specialIndex:rd.length-1,rd,dayTypes);
+    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex>=0?specialIndex:rd.length-1,rd,dayTypes,_pr);
     const sessions=[];
     for(let day=0;day<7;day++){
       if(rd.includes(day)){
@@ -981,7 +996,7 @@ function buildPlan(cfg){
   return weeks;
 }
 
-function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex,rd=[],dayTypes={}){
+function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex,rd=[],dayTypes={},planRules={}){
   if(isRace) {
     const raceSessions = [
     {type:'easy',km:8,  desc:'Corsa rilassata. Visualizza il percorso di Firenze.',zone:'easy'},
@@ -1010,7 +1025,10 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialI
     return testSessions.slice(0,n);
   }
 
-  const bE=isRest?8:10, bR=isRest?11:12+Math.floor(phase), bM=isRest?11:12+phase;
+  const _kmE=planRules&&planRules.kmEasy?planRules.kmEasy:10;
+  const _kmR=planRules&&planRules.kmRep?planRules.kmRep:13;
+  const _kmM=planRules&&planRules.kmMedio?planRules.kmMedio:14;
+  const bE=isRest?Math.max(6,_kmE-2):_kmE, bR=isRest?Math.max(8,_kmR-2):_kmR+Math.floor(phase), bM=isRest?Math.max(8,_kmM-2):_kmM+phase;
   const pool=[
     {type:'easy',km:bE, desc:'Corsa di recupero. Ritmo istintivo, FC bassa.',zone:'easy'},
     {type:'rep', km:bR, desc:phase===0?'2 km risc. + 6×1000m (rec. 90") + 2 km def.':'3 km risc. + 4×2000m (rec. 90") + 3 km def.',zone:'rep'},
@@ -1048,7 +1066,7 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialI
 // APP STATE
 // ═══════════════════════════════════════════════════════════════
 let store={}, activePid=null, plan=[], zones={}, expandedWeek=-1, activeTab='plan';
-let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'}};
+let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'},planRules:{longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13}};
 
 // ═══════════════════════════════════════════════════════════════
 // PROFILES SCREEN
@@ -1068,7 +1086,7 @@ function renderProfiles(){
       ${entries.map(([pid,p])=>{
         const pd=PROFILES_DEF[p.profileKey||'intermediate']||PROFILES_DEF.intermediate;
         const allS=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}})
+          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}})
           .flatMap(w=>w.sessions).filter(s=>s.type!=='rest');
         const done=Object.keys(p.log||{}).length;
         const pct=allS.length?Math.round(done/allS.length*100):0;
@@ -1117,7 +1135,7 @@ function buildRing(pct,r,stroke,color,label){
 // ═══════════════════════════════════════════════════════════════
 function startWizard(){
   wizStep=0;
-  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'}};
+  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'},planRules:{longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13}};
   hide('scr-profiles');
   show('scr-wizard');
   renderWizStep();
@@ -1125,8 +1143,8 @@ function startWizard(){
 
 function renderWizStep(){
   const scr=el('scr-wizard');
-  const TITLES=['Profilo atleta','Giorni & Obiettivo','Gara test & Riepilogo'];
-  const dots=[0,1,2].map(i=>`<div class="wiz-dot ${i<wizStep?'done':i===wizStep?'active':'idle'}"></div>`).join('');
+  const TITLES=['Profilo atleta','Giorni & Obiettivo','Regole Piano','Gara test & Riepilogo'];
+  const dots=[0,1,2,3].map(i=>`<div class="wiz-dot ${i<wizStep?'done':i===wizStep?'active':'idle'}"></div>`).join('');
   let body='';
 
   if(wizStep===0){
@@ -1198,6 +1216,52 @@ function renderWizStep(){
   }
 
   if(wizStep===2){
+    const pr=wizCfg.planRules||{};
+    const longVals=pr.longKm||[20,21,24,17,26,28,30,16,21,35,23,17,10,5];
+    const REST_WEEKS=[3,7,11,12];
+    const longInputs=longVals.map((km,wi)=>{
+      const tag=REST_WEEKS.includes(wi)?'scarico':wi===9?'picco':wi===13?'gara':'';
+      const color=wi===9?'var(--gold)':REST_WEEKS.includes(wi)?'var(--txt3)':wi===13?'var(--accent)':'var(--txt2)';
+      const tagHtml=tag?('<em> '+tag+'</em>'):'';
+      const dimStyle=(REST_WEEKS.includes(wi)||wi===13)?'style="opacity:.55"':'';
+      return '<div class="prule-km-cell">'
+        +'<span class="prule-week" style="color:'+color+'">W'+(wi+1)+tagHtml+'</span>'
+        +'<input type="number" class="prule-input" min="5" max="50" value="'+km+'" oninput="wSetLongKm('+wi+',this.value)" '+dimStyle+'>'
+        +'<span class="prule-unit">km</span>'
+        +'</div>';
+    }).join('');
+    body=`
+      <div style="margin-bottom:1.2rem">
+        <label class="field-label">KM BASE PER TIPO SESSIONE</label>
+        <div class="prule-row">
+          <div class="prule-item" style="--pc:#34d399">
+            <span class="prule-lbl">Facile</span>
+            <input type="number" class="prule-input" min="5" max="20" value="${pr.kmEasy||10}"
+              oninput="wizCfg.planRules.kmEasy=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+          <div class="prule-item" style="--pc:#fbbf24">
+            <span class="prule-lbl">Medio</span>
+            <input type="number" class="prule-input" min="8" max="25" value="${pr.kmMedio||14}"
+              oninput="wizCfg.planRules.kmMedio=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+          <div class="prule-item" style="--pc:#a78bfa">
+            <span class="prule-lbl">Ripetute</span>
+            <input type="number" class="prule-input" min="6" max="22" value="${pr.kmRep||13}"
+              oninput="wizCfg.planRules.kmRep=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+        </div>
+        <p style="font-size:.68rem;color:var(--txt3);margin-top:.4rem">I km crescono automaticamente nelle fasi avanzate del piano.</p>
+      </div>
+      <div>
+        <label class="field-label">KM LUNGO PER SETTIMANA</label>
+        <div class="prule-km-grid">${longInputs}</div>
+      </div>`;
+  }
+
+  if(wizStep===3){
     const weeks=Array.from({length:7},(_,i)=>i+4).map(wi=>{
       const d=addDays(START,wi*7);
       return `<button class="gara-btn ${wizCfg.garaTestWeek===wi?'sel':''}" onclick="wSetGara(${wi})">W${wi+1} · ${fmtD(d)}</button>`;
@@ -1218,13 +1282,13 @@ function renderWizStep(){
         Corsa: <strong>${wizCfg.runDays.map(d=>DAYS_L[d]).join(', ')}</strong><br>
         Cross: <strong style="color:var(--blue)">${DAYS_L[wizCfg.crossDay]}</strong><br>
         Gara test: <strong style="color:var(--teal)">W${wizCfg.garaTestWeek+1} · ${DAYS_L[wizCfg.garaTestDay]} · ${fmtD(addDays(START,wizCfg.garaTestWeek*7+wizCfg.garaTestDay))}</strong><br>
-        Lungo picco: <strong style="color:var(--gold)">${PROFILES_DEF[wizCfg.profileKey].peakLong} km</strong>
+        Lungo picco: <strong style="color:var(--gold)">${(wizCfg.planRules&&wizCfg.planRules.longKm&&wizCfg.planRules.longKm[9])||PROFILES_DEF[wizCfg.profileKey].peakLong} km</strong>
       </div>`;
   }
 
   scr.innerHTML=`
     <div style="text-align:center;margin-bottom:1.25rem">
-      <div style="font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem">NUOVO ATLETA · PASSO ${wizStep+1}/3</div>
+      <div style="font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem">NUOVO ATLETA · PASSO ${wizStep+1}/4</div>
       <h2 style="font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800">${TITLES[wizStep]}</h2>
     </div>
     <div class="wiz-dots">${dots}</div>
@@ -1233,7 +1297,7 @@ function renderWizStep(){
       <button class="wiz-btn back" onclick="${wizStep===0?'renderProfiles()':'wizPrev()'}">${wizStep===0?'← Annulla':'← Indietro'}</button>
       <button class="wiz-btn next" id="wNext" onclick="${wizStep<2?'wizNext()':'wizFinish()'}"
         ${!wizValid()?'disabled':''}>
-        ${wizStep<2?'Avanti →':'🚀 Crea Piano'}
+        ${wizStep<3?'Avanti →':'🚀 Crea Piano'}
       </button>
     </div>`;
 }
@@ -1255,7 +1319,7 @@ function wizFinish(){
     hide('scr-wizard');
     activePid=pid;
     plan=buildPlan({profileKey:store[pid].profileKey||'intermediate',goalMin:store[pid].goalMin||210,
-      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8,garaTestDay:store[pid].garaTestDay??6,dayTypes:store[pid].dayTypes||{}});
+      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8,garaTestDay:store[pid].garaTestDay??6,dayTypes:store[pid].dayTypes||{},planRules:store[pid].planRules||{}});
     zones=calcZones(store[pid].goalMin||210);
     applySessionEdits();
     show('scr-plan');
@@ -1311,6 +1375,10 @@ function wSliderMove(v){
   if(ml)ml.textContent=fmtPace(Math.round(wizCfg.goalMin*60/42.195));
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.toggle('sel',parseInt(b.getAttribute('onclick').match(/\d+/)[0])===wizCfg.goalMin));
 }
+function wSetLongKm(wi,v){
+  if(!wizCfg.planRules) wizCfg.planRules={longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13};
+  wizCfg.planRules.longKm[wi]=Math.max(5,Math.min(50,+v));
+}
 function wSetGara(wi){wizCfg.garaTestWeek=wi;renderWizStep();}
 function wSetGaraDay(day){if(wizCfg.runDays.includes(day)){wizCfg.garaTestDay=day;renderWizStep();}}
 
@@ -1351,7 +1419,7 @@ function selectProfile(pid){
   activePid=pid;
   const p=store[pid];
   plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}});
+    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}});
   zones=calcZones(p.goalMin||210);
   applySessionEdits();
   expandedWeek=currentWeekIdx();
@@ -1959,6 +2027,7 @@ function editAthleteSettings(){
   const p=store[activePid];
   const runDays=p.runDays||[0,2,4,6];
   wizStep=0;
+  const defaultLong=[20,21,24,17,26,28,30,16,21,PROFILES_DEF[p.profileKey||'intermediate'].peakLong,23,17,10,5];
   wizCfg={
     name:p.name||'',
     profileKey:p.profileKey||'intermediate',
@@ -1967,6 +2036,13 @@ function editAthleteSettings(){
     crossDay:p.crossDay??1,
     garaTestWeek:p.garaTestWeek??8,
     garaTestDay:runDays.includes(p.garaTestDay??6)?(p.garaTestDay??6):runDays[runDays.length-1],
+    dayTypes:p.dayTypes||{},
+    planRules:{
+      longKm:(p.planRules&&p.planRules.longKm)||defaultLong,
+      kmEasy:(p.planRules&&p.planRules.kmEasy)||10,
+      kmMedio:(p.planRules&&p.planRules.kmMedio)||14,
+      kmRep:(p.planRules&&p.planRules.kmRep)||13,
+    },
   };
   // Override finish to update instead of create
   window._editingPid=activePid;
@@ -2157,7 +2233,7 @@ function importOneJSON(input){
       saveStore(store);
       input.value='';
       plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{}});
+        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}});
       zones=calcZones(p.goalMin||210);
       renderTopbar();
       renderTab();
@@ -2420,6 +2496,7 @@ function rebuildEditorPlan() {
     garaTestWeek: p.garaTestWeek ?? 8,
     garaTestDay:  p.garaTestDay  ?? 6,
     dayTypes:     p.dayTypes     || {},
+    planRules:    p.planRules    || {},
   });
   zones = calcZones(p.goalMin || 210);
 
