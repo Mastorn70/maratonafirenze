@@ -144,6 +144,14 @@ textarea.text-input{resize:vertical;}
 .athlete-add-btn{width:100%;margin-top:.7rem;padding:.5rem;border:1px dashed var(--b2);border-radius:6px;background:transparent;color:var(--txt3);font-size:.72rem;cursor:pointer;}
 .athlete-add-btn:hover{border-color:var(--accent);color:var(--accent);}
 .plan-main{flex:1;min-width:0;}
+@media(max-width:600px){
+  .pace-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table.ptable{min-width:0;font-size:.74rem;}
+  .ptable-note-col{display:none;}
+  table.ptable th,table.ptable td{padding:.45rem .5rem;}
+  .pname{font-size:.68rem;gap:.3rem;}
+  .pval{font-size:.8rem;}
+}
 @media(max-width:760px){
   .plan-shell{display:block;min-height:0;}
   .athlete-sidebar{width:100%;border-right:none;border-bottom:1px solid var(--b1);padding:.55rem .75rem;}
@@ -326,15 +334,21 @@ textarea.text-input{resize:vertical;}
 .empty-icon{font-size:2.5rem;margin-bottom:.75rem;}
 
 /* ── PACE TABLE ── */
-.pace-table-wrap{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;}
+.pace-table-wrap{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;overflow-x:auto;}
 .pace-table-hdr{padding:.75rem 1.25rem;background:rgba(255,92,53,.08);border-bottom:1px solid var(--b1);
   font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
 table.ptable{width:100%;border-collapse:collapse;font-size:.82rem;}
-table.ptable th{padding:.5rem 1.1rem;text-align:left;font-size:.62rem;font-weight:600;
+table.ptable{min-width:420px;}table.ptable th{padding:.5rem .7rem;text-align:left;font-size:.62rem;font-weight:600;
   letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--b1);}
-table.ptable td{padding:.6rem 1.1rem;border-bottom:1px solid rgba(42,42,53,.5);vertical-align:middle;}
+table.ptable td{padding:.5rem .7rem;border-bottom:1px solid rgba(42,42,53,.5);vertical-align:middle;white-space:nowrap;}
 table.ptable tr:last-child td{border-bottom:none;}
-.pname{display:flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;text-transform:uppercase;}
+.pname{display:flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;white-space:normal;}
+.ptable-note{font-size:.7rem;color:var(--txt2);white-space:normal;min-width:120px;}
+.ptable-arrow{color:var(--txt3);font-size:1rem;transition:transform .2s;text-align:center;width:18px;}
+.ptable-main-row:hover{background:color-mix(in srgb,var(--accent) 4%,transparent);}
+.ptable-note-row td{padding:0 .7rem .6rem 1.4rem !important;border-bottom:1px solid rgba(42,42,53,.5);}
+.ptable-note-expanded{font-size:.76rem;color:var(--txt2);line-height:1.5;padding-top:.1rem !important;}
+.ptable-main-row td:last-child{border-bottom:none;}
 .pval{font-family:'DM Mono',monospace;font-size:.88rem;font-weight:500;color:var(--gold);}
 
 /* ── SESSION EDITOR ── */
@@ -1754,6 +1768,15 @@ function renderSessionCell(s,wi){
   </div>`;
 }
 
+function toggleZoneNote(id, row){
+  const note=document.getElementById(id);
+  if(!note) return;
+  const open=!note.classList.contains('hidden');
+  note.classList.toggle('hidden',open);
+  const arrow=row.querySelector('.ptable-arrow');
+  if(arrow) arrow.style.transform=open?'':'rotate(90deg)';
+}
+
 function renderPaceTable(){
   return `<div class="pace-table-wrap" style="margin-top:2rem">
     <div class="pace-guide-hdr">⚡ Zone di Allenamento — live</div>
@@ -1766,11 +1789,15 @@ function renderPaceTable(){
           {z:'mp',      label:'Ritmo Maratona (MP)', c:'#fbbf24', fc:'82–87%', note:'Il ritmo gara. Confortevole ma controllato.'},
           {z:'threshold',label:'Soglia / Medio',     c:'#fbbf24', fc:'87–92%', note:'Comfortably hard. Alza il lattato threshold.'},
           {z:'rep',     label:'Ripetute / Qualità',  c:'#a78bfa', fc:'92–97%', note:'VO₂max ed economia di corsa.'},
-        ].map(r=>`<tr>
+        ].map(r=>`<tr class="ptable-main-row" onclick="toggleZoneNote('znote-${r.z}',this)" style="cursor:pointer">
           <td><span class="pname"><span style="width:7px;height:7px;border-radius:50%;background:${r.c};display:inline-block;flex-shrink:0"></span>${r.label}</span></td>
           <td><span class="pval" id="tz-${r.z}">${paceStr(zones,r.z)}</span></td>
           <td style="color:var(--txt3)">${r.fc}</td>
-          <td style="color:var(--txt2);font-size:.74rem">${r.note}</td>
+          <td class="ptable-note-col" style="color:var(--txt2);font-size:.74rem">${r.note}</td>
+          <td class="ptable-arrow">›</td>
+        </tr>
+        <tr class="ptable-note-row hidden" id="znote-${r.z}">
+          <td colspan="5" class="ptable-note-expanded">${r.note}</td>
         </tr>`).join('')}
       </tbody>
     </table>
