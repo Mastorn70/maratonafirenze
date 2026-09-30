@@ -1130,7 +1130,7 @@ function renderProfiles(){
   const entries=Object.entries(store).filter(([,v])=>v&&v.name);
   scr.innerHTML=`
     <div style="margin-bottom:2rem;text-align:center">
-      <div style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem">FIRENZE · 28 NOVEMBRE 2026</div>
+      <div style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem">FIRENZE · 29 NOVEMBRE 2026</div>
       <h1 style="font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:800;line-height:1.05;margin-bottom:.4rem">Chi sta correndo?</h1>
       <p style="color:var(--txt3);font-size:.9rem">Seleziona il tuo profilo o creane uno nuovo</p>
     </div>
@@ -4231,7 +4231,7 @@ function printPlan() {
       <div class="pr-cover-stat"><span class="pr-cover-val">${pd.icon} ${pd.name}</span><span class="pr-cover-lbl">Profilo</span></div>
       <div class="pr-cover-stat"><span class="pr-cover-val">${fmtGoal(p.goalMin||210)}</span><span class="pr-cover-lbl">Obiettivo</span></div>
       <div class="pr-cover-stat"><span class="pr-cover-val">${fmtPace(mpSec)} /km</span><span class="pr-cover-lbl">Ritmo MP</span></div>
-      <div class="pr-cover-stat"><span class="pr-cover-val">28 Nov 2026</span><span class="pr-cover-lbl">Data gara</span></div>
+      <div class="pr-cover-stat"><span class="pr-cover-val">29 Nov 2026</span><span class="pr-cover-lbl">Data gara</span></div>
       <div class="pr-cover-stat"><span class="pr-cover-val">${formatPlanKm(peakLongKm)} km</span><span class="pr-cover-lbl">Lungo picco</span></div>
     </div>
     <div class="pr-cover-zones">${zonePills}</div>
@@ -4272,7 +4272,7 @@ function printPlan() {
     <div class="pr-legend-grid">${legendRows}</div>
     <div class="pr-tip-grid">${tips}</div>
     <div class="pr-footer">
-      Maratona di Firenze · 28 novembre 2026 · Piano generato il ${new Date().toLocaleDateString('it-IT')} ·
+      Maratona di Firenze · 29 novembre 2026 · Piano generato il ${new Date().toLocaleDateString('it-IT')} ·
       ${pd.icon} ${p.name} · Obiettivo ${fmtGoal(p.goalMin||210)} · MP ${fmtPace(mpSec)} /km
     </div>
   </div>`;
@@ -4644,19 +4644,20 @@ function msTxtCard(){
 
 /* ── Countdown gara ── */
 MS.aCache={};MS.shA={};
+const MS_RACE={at:'2026-11-29T08:30',name:'Estra Firenze Marathon'};
 function msCdCard(){const a=store[activePid]||{};
  return`<div class="ms-card"><div class="ms-h">🏁 Countdown maratona</div><div id="msCd"></div>
- <div class="ms-row"><div><label>Data e ora della gara</label><input type="datetime-local" class="ms-in" value="${msEsc(a.raceAt||'')}" onchange="msRaceSet(this.value)"></div>
- <div style="flex:1;min-width:180px"><label>Nome gara</label><input class="ms-in" style="width:100%" placeholder="es. Maratona di …" value="${msEsc(a.raceName||'')}" onchange="msRaceName(this.value)"></div></div></div>`;}
+ <div class="ms-row"><div><label>Data e ora della gara</label><input type="datetime-local" class="ms-in" value="${msEsc(a.raceAt||MS_RACE.at)}" onchange="msRaceSet(this.value)"></div>
+ <div style="flex:1;min-width:180px"><label>Nome gara</label><input class="ms-in" style="width:100%" placeholder="es. Maratona di …" value="${msEsc(a.raceName!==undefined?a.raceName:MS_RACE.name)}" onchange="msRaceName(this.value)"></div></div></div>`;}
 function msRaceSet(v){const a=store[activePid];if(!a)return;a.raceAt=v;saveStore(store);msCdTick();}
 function msRaceName(v){const a=store[activePid];if(!a)return;a.raceName=v.trim();saveStore(store);msCdTick();}
 function msCdTick(){const e=el('msCd');if(!e){clearInterval(MS.cdT);return;}
- const a=store[activePid]||{},t=a.raceAt?new Date(a.raceAt).getTime():NaN;
+ const a=store[activePid]||{},nm=a.raceName!==undefined?a.raceName:MS_RACE.name,t=new Date(a.raceAt||MS_RACE.at).getTime();
  if(isNaN(t)){e.innerHTML='<div class="ms-cdn" style="margin-bottom:.8rem">Imposta data e ora della gara per avviare il countdown.</div>';return;}
  const d=t-Date.now();
- if(d<=0){e.innerHTML=`<div class="ms-cdn" style="margin-bottom:.8rem">🎉 ${msEsc(a.raceName||'La gara')} è iniziata o conclusa. Buona corsa!</div>`;return;}
+ if(d<=0){e.innerHTML=`<div class="ms-cdn" style="margin-bottom:.8rem">🎉 ${msEsc(nm||'La gara')} è iniziata o conclusa. Buona corsa!</div>`;return;}
  const s=Math.floor(d/1000),D=Math.floor(s/86400),p=n=>String(n).padStart(2,'0');
- e.innerHTML=`<div class="ms-cdv">${[[D,'giorni'],[p(Math.floor(s%86400/3600)),'ore'],[p(Math.floor(s%3600/60)),'min'],[p(s%60),'sec']].map(([v,l])=>`<div class="ms-cdb"><b>${v}</b><span>${l}</span></div>`).join('')}</div><div class="ms-cdn" style="margin-bottom:.8rem">${msEsc(a.raceName||'Gara')} · ${new Date(t).toLocaleString('it-IT',{dateStyle:'full',timeStyle:'short'})} · ${Math.floor(D/7)} settimane e ${D%7} giorni</div>`;}
+ e.innerHTML=`<div class="ms-cdv">${[[D,'giorni'],[p(Math.floor(s%86400/3600)),'ore'],[p(Math.floor(s%3600/60)),'min'],[p(s%60),'sec']].map(([v,l])=>`<div class="ms-cdb"><b>${v}</b><span>${l}</span></div>`).join('')}</div><div class="ms-cdn" style="margin-bottom:.8rem">${msEsc(nm||'Gara')} · ${new Date(t).toLocaleString('it-IT',{dateStyle:'full',timeStyle:'short'})} · ${Math.floor(D/7)} settimane e ${D%7} giorni</div>`;}
 function msCdStart(){clearInterval(MS.cdT);msCdTick();MS.cdT=setInterval(msCdTick,1000);}
 /* ── Vocali condivisi (Firebase Realtime Database, percorsi separati dai profili) ── */
 const msFB=()=>import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
