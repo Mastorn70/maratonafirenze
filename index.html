@@ -748,6 +748,11 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 .ms-txt{display:flex;align-items:center;gap:.6rem;background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0}
 .ms-txt>div{flex:1;min-width:0}.ms-txt b{font-weight:500;font-size:.82rem}
 .ms-txt small{display:block;color:var(--txt3);font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-cdv{display:flex;gap:.6rem;margin:.4rem 0 .6rem}
+.ms-cdb{flex:1;text-align:center;background:var(--bg);border:1px solid var(--b1);border-radius:10px;padding:.6rem .3rem}
+.ms-cdb b{display:block;font-family:'DM Mono',monospace;font-size:1.7rem;font-weight:500;color:var(--accent)}
+.ms-cdb span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--txt3)}
+.ms-cdn{font-size:.78rem;color:var(--txt2)}
 </style>
 </head>
 <body>
@@ -1509,7 +1514,7 @@ function renderTopbar(){
     {l:'MP',z:'mp',c:'#fbbf24'},{l:'Soglia',z:'threshold',c:'#fbbf24'},
     {l:'Rep',z:'rep',c:'#a78bfa'},{l:'Facile',z:'easy',c:'#34d399'}
   ].map(({l,z,c})=>`<span class="zchip" style="border-color:${c}44;color:${c};background:${c}11">${l}: ${fmtPace(zz[z].lo)}–${fmtPace(zz[z].hi)}</span>`).join('');
-  const tabs=[['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto'],['mindset','🧠 Visual Run']].map(([t,i])=>
+  const tabs=[['mindset','🧠 Visual Run'],['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto']].map(([t,i])=>
     `<button class="tab-btn ${activeTab===t?'active':''}" onclick="switchTab('${t}')">${i}</button>`).join('');
   el('topbar').innerHTML=`
     <button class="back-btn" onclick="renderProfiles()">←</button>
@@ -4582,15 +4587,15 @@ async function msRecToggle(){
   msMR=r;r.start();msRecsRender();
  }catch(e){alert('Microfono non disponibile o permesso negato.');}
 }
-function msRecCard(){return`<div class="ms-card"><div class="ms-h">🎙 I miei vocali</div><div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Registra o carica un vocale con la tua voce (o quella del coach): lo riascolti con il sottofondo. I vocali restano su questo dispositivo e non vengono sincronizzati.</div><div id="msRecs"></div></div>`;}
+function msRecCard(){return`<div class="ms-card"><div class="ms-h">🎙 I miei vocali</div><div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Registra o carica un vocale con la tua voce (o quella del coach): lo riascolti con il sottofondo. I tuoi vocali restano su questo dispositivo; con ⇪ puoi condividerli con tutti gli atleti (max 1,5 MB ciascuno, circa 1-3 minuti).</div><div id="msRecs"></div><div id="msShA" style="margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--b1)"></div></div>`;}
 async function msRecsRender(){
- const e=el('msRecs');if(!e)return;let L=[];
+ const e=el('msRecs');if(!e)return;msShAInit();msShARender();msCdStart();let L=[];
  try{L=await msRecAll();}catch(x){e.innerHTML='<div style="font-size:.75rem;color:var(--gold)">Archivio locale non disponibile in questo browser.</div>';return;}
  msUrls.forEach(u=>URL.revokeObjectURL(u));msUrls=[];
  e.innerHTML=`<div class="ms-row" style="margin-bottom:.6rem"><button class="ms-btn g" onclick="this.nextElementSibling.click()">⬆ Carica vocale</button><input type="file" accept="audio/*" style="display:none" onchange="msRecFile(this)"><button class="ms-btn${msMR?'':' g'}" onclick="msRecToggle()">${msMR?'■ Ferma registrazione':'● Registra'}</button></div>`+
- (L.length?L.map(r=>{const u=URL.createObjectURL(r.blob);msUrls.push(u);return`<div class="ms-rec"><div class="ms-rec-h"><b>${r.name.replace(/</g,'&lt;')}</b><span>${new Date(r.ts).toLocaleDateString('it-IT')}</span><i onclick="msRecDel('${r.id}')" title="Elimina">✕</i></div><audio controls preload="none" src="${u}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio></div>`}).join(''):'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale per questo atleta.</div>');
+ (L.length?L.map(r=>{const u=URL.createObjectURL(r.blob);msUrls.push(u);return`<div class="ms-rec"><div class="ms-rec-h"><b>${r.name.replace(/</g,'&lt;')}</b><span>${new Date(r.ts).toLocaleDateString('it-IT')}</span><i onclick="msRecShare('${r.id}')" title="Condividi con tutti gli atleti">⇪</i><i onclick="msRecDel('${r.id}')" title="Elimina">✕</i></div><audio controls preload="none" src="${u}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio></div>`}).join(''):'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale per questo atleta.</div>');
 }
-function msTabRender(){if(MS.speak||document.querySelector('#msRecs audio:not([paused])')&&[...document.querySelectorAll('#msRecs audio')].some(a=>!a.paused))return;renderMindset();}
+function msTabRender(){if(MS.speak||[...document.querySelectorAll('#msRecs audio,#msShA audio')].some(a=>!a.paused))return;renderMindset();}
 
 /* ── I miei testi (per atleta, sincronizzati) ── */
 const msEsc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -4637,6 +4642,63 @@ function msTxtCard(){
  ${S.map(([id,x])=>row(x,(x.by?x.by+' · ':'')+pv(x),`<button class="ms-btn" onclick="msShGo('${id}')">▶ Ascolta</button><button class="ms-btn g" onclick="msShCopy('${id}')" title="Copia nei miei testi">⧉</button><button class="ms-btn g" onclick="msTxtEdit('sh:${id}')">✎</button><button class="ms-btn g" onclick="msShDel('${id}')">✕</button>`)).join('')||'<div style="font-size:.75rem;color:var(--txt3)">Nessun testo condiviso: premi ⇪ su uno dei tuoi testi per aggiungerlo.</div>'}</div></div>`;
 }
 
+/* ── Countdown gara ── */
+MS.aCache={};MS.shA={};
+function msCdCard(){const a=store[activePid]||{};
+ return`<div class="ms-card"><div class="ms-h">🏁 Countdown maratona</div><div id="msCd"></div>
+ <div class="ms-row"><div><label>Data e ora della gara</label><input type="datetime-local" class="ms-in" value="${msEsc(a.raceAt||'')}" onchange="msRaceSet(this.value)"></div>
+ <div style="flex:1;min-width:180px"><label>Nome gara</label><input class="ms-in" style="width:100%" placeholder="es. Maratona di …" value="${msEsc(a.raceName||'')}" onchange="msRaceName(this.value)"></div></div></div>`;}
+function msRaceSet(v){const a=store[activePid];if(!a)return;a.raceAt=v;saveStore(store);msCdTick();}
+function msRaceName(v){const a=store[activePid];if(!a)return;a.raceName=v.trim();saveStore(store);msCdTick();}
+function msCdTick(){const e=el('msCd');if(!e){clearInterval(MS.cdT);return;}
+ const a=store[activePid]||{},t=a.raceAt?new Date(a.raceAt).getTime():NaN;
+ if(isNaN(t)){e.innerHTML='<div class="ms-cdn" style="margin-bottom:.8rem">Imposta data e ora della gara per avviare il countdown.</div>';return;}
+ const d=t-Date.now();
+ if(d<=0){e.innerHTML=`<div class="ms-cdn" style="margin-bottom:.8rem">🎉 ${msEsc(a.raceName||'La gara')} è iniziata o conclusa. Buona corsa!</div>`;return;}
+ const s=Math.floor(d/1000),D=Math.floor(s/86400),p=n=>String(n).padStart(2,'0');
+ e.innerHTML=`<div class="ms-cdv">${[[D,'giorni'],[p(Math.floor(s%86400/3600)),'ore'],[p(Math.floor(s%3600/60)),'min'],[p(s%60),'sec']].map(([v,l])=>`<div class="ms-cdb"><b>${v}</b><span>${l}</span></div>`).join('')}</div><div class="ms-cdn" style="margin-bottom:.8rem">${msEsc(a.raceName||'Gara')} · ${new Date(t).toLocaleString('it-IT',{dateStyle:'full',timeStyle:'short'})} · ${Math.floor(D/7)} settimane e ${D%7} giorni</div>`;}
+function msCdStart(){clearInterval(MS.cdT);msCdTick();MS.cdT=setInterval(msCdTick,1000);}
+/* ── Vocali condivisi (Firebase Realtime Database, percorsi separati dai profili) ── */
+const msFB=()=>import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+const msPl=()=>[...document.querySelectorAll('#msShA audio')].some(a=>!a.paused);
+async function msShAInit(){
+ if(MS.shAInit||!_fbInitialized){if(!_fbInitialized){clearTimeout(MS.shAt);MS.shAt=setTimeout(()=>{if(_fbInitialized){msShAInit();msShARender();}},2500);}return;}
+ MS.shAInit=true;
+ try{const FB=await msFB();FB.onValue(FB.ref(_db,'vr_audio_meta'),s=>{MS.shA=s.val()||{};MS.shAErr='';if(!msPl())msShARender();},()=>{MS.shAErr='Accesso ai vocali condivisi negato: controlla le regole del database Firebase.';msShARender();});}
+ catch(e){MS.shAInit=false;}
+}
+function msShARender(auto){
+ const e=el('msShA');if(!e)return;
+ let h='<div class="ms-h" style="font-size:.88rem">Vocali condivisi · visibili a tutti gli atleti</div>';
+ if(!_fbInitialized)h+='<div style="font-size:.75rem;color:var(--txt3)">Condivisione non disponibile: Firebase non è connesso.</div>';
+ else if(MS.shAErr)h+=`<div style="font-size:.75rem;color:var(--gold)">${MS.shAErr}</div>`;
+ else{const L=Object.entries(MS.shA||{}).sort((a,b)=>b[1].ts-a[1].ts);
+  h+=L.map(([id,m])=>`<div class="ms-rec"><div class="ms-rec-h"><b>${msEsc(m.name)}</b><span>${msEsc(m.by||'')} · ${Math.round((m.size||0)/1000)} KB</span><i onclick="msShACopy('${id}')" title="Copia nei miei vocali">⧉</i><i onclick="msShADel('${id}')" title="Elimina per tutti">✕</i></div>${MS.aCache[id]?`<audio id="msShAa${id}" controls src="${MS.aCache[id]}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio>`:`<button class="ms-btn g" id="msShAb${id}" onclick="msShAPlay('${id}')">▶ Carica e ascolta</button>`}</div>`).join('')||'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale condiviso: premi ⇪ su uno dei tuoi vocali.</div>';}
+ e.innerHTML=h;
+ if(auto){const a=el('msShAa'+auto);if(a)a.play().catch(()=>{});}
+}
+async function msShALoad(id){
+ if(MS.aCache[id])return MS.aCache[id];const m=MS.shA[id];
+ const FB=await msFB(),v=(await FB.get(FB.ref(_db,'vr_audio/'+id))).val();if(!v)throw Error('vuoto');
+ const bin=atob(v),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+ return MS.aCache[id]=URL.createObjectURL(new Blob([u8],{type:(m&&m.type)||'audio/webm'}));
+}
+async function msShAPlay(id){const b=el('msShAb'+id);if(b)b.textContent='Carico…';try{await msShALoad(id);msShARender(id);}catch(e){alert('Impossibile scaricare il vocale.');msShARender();}}
+async function msShACopy(id){const m=MS.shA[id];if(!m)return;try{const u=await msShALoad(id),b=await(await fetch(u)).blob();await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:m.name,ts:Date.now(),type:m.type,blob:b});showToast('✓ Copiato nei tuoi vocali');msRecsRender();}catch(e){alert('Copia non riuscita.');}}
+async function msShADel(id){const m=MS.shA[id];if(!m||!confirm('Eliminare "'+m.name+'" dal catalogo condiviso per tutti gli atleti?'))return;try{const FB=await msFB();await FB.remove(FB.ref(_db,'vr_audio/'+id));await FB.remove(FB.ref(_db,'vr_audio_meta/'+id));delete MS.aCache[id];}catch(e){alert('Eliminazione non riuscita: '+(e.code||e.message));}}
+async function msRecShare(id){
+ if(!_fbInitialized){alert('Condivisione non disponibile: Firebase non è connesso.');return;}
+ const r=(await msRecAll()).find(x=>x.id===id);if(!r)return;
+ if(r.blob.size>1.5e6){alert('Vocale troppo grande per la condivisione (max 1,5 MB, circa 1-3 minuti). Registralo più breve.');return;}
+ const n=(prompt('Nome con cui condividere il vocale con tutti gli atleti:',r.name)||'').trim();if(!n)return;
+ try{const b64=await new Promise((ok,ko)=>{const f=new FileReader();f.onload=()=>ok(String(f.result).split(',')[1]);f.onerror=ko;f.readAsDataURL(r.blob);});
+  const FB=await msFB(),k='a'+Date.now().toString(36);
+  await FB.set(FB.ref(_db,'vr_audio/'+k),b64);
+  await FB.set(FB.ref(_db,'vr_audio_meta/'+k),{name:n,by:(store[activePid]||{}).name||'',ts:Date.now(),type:r.blob.type||'audio/webm',size:r.blob.size});
+  showToast('✓ Vocale condiviso');
+ }catch(e){alert('Condivisione non riuscita: '+(e.code||e.message)+'. Controlla le regole del database Firebase.');}
+}
+
 function renderMindset(){
  const box=el('mindContent');if(!box)return;
  if(MS.pid!==activePid){MS.pid=activePid;const d=(store[activePid]||{}).mindset;MS.g=d?{name:d.name,L:d.L,P:d.P}:null;MS.goalSec=d?d.goalSec||null:null;MS.strat=d?d.strat||'even':'even';MS.loops=d?d.loops||1:1;MS.url=d?d.url||'':'';MS.msg='';if(MS.g)MS.sess='race';msStop();}
@@ -4644,7 +4706,7 @@ function renderMindset(){
  let m=null;
  if(MS.g){try{m=msModel(goal);}catch(e){MS.msg='⚠ '+e.message;}}
  MS.m=m;MS.cg=goal;
- let h=`<div class="ms-card"><div class="ms-h">🧠 Visual Run · preparazione mentale per la gara</div>
+ let h=msCdCard()+`<div class="ms-card"><div class="ms-h">🧠 Visual Run · preparazione mentale per la gara</div>
  <div style="font-size:.8rem;color:var(--txt2);margin-bottom:.8rem">Carica il percorso: il tempo obiettivo viene distribuito tra salite, discese e chilometri critici, e ne nasce una sequenza vocale di visualizzazione da ascoltare prima della gara.</div>
  <div class="ms-row">
   <div><label>File GPX</label><input type="file" accept=".gpx,.xml" class="ms-in" onchange="msFile(this)"></div>
