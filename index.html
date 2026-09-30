@@ -716,6 +716,38 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 .pr-tip-body     { font-size: 7pt; color: #555; line-height: 1.5; }
 .pr-footer       { margin-top: 6mm; border-top: .5pt solid #eee; padding-top: 2mm;
                    font-size: 6.5pt; color: #aaa; text-align: center; }
+.ms-card{background:var(--surf);border:1px solid var(--b1);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.ms-h{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.6rem}
+.ms-row{display:flex;gap:.7rem;flex-wrap:wrap;align-items:flex-end}
+.ms-row label{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.25rem}
+.ms-in{background:var(--bg);border:1.5px solid var(--b1);border-radius:6px;padding:.45rem .7rem;color:var(--txt);font-size:.82rem;outline:none}
+.ms-in:focus{border-color:var(--accent)}
+.ms-btn{background:var(--accent);border:0;color:#fff;border-radius:6px;padding:.5rem .9rem;font-size:.78rem;font-weight:600}
+.ms-btn.g{background:transparent;border:1px solid var(--b2);color:var(--txt)}
+.ms-chip{background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.4rem .7rem;display:flex;flex-direction:column;gap:.1rem}
+.ms-chip span{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3)}
+.ms-chip b{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:500}
+.ms-tbl{width:100%;border-collapse:collapse;font-size:.74rem;font-family:'DM Mono',monospace}
+.ms-tbl th{text-align:left;color:var(--txt3);font-weight:400;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .5rem;border-bottom:1px solid var(--b1)}
+.ms-tbl td{padding:.3rem .5rem;border-bottom:1px solid var(--b1);white-space:nowrap}
+.ms-it{border-left:3px solid var(--c);padding:.5rem .8rem;margin:.4rem 0;border-radius:0 6px 6px 0;font-size:.82rem;line-height:1.55;color:var(--txt2);transition:background .2s}
+.ms-it.hl{background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--txt)}
+.ms-lib{display:inline-flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--b2);border-radius:999px;padding:.3rem .4rem .3rem .8rem;font-size:.76rem;cursor:pointer}
+.ms-lib:hover{border-color:var(--accent)}
+.ms-lib em{font-style:normal;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--txt3)}
+.ms-lib b{font-weight:400;color:var(--txt3);padding:0 .35rem;border-radius:50%}
+.ms-lib b:hover{color:var(--lungo)}
+.ms-rec{background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0}
+.ms-rec-h{display:flex;align-items:center;gap:.6rem;font-size:.8rem;margin-bottom:.35rem}
+.ms-rec-h b{flex:1;font-weight:500}.ms-rec-h span{font-size:.65rem;color:var(--txt3);font-family:'DM Mono',monospace}
+.ms-rec-h i{font-style:normal;cursor:pointer;color:var(--txt3)}.ms-rec-h i:hover{color:var(--lungo)}
+.ms-rec audio{width:100%;height:34px}
+.ms-tg{background:var(--bg);border:1px solid var(--b2);color:var(--txt2);border-radius:999px;padding:.3rem .7rem;font-size:.74rem;transition:all .15s}
+.ms-tg:hover{border-color:var(--accent)}
+.ms-tg.on{border-color:var(--accent);color:var(--txt);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.ms-txt{display:flex;align-items:center;gap:.6rem;background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0}
+.ms-txt>div{flex:1;min-width:0}.ms-txt b{font-weight:500;font-size:.82rem}
+.ms-txt small{display:block;color:var(--txt3);font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -784,6 +816,7 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
       <div id="tab-dashboard" class="hidden"><div class="plan-wrap" id="dashContent"></div></div>
       <div id="tab-history"   class="hidden"><div class="plan-wrap" id="histContent"></div></div>
       <div id="tab-compare"   class="hidden"><div class="plan-wrap" id="cmpContent"></div></div>
+      <div id="tab-mindset"   class="hidden"><div class="plan-wrap" id="mindContent"></div></div>
     </main>
   </div>
 </div>
@@ -1476,7 +1509,7 @@ function renderTopbar(){
     {l:'MP',z:'mp',c:'#fbbf24'},{l:'Soglia',z:'threshold',c:'#fbbf24'},
     {l:'Rep',z:'rep',c:'#a78bfa'},{l:'Facile',z:'easy',c:'#34d399'}
   ].map(({l,z,c})=>`<span class="zchip" style="border-color:${c}44;color:${c};background:${c}11">${l}: ${fmtPace(zz[z].lo)}–${fmtPace(zz[z].hi)}</span>`).join('');
-  const tabs=[['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto']].map(([t,i])=>
+  const tabs=[['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto'],['mindset','🧠 Visual Run']].map(([t,i])=>
     `<button class="tab-btn ${activeTab===t?'active':''}" onclick="switchTab('${t}')">${i}</button>`).join('');
   el('topbar').innerHTML=`
     <button class="back-btn" onclick="renderProfiles()">←</button>
@@ -1578,7 +1611,7 @@ function switchTab(t){
 }
 
 function setActiveTabVisibility(){
-  ['plan','dashboard','history','compare'].forEach(tab=>{
+  ['plan','dashboard','history','compare','mindset'].forEach(tab=>{
     const node=document.getElementById('tab-'+tab);
     if(node) node.classList.toggle('hidden',tab!==activeTab);
   });
@@ -1590,6 +1623,7 @@ function renderTab(){
   if(activeTab==='dashboard') renderDashboard();
   if(activeTab==='history')   renderHistory();
   if(activeTab==='compare')   renderCompare();
+  if(activeTab==='mindset')   msTabRender();
 }
 
 // ─── PLAN TAB ───
@@ -4270,6 +4304,378 @@ function applyTheme(){
 }
 
 applyTheme();
+/* ═══ MINDSET — autoipnosi da percorso GPX ═══ */
+let MS={g:null,goalSec:null,strat:'even',speak:false,m:null,msg:'',url:'',loops:1,pid:null};
+MS.sess='relax';MS.sdur=10;
+const MD={rate:.8,pitch:.9,vol:.85,gap:1.3};
+let MV=(()=>{try{return JSON.parse(localStorage.getItem('mf-ms-voice'))||{}}catch(e){return{}}})();
+const mv=k=>MV[k]??MD[k];
+function msSave(){const a=store[activePid];if(!a)return;a.mindset=MS.g?{name:MS.g.name,L:MS.g.L,P:MS.g.P,goalSec:MS.goalSec,strat:MS.strat,loops:MS.loops,url:MS.url}:null;saveStore(store);}
+const msF=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),c=s%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(c).padStart(2,'0');};
+const msG=s=>{s=Math.round(s);return Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+const msSp=s=>{const h=Math.floor(s/3600),m=Math.round(s%3600/60);return(h?(h===1?"un'ora":h+' ore'):'')+(h&&m?' e ':'')+(m?m+' minuti':'');};
+const msPs=p=>{const r=Math.round(p);return Math.floor(r/60)+' e '+String(r%60).padStart(2,'0');};
+const msN=(v,d=1)=>v.toFixed(d).replace('.',',');
+const msCol={start:'#2dd4bf',flat:'#34d399',up:'#fb7185',down:'#38bdf8',late:'#fbbf24',finish:'#a78bfa'};
+const msNm={start:'Partenza',flat:'Scorrevole',up:'Salita',down:'Discesa',late:'Fase critica',finish:'Finale'};
+const msTx={
+start:o=>`Il via è un'onda di energia: la senti, la riconosci, la lasci passare. Le gambe vorrebbero partire più forte, ma tu sorridi e resti a ${o.pc}. Ogni metro che trattieni ora è un regalo che ti fai nel finale. Respiro lungo, spalle morbide, passo leggero.`,
+flat:o=>`Il ritmo è già dentro di te. Respiro regolare, passo leggero, mani rilassate. Non cerchi nulla: mantieni ${o.pc}. Ogni chilometro è uguale al precedente, stessa andatura, stesso respiro. Scorri.`,
+up:o=>`La strada sale per ${o.l} chilometri, ${o.up} metri di dislivello, pendenza media del ${o.ga} per cento. La salita non è un nemico: è il punto in cui cambi marcia. Accorci il passo, alzi la cadenza, busto alto, sguardo pochi metri avanti. Lasci che il ritmo diventi ${o.pc}: è il ritmo giusto, perché il tuo sforzo resta costante. ${o.h?'È un tratto duro, e tu lo dividi in pezzi piccoli: un passo, poi un altro, poi un altro. ':''}In cima ritrovi il fiato e lo trasformi in velocità.`,
+down:o=>`La strada scende per ${o.l} chilometri. Lascia andare, non frenare: gambe elastiche, passi brevi e veloci, piedi sotto il corpo, busto leggermente avanti. ${o.h?'La pendenza è importante: atterraggio morbido, cadenza alta, sguardo avanti. ':''}Recupera il respiro, rilassa spalle e mascella. Scivola verso ${o.pc} senza forzare: proteggi i quadricipiti, ti serviranno nel finale.`,
+late:o=>`Siamo nella parte in cui la gara si decide, ed è la parte per cui ti sei allenato. La stanchezza è un segnale, non un ordine. La riconosci, respiri, torni al corpo: postura, cadenza, ${o.pc}. Ti ripeti una parola sola: forte. Il traguardo si avvicina a ogni passo.`,
+finish:o=>`Ultimo tratto. Tutto ciò che hai costruito è qui. Testa alta, braccia sciolte, sorriso. Non c'è più nulla da risparmiare: dai tutto. Il traguardo è tuo.`};
+const msBr={start:'inspira 4 passi · espira 4',flat:'inspira 3 · espira 3',up:'inspira 2 · espira 2',down:'inspira 3 · espira 3, rilascia',late:'espira lungo, spalle giù',finish:'respiro libero'};
+
+function msParse(x){
+ const d=new DOMParser().parseFromString(x,'application/xml');
+ let n=[...d.getElementsByTagName('trkpt')];if(n.length<2)n=[...d.getElementsByTagName('rtept')];
+ if(n.length<2)throw Error('Nessun punto valido nel file GPX');
+ const R=6371000,rad=Math.PI/180;let D=0,P=[],pl=null;
+ n.forEach(p=>{const la=+p.getAttribute('lat'),lo=+p.getAttribute('lon'),e=p.getElementsByTagName('ele')[0];
+  if(isNaN(la)||isNaN(lo))return;
+  const z=e?+e.textContent:(P.length?P[P.length-1].z:0);
+  if(pl){const a=Math.sin((la-pl[0])*rad/2)**2+Math.cos(la*rad)*Math.cos(pl[0]*rad)*Math.sin((lo-pl[1])*rad/2)**2;D+=2*R*Math.asin(Math.sqrt(a));}
+  P.push({d:D,z});pl=[la,lo];});
+ if(P.length<2||D<500)throw Error('Percorso troppo corto o non valido');
+ const nm=d.getElementsByTagName('name')[0];
+ const Q=[];let j=0;
+ for(let d=0;d<D+100;d+=100){const dd=Math.min(d,D);while(j<P.length-2&&P[j+1].d<dd)j++;const a=P[j],b=P[j+1],t=b.d>a.d?Math.min(1,Math.max(0,(dd-a.d)/(b.d-a.d))):0;Q.push({d:Math.round(dd),z:Math.round((a.z+(b.z-a.z)*t)*10)/10});if(dd>=D)break;}
+ return{P:Q,name:nm?nm.textContent.trim():'Percorso',L:Math.round(D)};
+}
+
+function msModel(goal){
+ const B=MS.g,n=MS.loops||1,L=B.L*n,P=[];for(let r=0;r<n;r++)B.P.forEach(p=>P.push({d:p.d+B.L*r,z:p.z}));const S=20,N=Math.floor(L/S);let z=[],j=0;
+ for(let i=0;i<=N;i++){const d=i*S;while(j<P.length-2&&P[j+1].d<d)j++;const a=P[j],b=P[j+1],t=b.d>a.d?(d-a.d)/(b.d-a.d):0;z.push(a.z+(b.z-a.z)*Math.min(1,Math.max(0,t)));}
+ const s=z.map((_,i)=>{let a=0,c=0;for(let k=Math.max(0,i-5);k<=Math.min(N,i+5);k++){a+=z[k];c++}return a/c});
+ const Lk=N*S/1000,K=Math.ceil(Lk),km=Array.from({length:K},()=>({n:0,up:0,dn:0,c:0}));
+ // costo energetico relativo (Minetti), discesa attenuata
+ const C=g=>{g=Math.max(-.3,Math.min(.3,g));const f=(155.4*g**5-30.4*g**4-43.3*g**3+46.3*g*g+19.5*g+3.6)/3.6;return g<0?1+(f-1)*.55:f};
+ for(let i=0;i<N;i++){const k=km[Math.floor(i*S/1000)],dz=s[i+1]-s[i];k.n++;k.c+=C(dz/S);if(dz>0)k.up+=dz;else k.dn-=dz;}
+ let x=0;
+ km.forEach((k,i)=>{k.i=i;k.len=k.n*S/1000;k.f=k.c/k.n;k.g=(k.up-k.dn)/(k.len*10);k.s0=x;k.x=(x+k.len/2)/Lk;x+=k.len;
+  k.w=k.len*k.f*(MS.strat==='neg'?1-.04*(k.x-.5):1);});
+ const W=km.reduce((a,k)=>a+k.w,0);let t=0;
+ km.forEach(k=>{k.t0=t;k.t=goal*k.w/W;t+=k.t;k.pace=k.t/k.len;
+  k.late=Lk>=21&&k.x>.7&&k.x<.92;k.h=k.g>=5||k.up>=50||k.g<=-6;
+  const mid=k.s0+k.len/2;
+  k.ty=mid>=Lk-1&&K>1?'finish':(k.i===0&&k.g<4)?'start':(k.g>=2.5||k.up>=40)?'up':(k.g<=-2.5||k.dn>=40)?'down':k.late?'late':'flat';
+  k.sc=Math.min(10,Math.max(1,Math.round(1+Math.max(k.g,0)*.9+Math.max(-k.g,0)*.35+(k.late?2+(k.x-.7)*5:0)+(k.h?1:0)+(k.x>.92?1.5:0))));});
+ const PH=[];km.forEach(k=>{const p=PH[PH.length-1];if(p&&p.ty===k.ty)p.k.push(k);else PH.push({ty:k.ty,k:[k]});});
+ const up=km.reduce((a,k)=>a+k.up,0),dn=km.reduce((a,k)=>a+k.dn,0);
+ PH.forEach(p=>{const a=p.k,k0=a[0],k1=a[a.length-1],len=a.reduce((q,k)=>q+k.len,0),u=a.reduce((q,k)=>q+k.up,0),d=a.reduce((q,k)=>q+k.dn,0),tt=a.reduce((q,k)=>q+k.t,0);
+  p.len=len;p.up=u;p.dn=d;p.t0=k0.t0;p.pace=tt/len;p.g=(u-d)/(len*10);p.h=a.some(k=>k.h);
+  const e=k1===km[K-1]?(Lk.toFixed(1).replace(/\.0$/,'')):(k1.i+1);
+  p.label='km '+(k0.i+(k0.i?1:0))+(e!==k0.i+(k0.i?1:0)?'–'+e:'');
+  p.cue=p.ty==='up'?(p.h?'Scalo':'Passi corti'):{start:'Calma',flat:'Ritmo',down:'Libero',late:'Forte',finish:'Tutto'}[p.ty];
+  p.text=msTx[p.ty]({pc:msPs(p.pace)+' al chilometro',l:msN(len),up:Math.round(u),ga:msN(Math.abs(p.g)),h:p.h});});
+ return{s,N,Lk,km,PH,up,dn,n,Ll:B.L/1000};
+}
+
+function msScript(m,goal){
+ const G=msSp(goal),Ls=msN(m.Lk).replace(/,0$/,'');
+ const I=[
+ ['Trova una posizione comoda, seduto o sdraiato. Chiudi gli occhi.',4],
+ ['Inspira lentamente dal naso per quattro secondi. Trattieni un istante. Ed espira piano dalla bocca per sei secondi.',6],
+ ['Ancora una volta. Con ogni espirazione il corpo si fa più pesante e più morbido.',8],
+ ['Senti i piedi, le caviglie, i polpacci. Lascia andare ogni tensione. Sali lungo le cosce, i fianchi, la schiena.',8],
+ ['Rilassa lo stomaco, il petto, le spalle, le braccia fino alle mani. Rilassa il collo, la mascella, la fronte.',8],
+ ['Ora conta lentamente da dieci a uno. A ogni numero scendi in uno stato più profondo di calma e concentrazione. Dieci. Nove. Otto. Sette. Sei. Cinque. Quattro. Tre. Due. Uno.',8],
+ ['Sei in uno stato di calma lucida. Crea il tuo ancoraggio: premi insieme pollice e indice. Ogni volta che lo farai, tornerai a questa forza e a questa calma.',6],
+ [`Immagina la mattina della gara. Sei alla partenza e ti senti pronto. Correrai ${Ls} chilometri${m.n>1?` (${m.n} giri da ${msN(m.Ll)})`:''} in ${G}, e sai come farlo. Ora percorriamo insieme il tracciato, un tratto alla volta.`,6]
+ ].map(([t,p])=>({t,p,l:'Induzione',c:'#a78bfa'}));
+ const F=m.PH.map(p=>{const lp=m.n>1?'Giro '+(Math.floor(p.k[0].s0/m.Ll+.001)+1):'';return{t:`${lp?lp+'. ':''}${p.label.replace('km','Chilometro')}. Siamo a circa ${Math.round(p.t0/60)} minuti dalla partenza. ${p.text} Pollice e indice, e la parola: ${p.cue}.`,p:6,l:(lp?lp+' · ':'')+p.label+' · '+msNm[p.ty],c:msCol[p.ty]}});
+ const E=[{t:`Attraversi il traguardo in ${G}. Senti orgoglio, gratitudine, forza. Ogni volta che premerai pollice e indice, questa sicurezza tornerà da te.`,p:6,l:'Traguardo',c:'#a78bfa'},
+ {t:'Ora inizia a tornare: muovi dita e piedi, respira più profondo. Quando vuoi, apri gli occhi, sveglio, calmo e pieno di energia.',p:2,l:'Emersione',c:'#a78bfa'}];
+ return[...I,...F,...E];
+}
+
+let msTm=null;
+function msStop(){MS.speak=false;clearTimeout(msTm);try{speechSynthesis.cancel()}catch(e){}const b=el('msPlayBtn');if(b)b.textContent='▶ Ascolta la sequenza';const c=el('msSessBtn');if(c)c.textContent='▶ Avvia sessione';msAmbRun(0);}
+function msVoiceList(){const all=window.speechSynthesis?speechSynthesis.getVoices():[];const it=all.filter(x=>x.lang.toLowerCase().startsWith('it'));const v=it.length?it:all;const sc=x=>/natural|neural|premium|enhanced|online/i.test(x.name)?1:0;return v.slice().sort((a,b)=>sc(b)-sc(a));}
+function msFillVoices(){const e=el('msVoice');if(!e)return;e.innerHTML=msVoiceList().map(x=>`<option value="${x.name}"${x.name===MV.voice?' selected':''}>${x.name} (${x.lang})</option>`).join('')||'<option>Voce predefinita</option>';}
+if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=msFillVoices;
+function msVs(){MV={voice:el('msVoice').value,rate:+el('msRate').value,pitch:+el('msPitch').value,vol:+el('msVol').value,gap:+el('msGap').value};try{localStorage.setItem('mf-ms-voice',JSON.stringify(MV))}catch(e){}}
+function msPreset(){msStop();MV={voice:MV.voice,rate:.75,pitch:.85,vol:.8,gap:1.5};try{localStorage.setItem('mf-ms-voice',JSON.stringify(MV))}catch(e){}renderMindset();}
+function msSay(t,end){const u=new SpeechSynthesisUtterance(t),vs=msVoiceList(),v=vs.find(x=>x.name===MV.voice)||vs[0];if(v){u.voice=v;u.lang=v.lang;}else u.lang='it-IT';u.rate=mv('rate');u.pitch=mv('pitch');u.volume=mv('vol');u.onend=end;u.onerror=()=>msStop();speechSynthesis.speak(u);}
+function msTest(){if(!('speechSynthesis'in window))return;msStop();msSay('Respira lentamente. A ogni espirazione, il corpo si fa più morbido e più pesante.');}
+function msDl(){
+ const t=msSessItems(MS.sess,MS.sdur).map(x=>`[${x.l}]\n${x.t}\n`).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));a.download='visual-run.txt';a.click();
+}
+function msLoad(txt){try{MS.g=msParse(txt);MS.msg='';MS.loops=1;MS.sess='race';msSave();}catch(e){MS.msg='⚠ '+e.message;}msStop();renderMindset();}
+function msFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>msLoad(r.result);r.readAsText(f);}
+async function msUrl(){
+ const u=el('msUrl').value.trim();if(!u)return;MS.url=u;MS.msg='Scarico il GPX…';renderMindset();let t=null;
+ for(const x of[u,'https://corsproxy.io/?'+encodeURIComponent(u)]){try{const r=await fetch(x);if(r.ok){const b=await r.text();if(b.includes('<trkpt')||b.includes('<rtept')){t=b;break;}}}catch(e){}}
+ if(t)msLoad(t);else{MS.msg='⚠ Impossibile scaricare il GPX da questo link (molti siti lo bloccano o richiedono login). Scarica il file e caricalo dal dispositivo.';renderMindset();}
+}
+function msLib(){const r=(store&&store._routes)||{};return Object.entries(r).filter(([,v])=>v&&v.P&&v.name).sort((a,b)=>a[1].name.localeCompare(b[1].name));}
+function msShare(){if(!MS.g)return;const n=(prompt('Nome del percorso da condividere con tutti gli atleti:',MS.g.name)||'').trim();if(!n)return;
+ store._routes=store._routes||{};const old=msLib().find(([,r])=>r.name===n);const id=old?old[0]:'r'+Date.now().toString(36);
+ store._routes[id]={name:n,L:MS.g.L,P:MS.g.P,ts:Date.now()};MS.g.name=n;msSave();MS.msg='✓ Percorso condiviso nel catalogo';renderMindset();}
+function msPick(id){const r=store._routes&&store._routes[id];if(!r)return;MS.g={name:r.name,L:r.L,P:r.P};MS.loops=1;MS.url='';MS.msg='';MS.sess='race';msSave();msStop();renderMindset();}
+function msDelLib(id){const r=store._routes&&store._routes[id];if(!r||!confirm('Eliminare "'+r.name+'" dal catalogo condiviso con tutti gli atleti?'))return;delete store._routes[id];saveStore(store);renderMindset();}
+function msGoal(v){const q=v.split(':').map(Number);if(q.some(isNaN)||q.length<2)return;MS.goalSec=q.length===2?q[0]*3600+q[1]*60:q[0]*3600+q[1]*60+q[2];msSave();msStop();renderMindset();}
+function msLoops(v){MS.loops=Math.max(1,Math.min(20,parseInt(v)||1));msSave();msStop();renderMindset();}
+function msClear(){MS.g=null;MS.loops=1;msSave();msStop();renderMindset();}
+function msStrat(v){MS.strat=v;msSave();msStop();renderMindset();}
+
+function msChart(m){
+ const W=800,H=150,s=m.s,mn=Math.min(...s),mx=Math.max(...s),r=(mx-mn)||1,y=z=>10+(1-(z-mn)/r)*(H-42);
+ const pts=s.map((z,i)=>`${(i/(s.length-1)*W).toFixed(1)},${y(z).toFixed(1)}`).join(' ');
+ const bars=m.km.map(k=>`<rect x="${(k.s0/m.Lk*W).toFixed(1)}" y="${H-24}" width="${Math.max(1,k.len/m.Lk*W-1).toFixed(1)}" height="9" fill="${msCol[k.ty]}"/>`).join('');
+ let tk='';for(let k=5;k<m.Lk;k+=5)tk+=`<text x="${(k/m.Lk*W).toFixed(1)}" y="${H-2}" font-size="10" fill="var(--txt3)" text-anchor="middle">${k}</text>`;
+ return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto"><polygon points="0,${H-28} ${pts} ${W},${H-28}" fill="rgba(255,92,53,.18)"/><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="1.6"/>${bars}${tk}<text x="4" y="12" font-size="10" fill="var(--txt3)">${Math.round(mx)} m</text><text x="4" y="${H-32}" font-size="10" fill="var(--txt3)">${Math.round(mn)} m</text></svg>`;
+}
+
+/* ── Sessioni vocali: concentrazione e rilassamento ── */
+const msSS={race:{n:'🏁 Sequenza gara (dal percorso)',d:`Induzione, visualizzazione tratto per tratto di salite, discese e chilometri critici, emersione. La durata dipende dal tempo finale e dalla velocità della voce.`},relax:{n:'Rilassamento profondo',d:`Scansione del corpo, luogo sicuro e calma profonda.`},focus:{n:'Concentrazione',d:`Attenzione stabile sul respiro, fascio di luce e parola-ancora.`},calm:{n:'Calma prima del via',d:`Grounding 5-4-3-2-1 e gestione dell'agitazione pre-gara.`},breath:{n:'Respirazione guidata',d:`Inspira 4 · trattieni 2 · espira 6, a cicli.`}};
+function msDur(it){return Math.round((it.reduce((s,x)=>s+x.t.split(' ').length,0)/2.3/mv('rate')+it.reduce((s,x)=>s+x.p,0)*mv('gap'))/60);}
+function msSessItems(k,min){
+ if(k==='race')return MS.m&&MS.cg?msScript(MS.m,MS.cg):[];
+ if(k.startsWith('txt:'))return msTxtItems(k.slice(4));
+ if(k.startsWith('sh:'))return msTxtItems(k.slice(3),1);
+ const o=[],a=(l,t,p,f,h)=>o.push({l,t,p,f:!!f,h:!!h,c:'#a78bfa'});
+ if(k==='relax'){
+  a('Preparazione',`Trova una posizione comoda. Chiudi gli occhi e lascia che il respiro scenda nella pancia.`,6);
+  a('Preparazione',`Inspira dal naso per quattro secondi, espira dalla bocca per sei. A ogni espirazione lasci andare un po' di peso.`,8);
+  const P=['i piedi e le caviglie','i polpacci','le cosce','i fianchi','la schiena','la pancia','il petto','le spalle','le braccia e le mani','il collo','la mascella','il viso e la fronte'];
+  (min<5?P.filter((_,i)=>i%2===0):P).forEach(x=>a('Corpo',`Porta l'attenzione su ${x}. Senti il contatto e il peso. Con l'espirazione, lascia sciogliere ogni tensione.`,9));
+  if(min>=5){a('Luogo sicuro',`Immagina un luogo in cui ti senti al sicuro e sereno: una spiaggia, un bosco, la tua casa. Guarda i colori, ascolta i suoni, senti la temperatura sulla pelle.`,12);
+   a('Luogo sicuro',`Qui non c'è niente da fare e niente da dimostrare. Ogni respiro porta pace ed energia nuova.`,12);}
+  a('Emersione',`Porta con te questa calma. A ogni respiro ritorni: muovi dita e piedi e, quando sei pronto, apri gli occhi, riposato e presente.`,2,1);
+ }else if(k==='focus'){
+  a('Preparazione',`Siediti con la schiena comoda e dritta. Chiudi gli occhi. Tre respiri profondi: dentro dal naso, fuori dalla bocca.`,8);
+  a('Respiro',`Porta tutta l'attenzione al respiro, nel punto in cui lo senti di più: le narici, il petto o la pancia. Non devi cambiarlo, solo seguirlo.`,12);
+  a('Respiro',`Se la mente si distrae, è normale. Nota il pensiero, lascialo passare come una nuvola e torna al respiro. Ogni ritorno allena la tua concentrazione.`,14);
+  a('Mente chiara',`Immagina la tua mente come un lago. Ogni pensiero è un'onda che si calma. Più respiri, più la superficie diventa limpida.`,14);
+  a('Fascio di luce',`Ora immagina un fascio di luce che illumina solo ciò che conta oggi: il tuo passo, il tuo respiro, il tuo ritmo. Tutto il resto resta nell'ombra.`,14);
+  a('Ancoraggio',`Premi insieme pollice e indice e ripeti dentro di te la parola: concentrato. Senti lo stato di attenzione calma che si fissa. Ogni volta che premerai, tornerà.`,12);
+  a('Gara',`Immagina la gara: ti vedi correre, presente in ogni passo, senza fretta e senza dubbi. Quando arriva la fatica, torni al respiro e alla parola.`,14);
+  a('Gara',`La tua attenzione è stabile come una luce ferma. Sai dove sei, sai cosa fare, e lo fai.`,12);
+  a('Emersione',`Porta con te questa chiarezza. A ogni respiro ritorni: muovi dita e piedi e apri gli occhi, vigile e presente.`,2,1);
+ }else if(k==='calm'){
+  a('Adesso',`Fermati. Sei qui, adesso. Non devi risolvere niente in questo momento.`,6);
+  a('Respiro',`Inspira dal naso per quattro secondi, ed espira dalla bocca per sei, lentamente, come se soffiassi su una candela.`,10);
+  [['Vista',`Guardati intorno e nota cinque cose che vedi.`,8],['Tatto',`Quattro cose che senti sulla pelle: i piedi nelle scarpe, i vestiti, l'aria.`,8],['Udito',`Tre suoni che riesci a sentire.`,8],['Olfatto',`Due odori.`,6],['Gusto',`Un sapore, o semplicemente il respiro in bocca.`,6]].forEach(x=>a(...x));
+  a('Energia',`L'agitazione che senti è energia: il corpo si sta preparando. Non la combatti, la trasformi in carica, e torna sotto il tuo controllo.`,10);
+  a('Ancoraggio',`Premi pollice e indice e ripeti dentro di te: calma. Senti le spalle scendere e le mani sciogliersi.`,10);
+  a('Fiducia',`Ti sei allenato per questo. Il tuo corpo sa cosa fare. Parti con calma e lasci che il ritmo arrivi da solo.`,10);
+  a('Via',`Ora sei pronto. Un ultimo respiro profondo, e sorridi. Buona gara.`,2,1);
+ }else{
+  const n=Math.max(3,Math.floor((min*60-20)/13));
+  a('Preparazione',`Siediti comodo, spalle morbide. Seguiamo insieme un respiro lento: inspira quattro secondi, trattieni due, espira sei.`,5,1);
+  for(let i=0;i<n;i++){const h=i>0,l=`Respiro · ${n} cicli`;a(l,`Inspira.`,3,1,h);a(l,`Trattieni.`,1,1,h);a(l,`Espira lentamente.`,5,1,h);}
+  a('Conclusione',`Lascia che il respiro torni libero. Senti il corpo calmo e lucido. Quando vuoi, apri gli occhi.`,2,1);
+ }
+ const r=mv('rate'),sp=o.reduce((s,x)=>s+x.t.split(' ').length/2.3/r,0),fx=o.reduce((s,x)=>s+(x.f?x.p:0),0),sc=o.reduce((s,x)=>s+(x.f?0:x.p),0);
+ const q=sc?Math.max(.4,Math.min(6,(min*60-sp-fx)/sc)):1;
+ o.forEach(x=>{if(!x.f)x.p=Math.round(x.p*q*10)/10;});
+ return o;
+}
+function msRun(items,pre,btn,useGap){
+ if(MS.speak){msStop();return;}
+ if(!('speechSynthesis'in window)){alert('Sintesi vocale non supportata da questo browser.');return;}
+ let i=0;MS.speak=true;el(btn).textContent='■ Stop';msAmbRun(1);
+ const go=()=>{if(!MS.speak||i>=items.length){msStop();return;}
+  const n=el(pre+i);document.querySelectorAll('.ms-it.hl').forEach(x=>x.classList.remove('hl'));if(n){n.classList.add('hl');n.scrollIntoView({block:'center',behavior:'smooth'});}
+  msSay(items[i].t,()=>{const p=items[i].p;i++;msTm=setTimeout(go,p*1000*(useGap?mv('gap'):1))});};
+ go();
+}
+function msPlay(){msRun(MS.items,'msI','msPlayBtn',1);}
+function msSessPlay(){const it=msSessItems(MS.sess,MS.sdur);if(!it.length){alert('Carica prima un percorso GPX o sceglilo dal catalogo.');return;}msRun(it,'msS','msSessBtn',msFixedS()?1:0);}
+function msSess(v){MS.sess=v;msStop();renderMindset();}
+function msSDur(v){MS.sdur=+v;msStop();renderMindset();}
+function msSessCard(){
+ if(MS.sess.startsWith('txt:')&&!msTxts()[MS.sess.slice(4)])MS.sess='relax';
+ if(MS.sess.startsWith('sh:')&&!msSh()[MS.sess.slice(3)])MS.sess='relax';
+ const its=msSessItems(MS.sess,MS.sdur),sl=(id,l,mn,mx,st,k)=>`<div><label>${l}</label><input id="${id}" type="range" min="${mn}" max="${mx}" step="${st}" value="${mv(k)}" onchange="msVs()"></div>`;
+ return`<div class="ms-card"><div class="ms-h">🎧 Sessioni vocali · concentrazione e rilassamento</div>
+ <div class="ms-row" style="margin-bottom:.6rem">
+  <div><label>Sessione</label><select class="ms-in" onchange="msSess(this.value)">${Object.entries(msSS).map(([k,v])=>`<option value="${k}"${k===MS.sess?' selected':''}>${v.n}</option>`).join('')}${msTxtOpts()}</select></div>
+  ${msFixedS()?`<div><label>Durata</label><div style="padding:.45rem 0;font-size:.85rem">${its.length?'≈ '+msDur(its)+' min':'—'}</div></div>`:`<div><label>Durata</label><select class="ms-in" onchange="msSDur(this.value)">${[3,5,10,15].map(d=>`<option value="${d}"${d===MS.sdur?' selected':''}>${d} min</option>`).join('')}</select></div>`}
+  <button class="ms-btn" id="msSessBtn" onclick="msSessPlay()">▶ Avvia sessione</button>
+  <button class="ms-btn g" onclick="msTest()">Prova voce</button><button class="ms-btn g" onclick="msPreset()">🌙 Preset ipnosi</button><button class="ms-btn g" onclick="msDl()">⬇ Scarica testo</button></div>
+ <div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">${msSessD()}</div>
+ <div class="ms-row" style="margin-bottom:.4rem"><div style="flex:1;min-width:200px"><label>Voce (vale anche per la sequenza del percorso)</label><select id="msVoice" class="ms-in" style="width:100%" onchange="msVs()"></select></div>
+  ${sl('msRate','Velocità',.5,1.1,.05,'rate')}${sl('msPitch','Tono',.5,1.3,.05,'pitch')}${sl('msVol','Volume',.3,1,.05,'vol')}${sl('msGap','Pause (percorso)',1,2.5,.1,'gap')}</div>
+ <div style="font-size:.68rem;color:var(--txt3);margin-bottom:.6rem">Per una voce più morbida scegli quelle «Premium», «Enhanced», «Natural» o «Neural», se presenti. Nelle sessioni le pause si adattano alla durata scelta.</div>
+ ${msAmbRow()}
+ ${MS.sess==='race'&&!its.length?`<div style="font-size:.8rem;color:var(--gold)">Carica un percorso GPX (o scegline uno dal catalogo) per generare la sequenza di gara.</div>`:''}${its.map((x,i)=>x.h?'':`<div class="ms-it" id="msS${i}" style="--c:${x.c}"><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:${x.c};margin-bottom:.15rem">${x.l}</div>${x.t}</div>`).join('')}</div>`;
+}
+
+/* ── Sottofondo multiplo (Web Audio) ── */
+const msAmbNm={rain:'🌧 Pioggia',waves:'🌊 Onde',wind:'🍃 Vento',stream:'💧 Ruscello',fire:'🔥 Camino',forest:'🐦 Bosco e uccelli',bowls:'🔔 Campane tibetane',brown:'Rumore marrone',pink:'Rumore rosa',white:'Rumore bianco',theta:'🎧 Theta 6 Hz (cuffie)'};
+const msAmp=k=>({rain:.45,waves:1,brown:1,pink:.9,white:.25,wind:1,stream:.7,fire:1,forest:1,bowls:.5,theta:.25}[k]||1);
+let msMA=(()=>{let o={};try{o=JSON.parse(localStorage.getItem('mf-ms-amb'))||{}}catch(e){}const k=Array.isArray(o.kinds)?o.kinds:(o.kind?(o.kind==='off'?[]:[o.kind]):['rain']);return{kinds:k.filter(x=>x in msAmbNm),vol:o.vol??.35,auto:o.auto??true};})();
+let msAC=null,msAMB=null,msMR=null,msUrls=[];
+function msAmbSave(){try{localStorage.setItem('mf-ms-amb',JSON.stringify(msMA))}catch(e){}}
+function msCtx(){if(!msAC)msAC=new(window.AudioContext||window.webkitAudioContext)();if(msAC.state==='suspended')msAC.resume();return msAC;}
+function msNoise(type){const c=msCtx(),n=c.sampleRate*4,b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);let l=0,b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+ for(let i=0;i<n;i++){const w=Math.random()*2-1;
+  if(type==='brown'){l=(l+.02*w)/1.02;d[i]=l*3.5;}
+  else if(type==='pink'){b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926;}
+  else d[i]=w;}
+ const s=c.createBufferSource();s.buffer=b;s.loop=true;return s;}
+function msLayer(k,c,out){
+ const g=c.createGain(),o={N:[],tm:null,stop:false,g};g.gain.value=msAmp(k);g.connect(out);
+ const src=t=>{const s=msNoise(t);o.N.push(s);s.start();return s;},
+ flt=(t,f,q)=>{const x=c.createBiquadFilter();x.type=t;x.frequency.value=f;if(q)x.Q.value=q;return x;},
+ lfo=(f,d,tg)=>{const z=c.createOscillator(),lg=c.createGain();z.frequency.value=f;lg.gain.value=d;z.connect(lg);lg.connect(tg);z.start();o.N.push(z);},
+ loop=(fn,a,b)=>{const t=()=>{if(o.stop)return;fn();o.tm=setTimeout(t,a+Math.random()*(b-a));};t();},
+ chain=(...n)=>{for(let i=0;i<n.length-1;i++)n[i].connect(n[i+1]);};
+ if(k==='rain')chain(src('white'),flt('highpass',900),flt('lowpass',7000),g);
+ else if(k==='waves'){const m=c.createGain();m.gain.value=.6;lfo(.09,.4,m.gain);chain(src('brown'),flt('lowpass',700),m,g);}
+ else if(k==='brown')chain(src('brown'),g);
+ else if(k==='pink')chain(src('pink'),g);
+ else if(k==='white')chain(src('white'),flt('lowpass',9000),g);
+ else if(k==='wind'||k==='forest'){const f=flt('bandpass',500,.8),m=c.createGain();m.gain.value=k==='wind'?.6:.25;lfo(.07,300,f.frequency);lfo(.05,k==='wind'?.35:.12,m.gain);chain(src('pink'),f,m,g);}
+ else if(k==='stream'){const m=c.createGain();m.gain.value=.7;lfo(3.1,.15,m.gain);lfo(5.3,.1,m.gain);chain(src('pink'),flt('highpass',500),flt('lowpass',4500),m,g);}
+ else if(k==='fire'){const m=c.createGain();m.gain.value=.5;chain(src('brown'),flt('lowpass',500),m,g);
+  loop(()=>{const n=Math.floor(c.sampleRate*.02),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);const s=c.createBufferSource(),cg=c.createGain();s.buffer=b;cg.gain.value=.15+Math.random()*.6;chain(s,flt('highpass',1200+Math.random()*2500),cg,g);s.start();},60,560);}
+ else if(k==='bowls')loop(()=>{const b=[196,220,261.6,293.7][Math.floor(Math.random()*4)],t=c.currentTime;[[1,.5],[2.76,.25],[5.4,.1]].forEach(([r,a])=>{const z=c.createOscillator(),e=c.createGain();z.frequency.value=b*r;e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(a,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+8);chain(z,e,g);z.start(t);z.stop(t+8.2);});},7000,13000);
+ else if(k==='theta'){[[200,-1],[206,1]].forEach(([f,p])=>{const z=c.createOscillator(),pn=c.createStereoPanner?c.createStereoPanner():c.createGain();z.frequency.value=f;if(pn.pan)pn.pan.value=p;chain(z,pn,g);z.start();o.N.push(z);});}
+ if(k==='forest')loop(()=>{const n=2+Math.floor(Math.random()*3),f0=2400+Math.random()*2200;let t=c.currentTime+.05;for(let i=0;i<n;i++){const z=c.createOscillator(),e=c.createGain();z.frequency.setValueAtTime(f0,t);z.frequency.exponentialRampToValueAtTime(f0*(1.2+Math.random()*.4),t+.09);e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(.06,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+.11);chain(z,e,g);z.start(t);z.stop(t+.12);t+=.14;}},1500,5000);
+ return o;
+}
+function msLayerStop(o,imm){o.stop=true;clearTimeout(o.tm);const kill=()=>{o.N.forEach(n=>{try{n.stop()}catch(e){}});try{o.g.disconnect()}catch(e){}};if(imm)kill();else{o.g.gain.setTargetAtTime(0,msAC.currentTime,.3);setTimeout(kill,1500);}}
+function msAmbBtn(){const b=el('msAmbBtn');if(b)b.textContent=msAMB?'■ Ferma sottofondo':'♪ Ascolta sottofondo';}
+function msAmbStart(by){
+ msAmbStop(true);if(!msMA.kinds.length||!(window.AudioContext||window.webkitAudioContext))return;
+ const c=msCtx(),g=c.createGain();g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(msMA.vol,c.currentTime+2);g.connect(c.destination);
+ msAMB={g,by,L:{}};msMA.kinds.forEach(k=>{msAMB.L[k]=msLayer(k,c,g)});msAmbBtn();
+}
+function msAmbStop(imm){
+ if(!msAMB)return;const a=msAMB;msAMB=null;Object.values(a.L).forEach(o=>msLayerStop(o,imm));
+ if(imm){try{a.g.disconnect()}catch(e){}}else{a.g.gain.cancelScheduledValues(msAC.currentTime);a.g.gain.setTargetAtTime(0,msAC.currentTime,.5);setTimeout(()=>{try{a.g.disconnect()}catch(e){}},2500);}
+ msAmbBtn();
+}
+function msAmbToggle(){if(msAMB)msAmbStop();else{if(!msMA.kinds.length){alert('Seleziona almeno un suono.');return;}msAmbStart('manual');}msAmbBtn();}
+function msAmbRun(on){if(on){if(msMA.auto&&msMA.kinds.length&&!msAMB)msAmbStart('run');}else if(msAMB&&msAMB.by==='run')msAmbStop();}
+function msAmbTog(k){const i=msMA.kinds.indexOf(k);if(i<0)msMA.kinds.push(k);else msMA.kinds.splice(i,1);msAmbSave();
+ if(msAMB){if(i<0)msAMB.L[k]=msLayer(k,msCtx(),msAMB.g);else{msLayerStop(msAMB.L[k]);delete msAMB.L[k];}}
+ document.querySelectorAll('[data-amb]').forEach(b=>b.classList.toggle('on',msMA.kinds.includes(b.dataset.amb)));}
+function msAmbSet(k,v){msMA[k]=v;msAmbSave();if(k==='vol'&&msAMB)msAMB.g.gain.setTargetAtTime(v,msAC.currentTime,.1);}
+function msAmbRow(){return`<div style="margin-bottom:.6rem"><label style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.3rem">Sottofondo · puoi combinare più suoni</label>
+ <div class="ms-row" style="margin-bottom:.6rem">${Object.entries(msAmbNm).map(([k,v])=>`<button class="ms-tg${msMA.kinds.includes(k)?' on':''}" data-amb="${k}" onclick="msAmbTog('${k}')">${v}</button>`).join('')}</div>
+ <div class="ms-row"><div><label>Volume sottofondo</label><input type="range" min=".05" max="1" step=".05" value="${msMA.vol}" oninput="msAmbSet('vol',+this.value)"></div>
+ <button class="ms-btn g" id="msAmbBtn" onclick="msAmbToggle()">${msAMB?'■ Ferma sottofondo':'♪ Ascolta sottofondo'}</button>
+ <label style="display:flex;align-items:center;gap:.4rem;text-transform:none;letter-spacing:0;font-size:.74rem;color:var(--txt2);margin:0"><input type="checkbox" ${msMA.auto?'checked':''} onchange="msAmbSet('auto',this.checked)"> con sessioni e vocali</label></div>
+ <div style="font-size:.66rem;color:var(--txt3);margin-top:.35rem">Theta 6 Hz usa due toni leggermente diversi per orecchio: si percepisce solo con le cuffie.</div></div>`;}
+/* vocali: archivio locale (IndexedDB) per atleta */
+function msDB(){return new Promise((ok,ko)=>{if(MS._db)return ok(MS._db);const r=indexedDB.open('mf-mindset',1);r.onupgradeneeded=()=>r.result.createObjectStore('rec',{keyPath:'id'});r.onsuccess=()=>{MS._db=r.result;ok(r.result)};r.onerror=()=>ko(r.error);});}
+async function msRecAll(){const db=await msDB();return new Promise(ok=>{const q=db.transaction('rec').objectStore('rec').getAll();q.onsuccess=()=>ok(q.result.filter(x=>x.pid===activePid).sort((a,b)=>b.ts-a.ts));q.onerror=()=>ok([]);});}
+async function msRecPut(o){const db=await msDB();return new Promise((ok,ko)=>{const t=db.transaction('rec','readwrite');t.objectStore('rec').put(o);t.oncomplete=ok;t.onerror=()=>ko(t.error);});}
+async function msRecDel(id){if(!confirm('Eliminare questo vocale?'))return;const db=await msDB();const t=db.transaction('rec','readwrite');t.objectStore('rec').delete(id);t.oncomplete=msRecsRender;}
+async function msRecFile(i){const f=i.files[0];if(!f)return;if(f.size>25e6){alert('File troppo grande (max 25 MB).');return;}
+ const n=prompt('Nome del vocale:',f.name.replace(/\.[^.]+$/,''));if(n===null)return;
+ try{await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:(n||f.name).trim(),ts:Date.now(),type:f.type,blob:f});}catch(e){alert('Impossibile salvare il vocale su questo dispositivo.');}
+ i.value='';msRecsRender();}
+async function msRecToggle(){
+ if(msMR){msMR.stop();return;}
+ try{const st=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[],r=new MediaRecorder(st);
+  r.ondataavailable=e=>{if(e.data.size)ch.push(e.data)};
+  r.onstop=async()=>{st.getTracks().forEach(t=>t.stop());msMR=null;const b=new Blob(ch,{type:r.mimeType||'audio/webm'});
+   if(b.size){const n=prompt('Nome del vocale:','Vocale '+new Date().toLocaleDateString('it-IT'));if(n!==null)try{await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:n.trim()||'Vocale',ts:Date.now(),type:b.type,blob:b});}catch(e){alert('Impossibile salvare il vocale.');}}
+   msRecsRender();};
+  msMR=r;r.start();msRecsRender();
+ }catch(e){alert('Microfono non disponibile o permesso negato.');}
+}
+function msRecCard(){return`<div class="ms-card"><div class="ms-h">🎙 I miei vocali</div><div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Registra o carica un vocale con la tua voce (o quella del coach): lo riascolti con il sottofondo. I vocali restano su questo dispositivo e non vengono sincronizzati.</div><div id="msRecs"></div></div>`;}
+async function msRecsRender(){
+ const e=el('msRecs');if(!e)return;let L=[];
+ try{L=await msRecAll();}catch(x){e.innerHTML='<div style="font-size:.75rem;color:var(--gold)">Archivio locale non disponibile in questo browser.</div>';return;}
+ msUrls.forEach(u=>URL.revokeObjectURL(u));msUrls=[];
+ e.innerHTML=`<div class="ms-row" style="margin-bottom:.6rem"><button class="ms-btn g" onclick="this.nextElementSibling.click()">⬆ Carica vocale</button><input type="file" accept="audio/*" style="display:none" onchange="msRecFile(this)"><button class="ms-btn${msMR?'':' g'}" onclick="msRecToggle()">${msMR?'■ Ferma registrazione':'● Registra'}</button></div>`+
+ (L.length?L.map(r=>{const u=URL.createObjectURL(r.blob);msUrls.push(u);return`<div class="ms-rec"><div class="ms-rec-h"><b>${r.name.replace(/</g,'&lt;')}</b><span>${new Date(r.ts).toLocaleDateString('it-IT')}</span><i onclick="msRecDel('${r.id}')" title="Elimina">✕</i></div><audio controls preload="none" src="${u}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio></div>`}).join(''):'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale per questo atleta.</div>');
+}
+function msTabRender(){if(MS.speak||document.querySelector('#msRecs audio:not([paused])')&&[...document.querySelectorAll('#msRecs audio')].some(a=>!a.paused))return;renderMindset();}
+
+/* ── I miei testi (per atleta, sincronizzati) ── */
+const msEsc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const msTxts=()=>(store[activePid]&&store[activePid].mtexts)||{};
+const msFixedS=()=>MS.sess==='race'||MS.sess.startsWith('txt:')||MS.sess.startsWith('sh:');
+const msSessD=()=>(msSS[MS.sess]||{d:'Il tuo testo, letto con la voce, il sottofondo e le impostazioni scelte.'}).d;
+function msTxtOpts(){const o=(t,pre,lab)=>{const e=Object.entries(t);return e.length?`<optgroup label="${lab}">${e.map(([id,x])=>`<option value="${pre}${id}"${MS.sess===pre+id?' selected':''}>✍ ${msEsc(x.name)}</option>`).join('')}</optgroup>`:'';};return o(msTxts(),'txt:','I miei testi')+o(msSh(),'sh:','Catalogo testi condiviso');}
+function msTxtItems(id,sh){
+ const t=(sh?msSh():msTxts())[id],o=[];if(!t)return o;
+ t.text.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).forEach(par=>{
+  const ss=[];par.split('\n').forEach(line=>{(line.match(/[^.!?…]+[.!?…]*/g)||[]).forEach(x=>{x=x.trim();if(x)ss.push(x);});});
+  ss.forEach((x,i)=>o.push({l:t.name,t:x,p:i===ss.length-1?4:1.2,f:false,h:false,c:'#a78bfa'}));});
+ return o;
+}
+function msTxtEdit(id){MS.tedit=id;renderMindset();}
+function msTxtDel(id){const t=msTxts()[id];if(!t||!confirm('Eliminare "'+t.name+'"?'))return;delete store[activePid].mtexts[id];if(MS.sess==='txt:'+id)MS.sess='relax';saveStore(store);renderMindset();}
+function msTxtGo(id){MS.sess='txt:'+id;msStop();renderMindset();const b=el('msSessBtn');if(b)b.scrollIntoView({block:'center',behavior:'smooth'});msSessPlay();}
+const msSh=()=>(store&&store._texts)||{};
+function msTxtSave(){
+ const n=el('msTxtName').value.trim(),b=el('msTxtBody').value.trim();if(!b){alert('Scrivi un testo.');return;}
+ const a=store[activePid],ed=MS.tedit;if(!a)return;
+ if(ed&&ed.startsWith('sh:')){const x=(store._texts||{})[ed.slice(3)];if(x){x.name=n||x.name;x.text=b;x.ts=Date.now();}}
+ else{a.mtexts=a.mtexts||{};const id=ed==='new'?'t'+Date.now().toString(36):ed;a.mtexts[id]={name:n||'Il mio testo',text:b,ts:Date.now()};}
+ saveStore(store);MS.tedit=null;renderMindset();
+}
+function msTxtShare(id){const t=msTxts()[id];if(!t)return;const n=(prompt('Nome con cui condividere il testo con tutti gli atleti:',t.name)||'').trim();if(!n)return;
+ store._texts=store._texts||{};const old=Object.entries(store._texts).find(([,x])=>x.name===n),k=old?old[0]:'s'+Date.now().toString(36);
+ store._texts[k]={name:n,text:t.text,ts:Date.now(),by:(store[activePid]||{}).name||''};saveStore(store);showToast('✓ Testo condiviso nel catalogo');renderMindset();}
+function msShCopy(id){const x=msSh()[id],a=store[activePid];if(!x||!a)return;a.mtexts=a.mtexts||{};a.mtexts['t'+Date.now().toString(36)]={name:x.name,text:x.text,ts:Date.now()};saveStore(store);showToast('✓ Copiato nei tuoi testi');renderMindset();}
+function msShDel(id){const x=msSh()[id];if(!x||!confirm('Eliminare "'+x.name+'" dal catalogo condiviso per tutti gli atleti?'))return;delete store._texts[id];if(MS.sess==='sh:'+id)MS.sess='relax';saveStore(store);renderMindset();}
+function msShGo(id){MS.sess='sh:'+id;msStop();renderMindset();const b=el('msSessBtn');if(b)b.scrollIntoView({block:'center',behavior:'smooth'});msSessPlay();}
+function msTxtCard(){
+ const L=Object.entries(msTxts()).sort((a,b)=>b[1].ts-a[1].ts),S=Object.entries(msSh()).sort((a,b)=>a[1].name.localeCompare(b[1].name)),ed=MS.tedit;
+ const cur=ed&&ed!=='new'?(ed.startsWith('sh:')?msSh()[ed.slice(3)]:msTxts()[ed]):null;
+ const row=(x,sub,btns)=>`<div class="ms-txt"><div><b>${msEsc(x.name)}</b><small>${msEsc(sub)}</small></div>${btns}</div>`;
+ const pv=x=>x.text.replace(/\s+/g,' ').slice(0,90);
+ return`<div class="ms-card"><div class="ms-h">✍ I miei testi</div>
+ <div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Scrivi o incolla un testo: lo ascolti con la voce, il sottofondo e le impostazioni scelte, anche dal menu «Sessione». Usa frasi brevi; una riga vuota crea una pausa più lunga. I tuoi testi sono salvati per atleta; quelli del catalogo sono visibili a tutti.</div>
+ ${L.map(([id,x])=>row(x,pv(x),`<button class="ms-btn" onclick="msTxtGo('${id}')">▶ Ascolta</button><button class="ms-btn g" onclick="msTxtShare('${id}')" title="Condividi nel catalogo">⇪</button><button class="ms-btn g" onclick="msTxtEdit('${id}')">✎</button><button class="ms-btn g" onclick="msTxtDel('${id}')">✕</button>`)).join('')||(ed?'':'<div style="font-size:.75rem;color:var(--txt3);margin-bottom:.5rem">Nessun testo personale.</div>')}
+ ${ed?`<div style="margin-top:.6rem"><input id="msTxtName" class="ms-in" style="width:100%;margin-bottom:.4rem" placeholder="Titolo (es. Il mio mantra)" value="${cur?msEsc(cur.name):''}"><textarea id="msTxtBody" class="ms-in" style="width:100%;min-height:150px;resize:vertical;line-height:1.5" maxlength="4000" placeholder="Respiro piano. Le gambe sono leggere.&#10;&#10;Ogni passo mi porta al traguardo.">${cur?msEsc(cur.text):''}</textarea>
+  <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">${ed.startsWith('sh:')?'Stai modificando un testo del catalogo: la modifica vale per tutti gli atleti.':''}</div>
+  <div class="ms-row" style="margin-top:.5rem"><button class="ms-btn" onclick="msTxtSave()">Salva</button><button class="ms-btn g" onclick="msTxtEdit(null)">Annulla</button></div></div>`:`<button class="ms-btn g" onclick="msTxtEdit('new')">＋ Nuovo testo</button>`}
+ <div style="margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--b1)"><div class="ms-h" style="font-size:.88rem">Catalogo testi · condiviso con tutti gli atleti</div>
+ ${S.map(([id,x])=>row(x,(x.by?x.by+' · ':'')+pv(x),`<button class="ms-btn" onclick="msShGo('${id}')">▶ Ascolta</button><button class="ms-btn g" onclick="msShCopy('${id}')" title="Copia nei miei testi">⧉</button><button class="ms-btn g" onclick="msTxtEdit('sh:${id}')">✎</button><button class="ms-btn g" onclick="msShDel('${id}')">✕</button>`)).join('')||'<div style="font-size:.75rem;color:var(--txt3)">Nessun testo condiviso: premi ⇪ su uno dei tuoi testi per aggiungerlo.</div>'}</div></div>`;
+}
+
+function renderMindset(){
+ const box=el('mindContent');if(!box)return;
+ if(MS.pid!==activePid){MS.pid=activePid;const d=(store[activePid]||{}).mindset;MS.g=d?{name:d.name,L:d.L,P:d.P}:null;MS.goalSec=d?d.goalSec||null:null;MS.strat=d?d.strat||'even':'even';MS.loops=d?d.loops||1:1;MS.url=d?d.url||'':'';MS.msg='';if(MS.g)MS.sess='race';msStop();}
+ const lib=msLib(),a=store[activePid]||{},goal=MS.goalSec||(a.goalMin||210)*60;
+ let m=null;
+ if(MS.g){try{m=msModel(goal);}catch(e){MS.msg='⚠ '+e.message;}}
+ MS.m=m;MS.cg=goal;
+ let h=`<div class="ms-card"><div class="ms-h">🧠 Visual Run · preparazione mentale per la gara</div>
+ <div style="font-size:.8rem;color:var(--txt2);margin-bottom:.8rem">Carica il percorso: il tempo obiettivo viene distribuito tra salite, discese e chilometri critici, e ne nasce una sequenza vocale di visualizzazione da ascoltare prima della gara.</div>
+ <div class="ms-row">
+  <div><label>File GPX</label><input type="file" accept=".gpx,.xml" class="ms-in" onchange="msFile(this)"></div>
+  <div style="flex:1;min-width:200px"><label>…oppure link a un GPX</label><input id="msUrl" class="ms-in" style="width:100%" placeholder="https://…/percorso.gpx" value="${MS.url.replace(/"/g,'&quot;')}"></div>
+  <button class="ms-btn g" onclick="msUrl()">Carica da web</button>
+ </div>
+ <div class="ms-row" style="margin-top:.8rem">
+  <div><label>Tempo finale (h:mm:ss)</label><input class="ms-in" style="width:110px" value="${msG(goal)}" onchange="msGoal(this.value)"></div>
+  <div><label>Strategia</label><select class="ms-in" onchange="msStrat(this.value)"><option value="even"${MS.strat==='even'?' selected':''}>Sforzo costante</option><option value="neg"${MS.strat==='neg'?' selected':''}>Negative split</option></select></div>
+  <div><label>Giri</label><input type="number" min="1" max="20" class="ms-in" style="width:70px" value="${MS.loops}" onchange="msLoops(this.value)"></div>
+  ${MS.g?`<button class="ms-btn g" onclick="msClear()">Rimuovi percorso</button>`:''}
+  <div style="font-size:.7rem;color:var(--txt3)">${MS.g?'Giro: '+msN(MS.g.L/1000)+' km · ':''}tempo di default = obiettivo atleta (${fmtGoal(a.goalMin||210)}) · percorso salvato per atleta.</div>
+ </div><div style="margin-top:.8rem"><label style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.3rem">Catalogo percorsi · condiviso con tutti gli atleti</label>
+ <div class="ms-row">${lib.map(([id,r])=>`<span class="ms-lib" onclick="msPick('${id}')">${r.name.replace(/</g,'&lt;')} <em>${msN(r.L/1000)} km</em><b onclick="event.stopPropagation();msDelLib('${id}')" title="Elimina dal catalogo">✕</b></span>`).join('')||'<span style="font-size:.75rem;color:var(--txt3)">Nessun percorso condiviso: carica un GPX e premi «Condividi nel catalogo».</span>'}
+ ${MS.g?`<button class="ms-btn g" onclick="msShare()">⇪ Condividi nel catalogo</button>`:''}</div></div>
+ ${MS.msg?`<div style="margin-top:.7rem;font-size:.78rem;color:var(--gold)">${MS.msg}</div>`:''}</div>`;
+ if(!m){h+=msSessCard()+msRecCard()+msTxtCard();box.innerHTML=h+`<div class="ms-card" style="text-align:center;color:var(--txt3);font-size:.85rem">Nessun percorso caricato.</div>`;msFillVoices();msRecsRender();return;}
+ const hard=[...m.km].sort((x,y)=>y.sc-x.sc).slice(0,4).map(k=>k.i+1).sort((x,y)=>x-y).join(', ');
+ const chip=(l,v)=>`<div class="ms-chip"><span>${l}</span><b>${v}</b></div>`;
+ h+=`<div class="ms-card"><div class="ms-h">${MS.g.name.replace(/</g,'&lt;')}</div>
+ <div class="ms-row" style="margin-bottom:.8rem">${chip('Distanza',msN(m.Lk)+' km')}${chip('Dislivello +',Math.round(m.up)+' m')}${chip('Dislivello −',Math.round(m.dn)+' m')}${chip('Ritmo medio',msF(goal/m.Lk)+'/km')}${chip('Km più duri',hard)}</div>
+ ${msChart(m)}
+ <div class="ms-row" style="margin-top:.4rem;font-size:.68rem;color:var(--txt2)">${Object.keys(msNm).map(k=>`<span><i style="display:inline-block;width:9px;height:9px;background:${msCol[k]};border-radius:2px;margin-right:4px"></i>${msNm[k]}</span>`).join('')}</div></div>`;
+ h+=msSessCard()+msRecCard()+msTxtCard();
+ h+=`<div class="ms-card"><div class="ms-h">Cue card di gara</div><div style="overflow-x:auto"><table class="ms-tbl"><tr><th>Tratto</th><th>Tipo</th><th>Tempo</th><th>Ritmo</th><th>Parola</th><th>Respiro</th></tr>
+ ${m.PH.map(p=>`<tr><td>${p.label}</td><td style="color:${msCol[p.ty]}">${msNm[p.ty]}${p.ty==='up'||p.ty==='down'?' '+(p.g>0?'+':'')+msN(p.g)+'%':''}</td><td>${msF(p.t0)}</td><td>${msF(p.pace)}/km</td><td><b>${p.cue}</b></td><td>${msBr[p.ty]}</td></tr>`).join('')}</table></div></div>`;
+ h+=`<div class="ms-card"><div class="ms-h">Dettaglio per chilometro</div><div style="overflow-x:auto"><table class="ms-tbl"><tr><th>Km</th><th>Tipo</th><th>D+/D−</th><th>Pend.</th><th>Ritmo</th><th>Passaggio</th><th style="width:90px">Difficoltà</th></tr>
+ ${m.km.map(k=>`<tr><td>${k.i+1}</td><td style="color:${msCol[k.ty]}">${msNm[k.ty]}</td><td>+${Math.round(k.up)} −${Math.round(k.dn)}</td><td>${msN(k.g)}%</td><td>${msF(k.pace)}</td><td>${msF(k.t0+k.t)}</td><td><div style="height:6px;border-radius:3px;width:${k.sc*10}%;background:${msCol[k.ty]}"></div></td></tr>`).join('')}</table></div></div>`;
+ box.innerHTML=h;msFillVoices();msRecsRender();
+}
+
 store = loadStore();   // carica localStorage come fallback
 syncFromFirebase();    // Firebase carica i dati e poi chiama renderProfiles()
 </script>
