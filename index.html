@@ -750,6 +750,9 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 .ms-cdb b{display:block;font-family:'DM Mono',monospace;font-size:1.7rem;font-weight:500;color:var(--accent)}
 .ms-cdb span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--txt3)}
 .ms-cdn{font-size:.78rem;color:var(--txt2)}
+.plan-dragging{opacity:.4;}
+.plan-drop-target{outline:2px dashed var(--accent);outline-offset:-3px;background:rgba(255,92,53,.08)!important;}
+.session[draggable=true],.rest-cell[draggable=true]{cursor:grab;}
 </style>
 </head>
 <body>
@@ -1964,14 +1967,54 @@ function renderWeekCard(wi){
   </div>`;
 }
 
+
+// ─── DRAG & DROP IN THE NORMAL PLAN VIEW: swap two days (a rest day is a valid target) ───
+let _planDrag=null;
+function planDragStart(e,wi,day){
+  _planDrag={wi,day};
+  e.dataTransfer.effectAllowed='move';
+  try{e.dataTransfer.setData('text/plain',`w${wi}_d${day}`);}catch{}
+  setTimeout(()=>{ if(e.target&&e.target.classList) e.target.classList.add('plan-dragging'); },0);
+}
+function planDragEnd(){
+  _planDrag=null;
+  document.querySelectorAll('.plan-dragging,.plan-drop-target').forEach(n=>n.classList.remove('plan-dragging','plan-drop-target'));
+}
+function planDragOver(e){
+  if(!_planDrag) return;
+  e.preventDefault(); e.dataTransfer.dropEffect='move';
+  e.currentTarget.classList.add('plan-drop-target');
+}
+function planDragLeave(e){ e.currentTarget.classList.remove('plan-drop-target'); }
+function planDrop(e,wi,day){
+  e.preventDefault();
+  const src=_planDrag; planDragEnd();
+  if(!src||(src.wi===wi&&src.day===day)) return;
+  const snap=(w,d)=>{
+    const x=plan[w]?.sessions.find(q=>q.day===d);
+    if(!x||x.type==='rest') return {type:'rest'};
+    return {type:x.type,km:x.km,dur:x.dur,desc:x.desc||'',zone:x.zone,special:x.special||'',crossMode:x.crossMode,fcTarget:x.fcTarget};
+  };
+  const a=snap(src.wi,src.day), b=snap(wi,day);
+  if(a.type==='rest'&&b.type==='rest') return;
+  const clean=o=>{Object.keys(o).forEach(k=>o[k]===undefined&&delete o[k]);return o;};
+  const ed=store[activePid].sessionEdits=store[activePid].sessionEdits||{};
+  ed[`w${src.wi}_d${src.day}`]=clean({...b,editedAt:today()});
+  ed[`w${wi}_d${day}`]=clean({...a,editedAt:today()});
+  saveStore(store);
+  expandedWeek=wi;
+  renderTab();
+  showToast(`↔ Spostato: W${src.wi+1}·${DAYS_S?DAYS_S[src.day]:src.day} ↔ W${wi+1}·${DAYS_S?DAYS_S[day]:day}`);
+}
+
 function renderSessionCell(s,wi){
   const log=store[activePid].log||{};
   const key=`w${wi}_d${s.day}`;
   const lg=log[key];
   const sm=SESS_META[s.type]||SESS_META.easy;
   if(s.type==='rest'){
-    if(!lg) return `<div class="rest-cell" style="cursor:pointer" onclick="openSessionAction('${key}',${wi},${s.day})">Riposo</div>`;
-    return `<div class="rest-cell" style="cursor:pointer;color:${lg.completed?'#34d399':'#f87171'}" onclick="openSessionAction('${key}',${wi},${s.day})">${lg.completed?'✓ '+(lg.km?lg.km+' km':'fatto'):'saltato'}<br><small>extra${dayLogs(log,wi,s.day).length>1?' ×'+dayLogs(log,wi,s.day).length:''}</small></div>`;
+    if(!lg) return `<div class="rest-cell" style="cursor:pointer" draggable="true" ondragstart="planDragStart(event,${wi},${s.day})" ondragend="planDragEnd()" ondragover="planDragOver(event)" ondragleave="planDragLeave(event)" ondrop="planDrop(event,${wi},${s.day})" title="Trascina su un altro giorno per spostare l'allenamento" onclick="openSessionAction('${key}',${wi},${s.day})">Riposo</div>`;
+    return `<div class="rest-cell" style="cursor:pointer;color:${lg.completed?'#34d399':'#f87171'}" draggable="true" ondragstart="planDragStart(event,${wi},${s.day})" ondragend="planDragEnd()" ondragover="planDragOver(event)" ondragleave="planDragLeave(event)" ondrop="planDrop(event,${wi},${s.day})" title="Trascina su un altro giorno per spostare l'allenamento" onclick="openSessionAction('${key}',${wi},${s.day})">${lg.completed?'✓ '+(lg.km?lg.km+' km':'fatto'):'saltato'}<br><small>extra${dayLogs(log,wi,s.day).length>1?' ×'+dayLogs(log,wi,s.day).length:''}</small></div>`;
   }
   const nExtra=dayLogs(log,wi,s.day).length-(lg?1:0);
   const loggedCls=lg?(lg.completed?'logged-ok':'logged-skip'):'';
@@ -1993,7 +2036,7 @@ function renderSessionCell(s,wi){
   const sessDate=addDays(START,wi*7+s.day);
   const sessDateStr=`${sessDate.getDate()}/${sessDate.getMonth()+1}`;
   return `
-  <div class="session ${loggedCls}" onclick="openSessionAction('${key}',${wi},${s.day})">
+  <div class="session ${loggedCls}" draggable="true" ondragstart="planDragStart(event,${wi},${s.day})" ondragend="planDragEnd()" ondragover="planDragOver(event)" ondragleave="planDragLeave(event)" ondrop="planDrop(event,${wi},${s.day})" title="Trascina su un altro giorno per spostare l'allenamento" onclick="openSessionAction('${key}',${wi},${s.day})">
     <div class="s-status-badge">${badge}</div>
     <div class="s-day">${s.dayName} <span class="s-date">${sessDateStr}</span></div>
     <div class="s-type">
