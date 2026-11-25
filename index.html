@@ -1150,12 +1150,14 @@ function renderProfiles(){
           .flatMap(w=>w.sessions).filter(s=>s.type!=='rest');
         const done=Object.keys(p.log||{}).length;
         const pct=allS.length?Math.round(done/allS.length*100):0;
+        const nMiss=findMissingKm(p).length;
         return `<button class="profile-card fade" onclick="selectProfile('${pid}')" style="border-color:${pd.color}22"
           onmouseover="this.style.borderColor='${pd.color}'" onmouseout="this.style.borderColor='${pd.color}22'">
           <div class="avatar">${pd.icon}</div>
           <div class="pname">${p.name}</div>
           <div class="pgoal">${fmtGoal(p.goalMin||210)}</div>
           <div>${buildRing(pct,22,3,pd.color,pct+'%')}</div>
+          ${nMiss?`<div style="margin-top:.4rem;font-size:.68rem;color:#f59e0b">⚠ ${nMiss} log senza km</div>`:''}
         </button>`;
       }).join('')}
       <button class="new-card fade" onclick="startWizard()">
@@ -1678,6 +1680,7 @@ function selectProfile(pid){
   show('scr-plan');
   renderTopbar();
   renderTab();
+  setTimeout(()=>maybeAlertMissingKm(pid),350);
 }
 
 function renderAthleteSidebar(){
@@ -1846,7 +1849,7 @@ function renderPlan(){
     {name:'Picco & Taper',   badge:'Fase 3', weeks:[9,10,11,12,13]},
   ];
   const totalKm=getPlanTotalKm();
-  cont.innerHTML=renderAdaptPanel()+`<div class="plan-total-bar"><span class="plan-total-label">Km totali pianificati</span><strong class="plan-total-value">${formatPlanKm(totalKm)} km</strong></div>`+renderWeeklyLoadChart()+phases.map(ph=>`
+  cont.innerHTML=renderKmAlert()+renderAdaptPanel()+`<div class="plan-total-bar"><span class="plan-total-label">Km totali pianificati</span><strong class="plan-total-value">${formatPlanKm(totalKm)} km</strong></div>`+renderWeeklyLoadChart()+phases.map(ph=>`
     <div class="phase-hdr">
       <span class="phase-badge">${ph.badge}</span>
       <span class="phase-name">${ph.name}</span>
@@ -1967,6 +1970,86 @@ function renderWeekCard(wi){
   </div>`;
 }
 
+
+
+// ─── LOG CHECK: completed workouts without km ───
+function findMissingKm(p){
+  const pl=effectivePlan(p,p.sessionEdits||{},p.planMode||'original');
+  const out=[];
+  Object.entries(p.log||{}).forEach(([key,l])=>{
+    if(!l||!l.completed) return;
+    if(num(l.km)>0) return;
+    const m=/^w(\d+)_d(\d+)/.exec(key); if(!m) return;
+    const wi=+m[1], day=+m[2], s=pl[wi]?.sessions.find(x=>x.day===day);
+    if(s&&s.type==='cross') return;            // cross sessions are measured in minutes, not km
+    const base=baseKey(key)===key;
+    out.push({key,wi,day,type:s?s.type:'rest',date:l.date||'',extra:!base,
+      planKm:(base&&s&&s.type!=='rest'&&s.km>0)?s.km:null});
+  });
+  return out.sort((a,b)=>a.wi-b.wi||a.day-b.day||a.key.localeCompare(b.key));
+}
+function renderKmAlert(){
+  const list=findMissingKm(store[activePid]);
+  if(!list.length) return '';
+  return `<div class="adh-chart" style="margin-bottom:1.25rem;border-color:#f59e0b66;background:rgba(245,158,11,.07)">
+    <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap">
+      <div style="font-size:1.3rem">⚠️</div>
+      <div style="flex:1;min-width:200px"><div style="font-size:.85rem;font-weight:700">${list.length} log senza km</div>
+        <div style="font-size:.74rem;color:var(--txt2)">Mancano i chilometri: totali e confronti non sono corretti.</div></div>
+      <button class="modal-btn save" onclick="openMissingKm()">Controlla e correggi</button>
+    </div></div>`;
+}
+function openMissingKm(){
+  const p=store[activePid], list=findMissingKm(p);
+  if(!list.length){ closeModal(); renderTab(); showToast('✅ Tutti i log hanno i km'); return; }
+  const rows=list.map((r,i)=>{
+    const sm=SESS_META[r.type]||SESS_META.easy;
+    const d=r.date?r.date.split('-').reverse().join('/'):'';
+    return `<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.55rem 0;border-bottom:1px solid var(--b1)">
+      <div style="flex:1;min-width:150px;cursor:pointer" onclick="closeModal();openLog('${r.key}',${r.wi},${r.day})" title="Apri il log">
+        <div style="font-size:.8rem;font-weight:700;color:${sm.color}">${sm.label}${r.extra?' · extra':''} <span style="color:var(--txt3);font-weight:400">W${r.wi+1} · ${DAYS_L[r.day]}</span></div>
+        <div style="font-size:.7rem;color:var(--txt3)">${d?'📅 '+d:''} ${r.planKm?`· piano: ${formatPlanKm(r.planKm)} km`:'· nessun km nel piano'}</div></div>
+      <input class="text-input" id="mk_${i}" type="text" inputmode="decimal" style="width:5.5rem" value="${r.planKm?formatPlanKm(r.planKm):''}" placeholder="km">
+      <button class="modal-btn save" style="padding:.4rem .7rem" onclick="fixMissingKm(${i})">Salva</button>
+    </div>`;}).join('');
+  const fixable=list.filter(r=>r.planKm).length;
+  window._mkList=list;
+  el('modalBox').innerHTML=`
+    <div class="modal-header"><div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800">Log senza km</div>
+      <div style="font-size:.78rem;color:var(--txt3)">${p.name} · ${list.length} da correggere</div></div>
+      <button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div style="font-size:.76rem;color:var(--txt2);margin-bottom:.5rem">Proposta: usare la distanza prevista dal piano per quel giorno. Puoi cambiare il valore prima di salvare.</div>
+    <div style="max-height:46vh;overflow:auto">${rows}</div>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" onclick="closeModal()">Più tardi</button>
+      ${fixable?`<button class="modal-btn save" onclick="fixAllMissingKm()">Applica i km del piano a ${fixable} log</button>`:''}
+    </div>`;
+  el('modal').classList.remove('hidden');
+}
+function fixMissingKm(i){
+  const r=(window._mkList||[])[i]; if(!r) return;
+  const v=num(el('mk_'+i)?.value);
+  if(!(v>0)){ showToast('Inserisci i km (es. 10,5)',true); return; }
+  const l=store[activePid].log[r.key]; if(!l) return;
+  l.km=String(Math.round(v*100)/100);
+  if(r.planKm&&Math.abs(v-r.planKm)<0.01) l.kmFromPlan=true;
+  saveStore(store); renderTab(); openMissingKm();
+}
+function fixAllMissingKm(){
+  const L=store[activePid].log; let n=0;
+  (window._mkList||[]).forEach(r=>{
+    if(r.planKm&&L[r.key]){ L[r.key].km=String(r.planKm); L[r.key].kmFromPlan=true; n++; }
+  });
+  saveStore(store); renderTab(); openMissingKm();
+  showToast(`✅ Corretti ${n} log con i km del piano`);
+}
+let _kmAlerted={};
+function maybeAlertMissingKm(pid){
+  if(_kmAlerted[pid]||activePid!==pid) return;
+  _kmAlerted[pid]=true;
+  if(findMissingKm(store[pid]).length) openMissingKm();
+}
 
 // ─── DRAG & DROP IN THE NORMAL PLAN VIEW: swap two days (a rest day is a valid target) ───
 let _planDrag=null;
@@ -2386,6 +2469,13 @@ function saveLog(key,wi,day){
     note:el('mNote')?.value||'',
     savedAt:today()
   };
+  if(completed&&!(num(entry.km)>0)){
+    const ps=plan[wi]?.sessions.find(q=>q.day===day);
+    if(key===baseKey(key)&&ps&&ps.type!=='rest'&&ps.type!=='cross'&&ps.km>0&&
+       confirm(`Non hai inserito i km.\nUsare i ${formatPlanKm(ps.km)} km previsti dal piano per questo giorno?`)){
+      entry.km=String(ps.km); entry.kmFromPlan=true;
+    }
+  }
   store[activePid].log=store[activePid].log||{};
   let target=key, moved=null;
   if(completed){
