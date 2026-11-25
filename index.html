@@ -12,15 +12,38 @@
   --txt:#eef0f4;--txt2:#9498a8;--txt3:#5a5e70;
   --easy:#34d399;--medio:#fbbf24;--lungo:#fb7185;--rep:#a78bfa;--cross:#38bdf8;
 }
+[data-theme="light"]{
+  --bg:#f4f5f7;--surf:#ffffff;--card:#eef0f4;--b1:#d8dae0;--b2:#c0c3ce;
+  --txt:#1a1b1e;--txt2:#4a4e5e;--txt3:#8a8e9e;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;transition:background .25s,color .25s;}
 button{font-family:'Inter',sans-serif;cursor:pointer;}
 input,textarea,select{font-family:'Inter',sans-serif;}
 .mono{font-family:'DM Mono',monospace;}
 .syne{font-family:'Syne',sans-serif;}
 .hidden{display:none!important;}
+.prule-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.4rem;}
+.prule-item{display:flex;align-items:center;gap:.4rem;background:var(--surf);border:1px solid var(--b1);border-radius:7px;padding:.45rem .7rem;flex:1;min-width:90px;}
+.prule-item:hover{border-color:var(--pc);}
+.prule-lbl{font-size:.68rem;color:var(--txt2);flex:1;white-space:nowrap;}
+.prule-input{width:44px;background:transparent;border:none;border-bottom:1px solid var(--b2);color:var(--txt);font-family:'DM Mono',monospace;font-size:.85rem;text-align:center;padding:.1rem 0;outline:none;}
+.prule-input:focus{border-bottom-color:var(--accent);}
+.prule-unit{font-size:.62rem;color:var(--txt3);}
+.prule-km-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.35rem;margin-top:.4rem;}
+.prule-km-cell{display:flex;align-items:center;gap:.3rem;background:var(--surf);border:1px solid var(--b1);border-radius:6px;padding:.3rem .5rem;}
+.prule-week{font-size:.62rem;color:var(--txt2);flex:1;white-space:nowrap;}
+.prule-week em{font-style:normal;font-size:.55rem;opacity:.7;}
+.wtype-list{display:flex;flex-direction:column;gap:.5rem;}
+.wtype-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.wtype-day{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--txt2);min-width:55px;flex-shrink:0;}
+.wtype-btns{display:flex;gap:.3rem;flex-wrap:wrap;}
+.wtype-btn{background:var(--surf);border:1px solid var(--b1);border-radius:5px;color:var(--txt2);font-size:.68rem;padding:.28rem .55rem;cursor:pointer;transition:all .15s;}
+.wtype-btn.sel{border-color:var(--tc);color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent);}
+.wtype-btn:hover:not(.sel){border-color:var(--b2);color:var(--txt);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .fade{animation:fadeUp .3s ease both;}
 
 /* ── SCREENS ── */
@@ -93,18 +116,122 @@ textarea.text-input{resize:vertical;}
 .back-btn{background:none;border:none;color:var(--txt3);font-size:1.2rem;padding:.2rem;}
 .back-btn:hover{color:var(--txt2);}
 .profile-badge{font-size:.95rem;font-weight:700;}
-.goal-slider-wrap{display:flex;align-items:center;gap:.5rem;}
-.goal-slider-wrap input[type=range]{width:100px;accent-color:var(--accent);}
-.goal-val{font-family:'DM Mono',monospace;font-size:.9rem;color:var(--accent);min-width:2.8rem;}
+.goal-ctrl-wrap{display:flex;align-items:center;gap:.3rem;position:relative;}
+.goal-step-btn{background:var(--surf);border:1px solid var(--b1);border-radius:5px;color:var(--txt2);font-size:1rem;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0;line-height:1;}
+.goal-step-btn:hover{border-color:var(--accent);color:var(--accent);}
+.goal-val-btn{font-family:'DM Mono',monospace;font-size:.9rem;color:var(--accent);min-width:3rem;text-align:center;background:var(--surf);border:1px solid var(--b1);border-radius:5px;padding:.25rem .4rem;cursor:pointer;transition:all .15s;}
+.goal-val-btn:hover{border-color:var(--accent);}
+.goal-picker{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--b2);border-radius:8px;padding:.4rem;display:flex;flex-wrap:wrap;gap:.3rem;z-index:200;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.35);}
+.goal-preset-btn{background:var(--surf);border:1px solid var(--b1);border-radius:5px;color:var(--txt2);font-family:'DM Mono',monospace;font-size:.72rem;padding:.28rem .5rem;cursor:pointer;transition:all .15s;}
+.goal-preset-btn:hover{border-color:var(--accent);color:var(--accent);}
+.goal-preset-btn.active{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);}
 .zone-chips{display:flex;gap:.3rem;flex-wrap:wrap;flex:1;}
 .zchip{font-family:'DM Mono',monospace;font-size:10px;padding:.15rem .45rem;border-radius:20px;border:1px solid;white-space:nowrap;}
 .tab-bar{display:flex;gap:.25rem;margin-left:auto;}
 .tab-btn{padding:.3rem .7rem;border-radius:6px;border:none;font-size:11px;font-weight:600;transition:all .2s;cursor:pointer;}
 .tab-btn.active{background:var(--accent);color:#fff;}
 .tab-btn:not(.active){background:var(--surf);color:var(--txt2);}
+.plan-shell{display:flex;align-items:stretch;min-height:calc(100vh - 58px);}
+.athlete-sidebar{width:190px;flex-shrink:0;background:var(--surf);border-right:1px solid var(--b1);padding:.9rem .65rem;}
+.athlete-sidebar-title{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);padding:.3rem .45rem .65rem;}
+.athlete-list{display:flex;flex-direction:column;gap:.3rem;}
+.athlete-switch-btn{display:flex;align-items:center;gap:.5rem;width:100%;padding:.55rem .5rem;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--txt2);text-align:left;cursor:pointer;transition:all .18s;}
+.athlete-switch-btn:hover{background:rgba(255,255,255,.04);color:var(--txt);}
+.athlete-switch-btn.active{border-color:rgba(255,92,53,.45);background:rgba(255,92,53,.1);color:var(--txt);}
+.athlete-switch-icon{font-size:1rem;flex-shrink:0;}
+.athlete-switch-name{font-size:.76rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.athlete-switch-goal{display:block;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--txt3);margin-top:.12rem;}
+.athlete-add-btn{width:100%;margin-top:.7rem;padding:.5rem;border:1px dashed var(--b2);border-radius:6px;background:transparent;color:var(--txt3);font-size:.72rem;cursor:pointer;}
+.athlete-add-btn:hover{border-color:var(--accent);color:var(--accent);}
+.plan-main{flex:1;min-width:0;}
+@media(max-width:600px){
+  .pace-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table.ptable{min-width:0;font-size:.74rem;}
+  .ptable-note-col{display:none;}
+  table.ptable th,table.ptable td{padding:.45rem .5rem;}
+  .pname{font-size:.68rem;gap:.3rem;}
+  .pval{font-size:.8rem;}
+}
+@media(max-width:760px){
+  .plan-shell{display:block;min-height:0;}
+  .athlete-sidebar{width:100%;border-right:none;border-bottom:1px solid var(--b1);padding:.55rem .75rem;}
+  .athlete-sidebar-title{padding:.15rem .2rem .4rem;}
+  .athlete-list{flex-direction:row;overflow-x:auto;padding-bottom:.15rem;}
+  .athlete-switch-btn{width:auto;min-width:120px;}
+  .athlete-add-btn{width:auto;margin:.45rem 0 0;}
+  .weekly-load-layout{grid-template-columns:1fr;}
+  .weekly-load-filter-panel{border-left:none;border-top:1px solid var(--b1);padding:.75rem 0 0;display:grid;grid-template-columns:repeat(2,1fr);}
+  .weekly-load-filter-title{grid-column:1/-1;}
+  .weekly-load-reset{margin-top:0;grid-column:1/-1;}
+  .topbar{padding:.55rem .7rem;gap:.5rem;}
+  .back-btn{font-size:1.1rem;padding:.25rem .35rem;}
+  .profile-badge{font-size:.82rem;max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .goal-ctrl-wrap{order:3;}
+  .goal-picker{left:0;transform:none;}
+  .zone-chips{order:4;width:100%;flex:none;overflow-x:auto;flex-wrap:nowrap;padding-bottom:.15rem;}
+  .tab-bar{order:2;margin-left:auto;max-width:55%;overflow-x:auto;}
+  .tab-btn{padding:.42rem .55rem;white-space:nowrap;font-size:10px;}
+  .plan-wrap{padding:1rem .65rem 3rem;}
+  #tab-plan{min-width:0;overflow:hidden;}
+  .week-card{overflow:visible;}
+  .week-hdr{padding:.65rem .7rem;gap:.45rem;}
+  .week-dates{font-size:.65rem;white-space:nowrap;}
+  .adh-dots{display:none;}
+  .week-km{font-size:.72rem;white-space:nowrap;}
+  .wtag{font-size:.55rem;padding:.12rem .35rem;}
+  .sessions-row{min-width:650px;}
+  #tab-plan .week-card{min-width:0;overflow:hidden;}
+  #tab-plan .week-card>div[id^="wsess-"]{overflow-x:auto;min-width:0;}
+  .session{min-height:118px;padding:.65rem .55rem;}
+  .s-desc{font-size:.68rem;}
+  .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;}
+  .stat-card{padding:.7rem .55rem;gap:.45rem;}
+  .stat-val{font-size:1.2rem;}
+  .stat-sub{font-size:.65rem;}
+  .form-grid{grid-template-columns:1fr;}
+  .modal-box{padding:1.15rem;max-height:92vh;}
+  .weekly-load-bars{gap:.18rem;}
+}
 
 /* ── PLAN ── */
 .plan-wrap{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.plan-total-bar{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;background:var(--surf);border:1px solid var(--b1);border-radius:8px;padding:.8rem 1rem;margin-bottom:1.25rem;}
+.plan-total-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);}
+.plan-total-value{font-family:'DM Mono',monospace;font-size:1.1rem;color:var(--gold);}
+.weekly-load-chart{background:var(--surf);border:1px solid var(--b1);border-radius:8px;padding:.5rem .65rem;margin-bottom:1.5rem;}
+.weekly-load-layout{display:grid;grid-template-columns:minmax(0,1fr) 145px;gap:.75rem;align-items:stretch;}
+.weekly-load-filter-panel{border-left:1px solid var(--b1);padding-left:1rem;display:flex;flex-direction:column;gap:.35rem;}
+.weekly-load-filter-title{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:.2rem;}
+.weekly-load-filter-btn{display:flex;align-items:center;gap:.4rem;padding:.35rem .45rem;border:1px solid var(--b1);border-radius:5px;background:var(--bg);color:var(--txt2);font-size:.68rem;text-align:left;cursor:pointer;transition:all .18s;}
+.weekly-load-filter-btn:hover{border-color:var(--b2);color:var(--txt);}
+.weekly-load-filter-btn.active{border-color:var(--filter-color);background:color-mix(in srgb,var(--filter-color) 14%,transparent);color:var(--txt);}
+.weekly-load-filter-dot{width:7px;height:7px;border-radius:50%;background:var(--filter-color);flex-shrink:0;}
+.weekly-load-reset{margin-top:auto;padding:.35rem;border:1px solid var(--b1);border-radius:5px;background:transparent;color:var(--txt3);font-size:.65rem;cursor:pointer;}
+.weekly-load-reset:hover{color:var(--txt);border-color:var(--b2);}
+.weekly-load-title{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);}
+.weekly-load-legend{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:.35rem;font-size:.65rem;color:var(--txt3);}
+.weekly-load-legend span{display:flex;align-items:center;gap:.3rem;font-weight:500;}
+.weekly-load-legend i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.weekly-load-scroll-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:1rem;}
+.weekly-load-layout{display:grid;grid-template-columns:minmax(320px,1fr) 145px;gap:.75rem;align-items:stretch;min-width:480px;}
+.weekly-load-bars{height:150px;display:grid;grid-template-columns:repeat(14,minmax(22px,1fr));gap:.3rem;align-items:end;}
+.weekly-load-col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:.2rem;flex-shrink:0;}
+.weekly-load-value{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--txt2);white-space:nowrap;}
+.weekly-load-stack{width:100%;max-width:30px;min-width:12px;min-height:3px;border-radius:3px 3px 1px 1px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:height .35s ease;}
+.weekly-load-segment{width:100%;min-height:2px;transition:height .35s ease;}
+.weekly-load-segment:first-child{border-radius:3px 3px 0 0;}
+.weekly-load-label{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--txt3);}
+@media(max-width:760px){
+  .weekly-load-scroll-wrap{margin-top:.65rem;}
+  .weekly-load-layout{min-width:520px;}
+  .weekly-load-bars{height:120px;gap:.22rem;}
+  .weekly-load-value{font-size:.48rem;}
+  .weekly-load-label{font-size:.48rem;}
+  .weekly-load-stack{max-width:22px;}
+  .weekly-load-legend{gap:.45rem;font-size:.58rem;}
+  .weekly-load-filter-title{font-size:.58rem;}
+  .weekly-load-filter-btn{font-size:.62rem;padding:.28rem .38rem;}
+}
 .phase-hdr{display:flex;align-items:baseline;gap:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--b1);margin:2rem 0 .75rem;}
 .phase-badge{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
   color:var(--accent);background:rgba(255,92,53,.1);padding:.18rem .55rem;border-radius:4px;}
@@ -139,6 +266,7 @@ textarea.text-input{resize:vertical;}
 .session.logged-ok{background:rgba(52,211,153,.04);}
 .session.logged-skip{background:rgba(248,113,113,.04);}
 .s-day{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:.28rem;}
+.s-date{font-family:'DM Mono',monospace;font-size:.62rem;font-weight:400;letter-spacing:0;color:var(--txt3);opacity:.7;}
 .s-type{display:flex;align-items:center;gap:.28rem;margin-bottom:.3rem;}
 .s-type-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .s-type-lbl{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
@@ -206,15 +334,21 @@ textarea.text-input{resize:vertical;}
 .empty-icon{font-size:2.5rem;margin-bottom:.75rem;}
 
 /* ── PACE TABLE ── */
-.pace-table-wrap{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;}
+.pace-table-wrap{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;overflow-x:auto;}
 .pace-table-hdr{padding:.75rem 1.25rem;background:rgba(255,92,53,.08);border-bottom:1px solid var(--b1);
   font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
 table.ptable{width:100%;border-collapse:collapse;font-size:.82rem;}
-table.ptable th{padding:.5rem 1.1rem;text-align:left;font-size:.62rem;font-weight:600;
+table.ptable{min-width:420px;}table.ptable th{padding:.5rem .7rem;text-align:left;font-size:.62rem;font-weight:600;
   letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--b1);}
-table.ptable td{padding:.6rem 1.1rem;border-bottom:1px solid rgba(42,42,53,.5);vertical-align:middle;}
+table.ptable td{padding:.5rem .7rem;border-bottom:1px solid rgba(42,42,53,.5);vertical-align:middle;white-space:nowrap;}
 table.ptable tr:last-child td{border-bottom:none;}
-.pname{display:flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;text-transform:uppercase;}
+.pname{display:flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;white-space:normal;}
+.ptable-note{font-size:.7rem;color:var(--txt2);white-space:normal;min-width:120px;}
+.ptable-arrow{color:var(--txt3);font-size:1rem;transition:transform .2s;text-align:center;width:18px;}
+.ptable-main-row:hover{background:color-mix(in srgb,var(--accent) 4%,transparent);}
+.ptable-note-row td{padding:0 .7rem .6rem 1.4rem !important;border-bottom:1px solid rgba(42,42,53,.5);}
+.ptable-note-expanded{font-size:.76rem;color:var(--txt2);line-height:1.5;padding-top:.1rem !important;}
+.ptable-main-row td:last-child{border-bottom:none;}
 .pval{font-family:'DM Mono',monospace;font-size:.88rem;font-weight:500;color:var(--gold);}
 
 /* ── SESSION EDITOR ── */
@@ -291,7 +425,7 @@ table.ptable tr:last-child td{border-bottom:none;}
   color:var(--txt3);padding:.6rem 1rem .3rem;}
 
 /* Main grid */
-.ed-grid-wrap{flex:1;overflow:auto;padding:1rem;}
+.ed-grid-wrap{flex:1;min-width:0;overflow:auto;padding:1rem;}
 .ed-week-row{display:grid;grid-template-columns:56px repeat(7,1fr);gap:3px;margin-bottom:3px;}
 .ed-week-label{display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-family:'DM Mono',monospace;font-size:.75rem;font-weight:500;color:var(--accent);
@@ -323,7 +457,7 @@ table.ptable tr:last-child td{border-bottom:none;}
   border-style:solid!important;border-color:var(--teal)!important;
   background:rgba(45,212,191,.1)!important;}
 /* Garmin export panel */
-.garmin-panel{background:var(--surf);border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-top:1.5rem;}
+.garmin-panel{display:none!important;}
 .garmin-panel-hdr{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;
   background:rgba(0,112,193,.1);border-bottom:1px solid var(--b1);}
 .garmin-logo{font-size:1.1rem;}
@@ -349,6 +483,7 @@ table.ptable tr:last-child td{border-bottom:none;}
 .garmin-export-btn.ics:hover{background:rgba(45,212,191,.22);}
 .garmin-note{font-size:.7rem;color:var(--txt3);margin-top:.75rem;line-height:1.5;}
 .ed-cell.selected{border-color:var(--gold);box-shadow:0 0 0 2px rgba(245,200,66,.2);}
+.ed-cell.multi-selected{border-color:var(--teal);box-shadow:0 0 0 2px rgba(45,212,191,.22);}
 .ed-cell.logged{box-shadow:inset 3px 0 0 #34d399;}
 .ec-type{display:flex;align-items:center;gap:.3rem;}
 .ec-type-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
@@ -397,10 +532,17 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 }
 @media(max-width:650px){
   .ed-palette{display:none;}
-  .ed-panel{width:100%;position:fixed;bottom:0;left:0;right:0;height:50vh;border-top:1px solid var(--b2);z-index:50;}
-  #scr-editor{height:auto;}
-  .editor-body{flex-direction:column;}
-  .ed-grid-wrap{min-height:50vh;}
+  .editor-topbar{padding:.5rem .65rem;gap:.4rem;}
+  .editor-topbar-title{font-size:.88rem;min-width:0;}
+  .editor-topbar-hint{display:none;}
+  .editor-topbar .ed-btn{padding:.38rem .55rem;font-size:.68rem;}
+  .ed-panel{width:100%;position:fixed;bottom:0;left:0;right:0;height:44vh;max-height:420px;border-top:1px solid var(--b2);z-index:50;}
+  #scr-editor{height:100dvh;min-height:100vh;}
+  .editor-body{flex-direction:column;min-width:0;}
+  .ed-grid-wrap{min-height:56vh;padding:.65rem;overflow:auto;}
+  .ed-day-header,.ed-week-row{grid-template-columns:48px repeat(7,minmax(76px,1fr));}
+  .ed-day-hdr{font-size:.58rem;}
+  .ed-week-label{font-size:.68rem;}
 }
 
 /* ── IMPORT & COMPARE ── */
@@ -571,12 +713,49 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 .pr-tip-body     { font-size: 7pt; color: #555; line-height: 1.5; }
 .pr-footer       { margin-top: 6mm; border-top: .5pt solid #eee; padding-top: 2mm;
                    font-size: 6.5pt; color: #aaa; text-align: center; }
+.ms-card{background:var(--surf);border:1px solid var(--b1);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.ms-h{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.6rem}
+.ms-row{display:flex;gap:.7rem;flex-wrap:wrap;align-items:flex-end}
+.ms-row label{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.25rem}
+.ms-in{background:var(--bg);border:1.5px solid var(--b1);border-radius:6px;padding:.45rem .7rem;color:var(--txt);font-size:.82rem;outline:none}
+.ms-in:focus{border-color:var(--accent)}
+.ms-btn{background:var(--accent);border:0;color:#fff;border-radius:6px;padding:.5rem .9rem;font-size:.78rem;font-weight:600}
+.ms-btn.g{background:transparent;border:1px solid var(--b2);color:var(--txt)}
+.ms-chip{background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.4rem .7rem;display:flex;flex-direction:column;gap:.1rem}
+.ms-chip span{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3)}
+.ms-chip b{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:500}
+.ms-tbl{width:100%;border-collapse:collapse;font-size:.74rem;font-family:'DM Mono',monospace}
+.ms-tbl th{text-align:left;color:var(--txt3);font-weight:400;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .5rem;border-bottom:1px solid var(--b1)}
+.ms-tbl td{padding:.3rem .5rem;border-bottom:1px solid var(--b1);white-space:nowrap}
+.ms-it{border-left:3px solid var(--c);padding:.5rem .8rem;margin:.4rem 0;border-radius:0 6px 6px 0;font-size:.82rem;line-height:1.55;color:var(--txt2);transition:background .2s}
+.ms-it.hl{background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--txt)}
+.ms-lib{display:inline-flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--b2);border-radius:999px;padding:.3rem .4rem .3rem .8rem;font-size:.76rem;cursor:pointer}
+.ms-lib:hover{border-color:var(--accent)}
+.ms-lib em{font-style:normal;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--txt3)}
+.ms-lib b{font-weight:400;color:var(--txt3);padding:0 .35rem;border-radius:50%}
+.ms-lib b:hover{color:var(--lungo)}
+.ms-rec{background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0}
+.ms-rec-h{display:flex;align-items:center;gap:.6rem;font-size:.8rem;margin-bottom:.35rem}
+.ms-rec-h b{flex:1;font-weight:500}.ms-rec-h span{font-size:.65rem;color:var(--txt3);font-family:'DM Mono',monospace}
+.ms-rec-h i{font-style:normal;cursor:pointer;color:var(--txt3)}.ms-rec-h i:hover{color:var(--lungo)}
+.ms-rec audio{width:100%;height:34px}
+.ms-tg{background:var(--bg);border:1px solid var(--b2);color:var(--txt2);border-radius:999px;padding:.3rem .7rem;font-size:.74rem;transition:all .15s}
+.ms-tg:hover{border-color:var(--accent)}
+.ms-tg.on{border-color:var(--accent);color:var(--txt);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.ms-txt{display:flex;align-items:center;gap:.6rem;background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0}
+.ms-txt>div{flex:1;min-width:0}.ms-txt b{font-weight:500;font-size:.82rem}
+.ms-txt small{display:block;color:var(--txt3);font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-cdv{display:flex;gap:.6rem;margin:.4rem 0 .6rem}
+.ms-cdb{flex:1;text-align:center;background:var(--bg);border:1px solid var(--b1);border-radius:10px;padding:.6rem .3rem}
+.ms-cdb b{display:block;font-family:'DM Mono',monospace;font-size:1.7rem;font-weight:500;color:var(--accent)}
+.ms-cdb span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--txt3)}
+.ms-cdn{font-size:.78rem;color:var(--txt2)}
 </style>
 </head>
 <body>
 
 <!-- hidden import inputs -->
-<input type="file" id="importAllInput" accept=".json" style="display:none" onchange="importAllJSON(this)">
+<input type="file" id="importAllInput" accept=".json,.mfbackup" style="display:none" onchange="importAllJSON(this)">
 <input type="file" id="importOneInput" accept=".json" style="display:none" onchange="importOneJSON(this)">
 <input type="file" id="importNamedInput" accept=".json" style="display:none" onchange="loadNamedFile(this)">
 <input type="file" id="importActivityInput" accept=".gpx,.tcx,.json,.csv,.fit" multiple style="display:none" onchange="importActivities(this)">
@@ -584,6 +763,12 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 <!-- Print container — populated by printPlan(), hidden on screen -->
 <div id="printContainer"></div>
 <!-- ════ SCREENS ════ -->
+<!-- ════ LOADING ════ -->
+<div id="scr-loading" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;background:var(--bg);z-index:9999;">
+  <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--txt)">Maratona Firenze</div>
+  <div style="width:36px;height:36px;border:3px solid var(--b1);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;"></div>
+  <div id="loading-msg" style="font-size:.72rem;color:var(--txt3);font-family:'DM Mono',monospace;">connessione a Firebase...</div>
+</div>
 <div id="scr-profiles" class="screen hidden"></div>
 <div id="scr-wizard"  class="screen hidden"></div>
 
@@ -592,7 +777,7 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
   <div class="editor-topbar">
     <button class="ed-btn ghost" id="edBackBtn" onclick="closeEditor()">← Piano</button>
     <div class="editor-topbar-title" id="edTitle">Modifica Piano</div>
-    <span class="editor-topbar-hint" id="edHint">Clicca una sessione per editarla · Trascina dalla palette per cambiare tipo</span>
+    <span class="editor-topbar-hint" id="edHint">Clicca una sessione · Ctrl/Cmd + clic per selezionarne più di una · Trascina dalla palette</span>
     <button class="ed-btn" onclick="resetAllEdits()">↺ Ripristina tutto</button>
     <button class="ed-btn primary" onclick="saveEditorAndClose()">💾 Salva e chiudi</button>
   </div>
@@ -604,14 +789,13 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
       <div class="ed-palette-sep"></div>
       <div class="ed-palette-section">Volume rapido</div>
       <div style="padding:.4rem .75rem .75rem;display:flex;flex-direction:column;gap:.3rem;">
-        <div style="font-size:.7rem;color:var(--txt3)" id="palVolLabel">±km sulla cella selezionata:</div>
+        <div style="font-size:.7rem;color:var(--txt3)">±km sulla cella selezionata:</div>
         <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
           <button class="ed-btn" style="flex:1;font-size:.72rem;padding:.3rem" onclick="adjustKm(-2)">−2</button>
           <button class="ed-btn" style="flex:1;font-size:.72rem;padding:.3rem" onclick="adjustKm(-1)">−1</button>
           <button class="ed-btn" style="flex:1;font-size:.72rem;padding:.3rem" onclick="adjustKm(1)">+1</button>
           <button class="ed-btn" style="flex:1;font-size:.72rem;padding:.3rem" onclick="adjustKm(2)">+2</button>
         </div>
-        <div style="font-size:.65rem;color:var(--txt3)">(cross: ±5min)</div>
       </div>
     </div>
     <!-- Grid -->
@@ -628,10 +812,16 @@ textarea.ed-input{resize:vertical;font-size:.78rem;}
 </div>
 <div id="scr-plan"   class="hidden">
   <div class="topbar" id="topbar"></div>
-  <div id="tab-plan"      class="hidden"><div class="plan-wrap" id="planWeeks"></div></div>
-  <div id="tab-dashboard" class="hidden"><div class="plan-wrap" id="dashContent"></div></div>
-  <div id="tab-history"   class="hidden"><div class="plan-wrap" id="histContent"></div></div>
-  <div id="tab-compare"   class="hidden"><div class="plan-wrap" id="cmpContent"></div></div>
+  <div class="plan-shell">
+    <aside class="athlete-sidebar" id="athleteSidebar"></aside>
+    <main class="plan-main">
+      <div id="tab-plan"      class="hidden"><div class="plan-wrap" id="planWeeks"></div></div>
+      <div id="tab-dashboard" class="hidden"><div class="plan-wrap" id="dashContent"></div></div>
+      <div id="tab-history"   class="hidden"><div class="plan-wrap" id="histContent"></div></div>
+      <div id="tab-compare"   class="hidden"><div class="plan-wrap" id="cmpContent"></div></div>
+      <div id="tab-mindset"   class="hidden"><div class="plan-wrap" id="mindContent"></div></div>
+    </main>
+  </div>
 </div>
 <div class="modal-overlay hidden" id="modal">
   <div class="modal-box" id="modalBox"></div>
@@ -671,17 +861,126 @@ const TARGET_PRESETS = [
 // ═══════════════════════════════════════════════════════════════
 // STORAGE
 // ═══════════════════════════════════════════════════════════════
+// ── FIREBASE ────────────────────────────────────────────────────
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBjA6MvfL6qWHeiQDtASYVZcePIXE1zHMc",
+  authDomain: "running-7a13f.firebaseapp.com",
+  databaseURL: "https://running-7a13f-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "running-7a13f",
+  storageBucket: "running-7a13f.firebasestorage.app",
+  messagingSenderId: "95747151149",
+  appId: "1:95747151149:web:d4b5173eb7e95c2ff26fa4"
+};
+let _db = null, _dbRef = null, _fbInitialized = false, _saveTimeout = null;
+
+async function initFirebase() {
+  if (_fbInitialized) return;
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { getDatabase, ref, set, onValue } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    const app = initializeApp(FIREBASE_CONFIG);
+    _db = getDatabase(app);
+    _dbRef = { ref, set, onValue };
+    _fbInitialized = true;
+    console.log('Firebase connesso \u2713');
+  } catch(e) {
+    console.warn('Firebase non disponibile, uso localStorage:', e);
+  }
+}
+
 // Accepts both "10,8" and "10.8" (and trailing text such as "10,8 km")
 function num(v){ const n=parseFloat(String(v??'').trim().replace(',','.')); return isNaN(n)?NaN:n; }
-function loadStore(){
-  let st; try{st=JSON.parse(localStorage.getItem('mfv3')||'{}')}catch{st={}}
+function loadStore() {
+  let st; try { st=JSON.parse(localStorage.getItem('mfv3') || '{}'); } catch { st={}; }
   // repair logs saved earlier with a decimal comma
-  Object.values(st).forEach(a=>Object.values(a?.log||{}).forEach(l=>{
+  Object.values(st).forEach(a=>{ if(a&&typeof a==='object') Object.values(a.log||{}).forEach(l=>{
     if(l&&typeof l.km==='string'&&l.km.includes(',')){ const n=num(l.km); l.km=isNaN(n)?'':String(n); }
-  }));
+  }); });
   return st;
 }
-function saveStore(s){ try{localStorage.setItem('mfv3',JSON.stringify(s))}catch{} }
+
+function saveStore(s) {
+  try { localStorage.setItem('mfv3', JSON.stringify(s)); } catch {}
+  if (!_fbInitialized) return;
+  clearTimeout(_saveTimeout);
+  _saveTimeout = setTimeout(() => {
+    const { ref, set } = _dbRef;
+    set(ref(_db, 'athletes'), s).catch(e => console.warn('Firebase write error:', e));
+  }, 600);
+}
+
+async function syncFromFirebase() {
+  // Timeout di sicurezza: se Firebase non risponde in 5s, mostra i dati locali
+  const fallbackTimer = setTimeout(() => { hideLoading('locale'); renderProfiles(); }, 5000);
+
+  await initFirebase();
+  if (!_fbInitialized) {
+    clearTimeout(fallbackTimer);
+    hideLoading('locale');
+    renderProfiles();
+    return;
+  }
+  const { ref, onValue } = _dbRef;
+  let firstLoad = true;
+  onValue(ref(_db, 'athletes'), (snapshot) => {
+    clearTimeout(fallbackTimer);
+    const data = snapshot.val();
+    if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+      store = data;
+      try { localStorage.setItem('mfv3', JSON.stringify(store)); } catch {}
+    }
+    if (firstLoad) {
+      firstLoad = false;
+      hideLoading('firebase');
+      renderProfiles();
+    } else {
+      // Aggiornamento in tempo reale successivo al primo
+      if (activePid && store[activePid]) {
+        // Utente gia' sulla dashboard: aggiorna solo i dati senza cambiare schermata
+        const p = store[activePid];
+        plan = buildPlan({
+          profileKey: p.profileKey || 'intermediate',
+          goalMin: p.goalMin || 210,
+          runDays: p.runDays || [0,2,4,6],
+          crossDay: p.crossDay ?? 1,
+          garaTestWeek: p.garaTestWeek ?? 8,
+          garaTestDay: p.garaTestDay ?? 6,
+          dayTypes: p.dayTypes || {},
+          planRules: p.planRules || {}
+        });
+        zones = calcZones(p.goalMin || 210);
+        applySessionEdits();
+        if (document.getElementById('scr-plan') && document.getElementById('scr-plan').style.display !== 'none') renderTab();
+        showSyncBadge();
+      } else {
+        // Nessun atleta attivo: aggiorna la lista profili
+        renderProfiles();
+      }
+    }
+  }, (error) => {
+    clearTimeout(fallbackTimer);
+    console.warn('Firebase read error:', error);
+    hideLoading('locale');
+    renderProfiles();
+  });
+}
+
+function hideLoading(source) {
+  const el = document.getElementById('scr-loading');
+  if (!el) return;
+  el.style.opacity = '0';
+  el.style.transition = 'opacity .3s';
+  setTimeout(() => { el.style.display = 'none'; }, 320);
+  if (source === 'locale') console.log('App avviata da localStorage');
+}
+
+function showSyncBadge() {
+  const badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  badge.textContent = '\u2601 sync';
+  badge.style.opacity = '1';
+  setTimeout(() => { badge.style.opacity = '0'; }, 2000);
+}
 
 // ═══════════════════════════════════════════════════════════════
 // UTILS
@@ -720,10 +1019,11 @@ function hide(id){el(id).classList.add('hidden');}
 // PLAN ENGINE
 // ═══════════════════════════════════════════════════════════════
 function buildPlan(cfg){
-  const {profileKey,goalMin,runDays,crossDay,garaTestWeek}=cfg;
+  const {profileKey,goalMin,runDays,crossDay,garaTestWeek,garaTestDay=6,raceDay=6,dayTypes={},planRules={}}=cfg;
+  const _pr=planRules;
   const prof=PROFILES_DEF[profileKey];
   const z=calcZones(goalMin);
-  const BASE_LONG=[20,21,24,17,26,28,30,16,21,prof.peakLong,23,17,10,5];
+  const BASE_LONG=(_pr.longKm&&_pr.longKm.length===14)?[..._pr.longKm]:[20,21,24,17,26,28,30,16,21,prof.peakLong,23,17,10,5];
   if(garaTestWeek!==null) BASE_LONG[garaTestWeek]=21;
   const weeks=[];
   for(let wi=0;wi<14;wi++){
@@ -732,7 +1032,9 @@ function buildPlan(cfg){
     const phase=wi<4?0:wi<9?1:2;
     const longKm=BASE_LONG[wi];
     const rd=[...runDays].sort((a,b)=>a-b);
-    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z);
+    const specialDay=isRace?raceDay:garaTestDay;
+    const specialIndex=rd.indexOf(specialDay);
+    const assigns=assignSessions(wi,rd.length,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex>=0?specialIndex:rd.length-1,rd,dayTypes,_pr);
     const sessions=[];
     for(let day=0;day<7;day++){
       if(rd.includes(day)){
@@ -751,26 +1053,39 @@ function buildPlan(cfg){
   return weeks;
 }
 
-function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z){
-  if(isRace) return [
+function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z,specialIndex,rd=[],dayTypes={},planRules={}){
+  if(isRace) {
+    const raceSessions = [
     {type:'easy',km:8,  desc:'Corsa rilassata. Visualizza il percorso di Firenze.',zone:'easy'},
     {type:'rep', km:7,  desc:'20\' facile + 3×200m al ritmo gara + def.',zone:'rep'},
     {type:'easy',km:5,  desc:'20\' sciolta + 4 allunghi. Riposa sabato.',zone:'easy'},
     {type:'race',km:42.195,desc:'Parti 5–8" lento nei primi 5 km. Dal km 30 dai tutto!',zone:'race'},
     {type:'easy',km:10, desc:'Recupero post gara.',zone:'easy'},
     {type:'rep', km:8,  desc:'Attivazione leggera.',zone:'rep'},
-  ].slice(0,n);
+    ];
+    const race = raceSessions.splice(3,1)[0];
+    raceSessions.splice(Math.min(specialIndex,n-1),0,race);
+    return raceSessions.slice(0,n);
+  }
 
-  if(isGara) return [
+  if(isGara) {
+    const testSessions = [
     {type:'easy',km:10,desc:'Corsa sciolta. Preparazione settimana gara test.',zone:'easy'},
     {type:'rep', km:10,desc:'2 km risc. + 3×1000m vivaci + 3 km def.',zone:'rep'},
     {type:'easy',km:6, desc:'30\' facile + 4–5 allunghi. Gambe fresche.',zone:'easy'},
     {type:'test',km:21,desc:'Mezza maratona test. Conferma la forma.',zone:'halfTest'},
     {type:'easy',km:8, desc:'Recupero post gara test.',zone:'easy'},
     {type:'rep', km:9, desc:'Attivazione 2×2000m blandi.',zone:'rep'},
-  ].slice(0,n);
+    ];
+    const test = testSessions.splice(3,1)[0];
+    testSessions.splice(Math.min(specialIndex,n-1),0,test);
+    return testSessions.slice(0,n);
+  }
 
-  const bE=isRest?8:10, bR=isRest?11:12+Math.floor(phase), bM=isRest?11:12+phase;
+  const _kmE=planRules&&planRules.kmEasy?planRules.kmEasy:10;
+  const _kmR=planRules&&planRules.kmRep?planRules.kmRep:13;
+  const _kmM=planRules&&planRules.kmMedio?planRules.kmMedio:14;
+  const bE=isRest?Math.max(6,_kmE-2):_kmE, bR=isRest?Math.max(8,_kmR-2):_kmR+Math.floor(phase), bM=isRest?Math.max(8,_kmM-2):_kmM+phase;
   const pool=[
     {type:'easy',km:bE, desc:'Corsa di recupero. Ritmo istintivo, FC bassa.',zone:'easy'},
     {type:'rep', km:bR, desc:phase===0?'2 km risc. + 6×1000m (rec. 90") + 2 km def.':'3 km risc. + 4×2000m (rec. 90") + 3 km def.',zone:'rep'},
@@ -783,6 +1098,24 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z){
     {type:'easy',km:bE-2,desc:'Corsa sciolta aggiuntiva.',zone:'easy'},
     {type:'rep', km:bR-2,desc:'2 km risc. + 5×1000m (rec. 90") + 2 km def.',zone:'rep'},
   ];
+  // Se dayTypes e' definito, assegna il tipo preferito a ciascun giorno
+  if(rd.length && dayTypes && Object.keys(dayTypes).length){
+    const sortedDays=[...rd].sort((a,b)=>a-b);
+    const result=[];
+    const used=new Set();
+    for(const day of sortedDays){
+      const pref=dayTypes[String(day)] || dayTypes[day];
+      let found=-1;
+      for(let i=0;i<pool.length;i++){
+        if(!used.has(i) && pool[i].type===pref){found=i;break;}
+      }
+      if(found===-1){
+        for(let i=0;i<pool.length;i++){if(!used.has(i)){found=i;break;}}
+      }
+      if(found!==-1){used.add(found);result.push(pool[found]);}
+    }
+    if(result.length===n) return result;
+  }
   return pool.slice(0,n);
 }
 
@@ -790,7 +1123,7 @@ function assignSessions(wi,n,longKm,phase,isRest,isPeak,isGara,isRace,z){
 // APP STATE
 // ═══════════════════════════════════════════════════════════════
 let store={}, activePid=null, plan=[], zones={}, expandedWeek=-1, activeTab='plan';
-let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8};
+let wizStep=0, wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'},planRules:{longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13}};
 
 // ═══════════════════════════════════════════════════════════════
 // PROFILES SCREEN
@@ -802,7 +1135,7 @@ function renderProfiles(){
   const entries=Object.entries(store).filter(([,v])=>v&&v.name);
   scr.innerHTML=`
     <div style="margin-bottom:2rem;text-align:center">
-      <div style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem">FIRENZE · 28 NOVEMBRE 2026</div>
+      <div style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem">FIRENZE · 29 NOVEMBRE 2026</div>
       <h1 style="font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:800;line-height:1.05;margin-bottom:.4rem">Chi sta correndo?</h1>
       <p style="color:var(--txt3);font-size:.9rem">Seleziona il tuo profilo o creane uno nuovo</p>
     </div>
@@ -810,7 +1143,7 @@ function renderProfiles(){
       ${entries.map(([pid,p])=>{
         const pd=PROFILES_DEF[p.profileKey||'intermediate']||PROFILES_DEF.intermediate;
         const allS=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8})
+          runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}})
           .flatMap(w=>w.sessions).filter(s=>s.type!=='rest');
         const done=Object.keys(p.log||{}).length;
         const pct=allS.length?Math.round(done/allS.length*100):0;
@@ -831,8 +1164,11 @@ function renderProfiles(){
       <button class="pab-btn" onclick="exportAllJSON()" title="Esporta tutti i profili in un file JSON">
         💾 Esporta tutti (JSON)
       </button>
-      <button class="pab-btn" onclick="el('importAllInput').click()" title="Importa profili da file JSON">
-        📂 Importa da JSON
+      <button class="pab-btn" onclick="exportSecureBackup()" title="Crea un backup cifrato con password">
+        🔐 Backup protetto
+      </button>
+      <button class="pab-btn" onclick="el('importAllInput').click()" title="Importa profili da JSON o backup cifrato">
+        📂 Importa JSON / backup
       </button>
     </div>`;
 }
@@ -856,7 +1192,7 @@ function buildRing(pct,r,stroke,color,label){
 // ═══════════════════════════════════════════════════════════════
 function startWizard(){
   wizStep=0;
-  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8};
+  wizCfg={name:'',profileKey:'intermediate',goalMin:210,runDays:[0,2,4,6],crossDay:1,garaTestWeek:8,garaTestDay:6,dayTypes:{0:'easy',2:'medio',4:'lungo',6:'rep'},planRules:{longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13}};
   hide('scr-profiles');
   show('scr-wizard');
   renderWizStep();
@@ -864,8 +1200,8 @@ function startWizard(){
 
 function renderWizStep(){
   const scr=el('scr-wizard');
-  const TITLES=['Profilo atleta','Giorni & Obiettivo','Gara test & Riepilogo'];
-  const dots=[0,1,2].map(i=>`<div class="wiz-dot ${i<wizStep?'done':i===wizStep?'active':'idle'}"></div>`).join('');
+  const TITLES=['Profilo atleta','Giorni & Obiettivo','Regole Piano','Gara test & Riepilogo'];
+  const dots=[0,1,2,3].map(i=>`<div class="wiz-dot ${i<wizStep?'done':i===wizStep?'active':'idle'}"></div>`).join('');
   let body='';
 
   if(wizStep===0){
@@ -898,6 +1234,19 @@ function renderWizStep(){
       return `<button class="day-btn ${isSel?'cross-sel':isRun?'disabled':''}" onclick="wSetCross(${i})">${d}</button>`;
     }).join('');
     const presets=TARGET_PRESETS.map(t=>`<button class="preset-btn ${wizCfg.goalMin===t.m?'sel':''}" onclick="wSetGoal(${t.m})">${t.l}</button>`).join('');
+    const RUN_TYPES=[
+      {type:'easy',  label:'Facile',  color:'#34d399'},
+      {type:'medio', label:'Medio',   color:'#fbbf24'},
+      {type:'lungo', label:'Lungo',   color:'#fb7185'},
+      {type:'rep',   label:'Ripetute',color:'#a78bfa'},
+    ];
+    const dayTypesRows = wizCfg.runDays.sort((a,b)=>a-b).map(i => {
+      const typeBtns = RUN_TYPES.map(rt => {
+        const sel = (wizCfg.dayTypes||{})[i]===rt.type;
+        return `<button class="wtype-btn ${sel?'sel':''}" style="--tc:${rt.color}" onclick="wSetDayType(${i},'${rt.type}')">${rt.label}</button>`;
+      }).join('');
+      return `<div class="wtype-row"><span class="wtype-day">${DAYS_L[i]}</span><div class="wtype-btns">${typeBtns}</div></div>`;
+    }).join('');
     body=`
       <div style="margin-bottom:1.1rem">
         <label class="field-label">OBIETTIVO — <span id="wGoalLbl" style="color:var(--accent);font-family:'DM Mono',monospace">${fmtGoal(wizCfg.goalMin)}</span> · MP <span id="wMpLbl" style="color:var(--gold);font-family:'DM Mono',monospace">${fmtPace(Math.round(wizCfg.goalMin*60/42.195))}</span> /km</label>
@@ -912,6 +1261,11 @@ function renderWizStep(){
         <div class="day-grid">${runDaysBtns}</div>
         ${wizCfg.runDays.length!==p.runs?`<p style="font-size:.72rem;color:#f87171;margin-top:.4rem">Seleziona esattamente ${p.runs} giorni</p>`:''}
       </div>
+      ${wizCfg.runDays.length===p.runs?`
+      <div style="margin-bottom:1.1rem">
+        <label class="field-label">TIPO ALLENAMENTO PER GIORNO</label>
+        <div class="wtype-list">${dayTypesRows}</div>
+      </div>`:''}
       <div>
         <label class="field-label">GIORNO CROSS TRAINING</label>
         <div class="day-grid">${crossBtns}</div>
@@ -919,28 +1273,79 @@ function renderWizStep(){
   }
 
   if(wizStep===2){
+    const pr=wizCfg.planRules||{};
+    const longVals=pr.longKm||[20,21,24,17,26,28,30,16,21,35,23,17,10,5];
+    const REST_WEEKS=[3,7,11,12];
+    const longInputs=longVals.map((km,wi)=>{
+      const tag=REST_WEEKS.includes(wi)?'scarico':wi===9?'picco':wi===13?'gara':'';
+      const color=wi===9?'var(--gold)':REST_WEEKS.includes(wi)?'var(--txt3)':wi===13?'var(--accent)':'var(--txt2)';
+      const tagHtml=tag?('<em> '+tag+'</em>'):'';
+      const dimStyle=(REST_WEEKS.includes(wi)||wi===13)?'style="opacity:.55"':'';
+      return '<div class="prule-km-cell">'
+        +'<span class="prule-week" style="color:'+color+'">W'+(wi+1)+tagHtml+'</span>'
+        +'<input type="number" class="prule-input" min="5" max="50" value="'+km+'" oninput="wSetLongKm('+wi+',this.value)" '+dimStyle+'>'
+        +'<span class="prule-unit">km</span>'
+        +'</div>';
+    }).join('');
+    body=`
+      <div style="margin-bottom:1.2rem">
+        <label class="field-label">KM BASE PER TIPO SESSIONE</label>
+        <div class="prule-row">
+          <div class="prule-item" style="--pc:#34d399">
+            <span class="prule-lbl">Facile</span>
+            <input type="number" class="prule-input" min="5" max="20" value="${pr.kmEasy||10}"
+              oninput="wizCfg.planRules.kmEasy=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+          <div class="prule-item" style="--pc:#fbbf24">
+            <span class="prule-lbl">Medio</span>
+            <input type="number" class="prule-input" min="8" max="25" value="${pr.kmMedio||14}"
+              oninput="wizCfg.planRules.kmMedio=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+          <div class="prule-item" style="--pc:#a78bfa">
+            <span class="prule-lbl">Ripetute</span>
+            <input type="number" class="prule-input" min="6" max="22" value="${pr.kmRep||13}"
+              oninput="wizCfg.planRules.kmRep=+this.value">
+            <span class="prule-unit">km</span>
+          </div>
+        </div>
+        <p style="font-size:.68rem;color:var(--txt3);margin-top:.4rem">I km crescono automaticamente nelle fasi avanzate del piano.</p>
+      </div>
+      <div>
+        <label class="field-label">KM LUNGO PER SETTIMANA</label>
+        <div class="prule-km-grid">${longInputs}</div>
+      </div>`;
+  }
+
+  if(wizStep===3){
     const weeks=Array.from({length:7},(_,i)=>i+4).map(wi=>{
       const d=addDays(START,wi*7);
       return `<button class="gara-btn ${wizCfg.garaTestWeek===wi?'sel':''}" onclick="wSetGara(${wi})">W${wi+1} · ${fmtD(d)}</button>`;
     }).join('');
+    const garaDayBtns=wizCfg.runDays.map(i=>`<button class="day-btn ${wizCfg.garaTestDay===i?'run-sel':''}" onclick="wSetGaraDay(${i})">${DAYS_L[i]}</button>`).join('');
     body=`
       <div style="margin-bottom:1.1rem">
         <label class="field-label">SETTIMANA GARA TEST (mezza maratona)</label>
         <div class="gara-grid">${weeks}</div>
+      </div>
+      <div style="margin-bottom:1.1rem">
+        <label class="field-label">GIORNO GARA TEST</label>
+        <div class="day-grid">${garaDayBtns}</div>
       </div>
       <div class="summary-box">
         <strong>${wizCfg.name||'—'}</strong> · ${PROFILES_DEF[wizCfg.profileKey].icon} ${PROFILES_DEF[wizCfg.profileKey].name}<br>
         Obiettivo <strong style="color:var(--accent)">${fmtGoal(wizCfg.goalMin)}</strong> · MP <strong style="color:var(--gold);font-family:'DM Mono',monospace">${fmtPace(Math.round(wizCfg.goalMin*60/42.195))} /km</strong><br>
         Corsa: <strong>${wizCfg.runDays.map(d=>DAYS_L[d]).join(', ')}</strong><br>
         Cross: <strong style="color:var(--blue)">${DAYS_L[wizCfg.crossDay]}</strong><br>
-        Gara test: <strong style="color:var(--teal)">W${wizCfg.garaTestWeek+1} · ${fmtD(addDays(START,wizCfg.garaTestWeek*7))}</strong><br>
-        Lungo picco: <strong style="color:var(--gold)">${PROFILES_DEF[wizCfg.profileKey].peakLong} km</strong>
+        Gara test: <strong style="color:var(--teal)">W${wizCfg.garaTestWeek+1} · ${DAYS_L[wizCfg.garaTestDay]} · ${fmtD(addDays(START,wizCfg.garaTestWeek*7+wizCfg.garaTestDay))}</strong><br>
+        Lungo picco: <strong style="color:var(--gold)">${(wizCfg.planRules&&wizCfg.planRules.longKm&&wizCfg.planRules.longKm[9])||PROFILES_DEF[wizCfg.profileKey].peakLong} km</strong>
       </div>`;
   }
 
   scr.innerHTML=`
     <div style="text-align:center;margin-bottom:1.25rem">
-      <div style="font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem">NUOVO ATLETA · PASSO ${wizStep+1}/3</div>
+      <div style="font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem">NUOVO ATLETA · PASSO ${wizStep+1}/4</div>
       <h2 style="font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800">${TITLES[wizStep]}</h2>
     </div>
     <div class="wiz-dots">${dots}</div>
@@ -949,7 +1354,7 @@ function renderWizStep(){
       <button class="wiz-btn back" onclick="${wizStep===0?'renderProfiles()':'wizPrev()'}">${wizStep===0?'← Annulla':'← Indietro'}</button>
       <button class="wiz-btn next" id="wNext" onclick="${wizStep<2?'wizNext()':'wizFinish()'}"
         ${!wizValid()?'disabled':''}>
-        ${wizStep<2?'Avanti →':'🚀 Crea Piano'}
+        ${wizStep<3?'Avanti →':'🚀 Crea Piano'}
       </button>
     </div>`;
 }
@@ -971,7 +1376,7 @@ function wizFinish(){
     hide('scr-wizard');
     activePid=pid;
     plan=buildPlan({profileKey:store[pid].profileKey||'intermediate',goalMin:store[pid].goalMin||210,
-      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8});
+      runDays:store[pid].runDays||[0,2,4,6],crossDay:store[pid].crossDay??1,garaTestWeek:store[pid].garaTestWeek??8,garaTestDay:store[pid].garaTestDay??6,dayTypes:store[pid].dayTypes||{},planRules:store[pid].planRules||{}});
     zones=calcZones(store[pid].goalMin||210);
     applySessionEdits();
     show('scr-plan');
@@ -991,6 +1396,7 @@ function wSetProfile(k){
   wizCfg.profileKey=k;
   const defaults={beginner:[0,2,5],intermediate:[0,2,4,6],advanced:[0,2,4,5,6],elite:[0,1,2,4,5,6]};
   wizCfg.runDays=defaults[k];
+  if(!wizCfg.runDays.includes(wizCfg.garaTestDay)) wizCfg.garaTestDay=wizCfg.runDays[wizCfg.runDays.length-1];
   wizCfg.goalMin=PROFILES_DEF[k].defaultGoal;
   renderWizStep();
 }
@@ -1001,9 +1407,23 @@ function wToggleRun(i){
   if(rd.includes(i)){if(rd.length<=1)return;rd=rd.filter(x=>x!==i);}
   else{if(rd.length>=p.runs)rd.shift();rd.push(i);rd.sort((a,b)=>a-b);}
   wizCfg.runDays=rd;
+  if(!rd.includes(wizCfg.garaTestDay)) wizCfg.garaTestDay=rd[rd.length-1];
   renderWizStep();
 }
 function wSetCross(i){if(!wizCfg.runDays.includes(i)){wizCfg.crossDay=i;renderWizStep();}}
+function wSetDayType(day, type){
+  if(!wizCfg.dayTypes) wizCfg.dayTypes={};
+  wizCfg.dayTypes[day]=type;
+  // Update only the buttons for this row without full re-render
+  document.querySelectorAll(`.wtype-row`).forEach(row=>{
+    const dayLabel=row.querySelector('.wtype-day').textContent;
+    if(dayLabel!==DAYS_L[day]) return;
+    row.querySelectorAll('.wtype-btn').forEach(btn=>{
+      const t=btn.getAttribute('onclick').match(/'([^']+)'\)$/)[1];
+      btn.classList.toggle('sel', t===type);
+    });
+  });
+}
 function wSetGoal(m){wizCfg.goalMin=m;renderWizStep();}
 function wSliderMove(v){
   wizCfg.goalMin=parseInt(v);
@@ -1012,11 +1432,13 @@ function wSliderMove(v){
   if(ml)ml.textContent=fmtPace(Math.round(wizCfg.goalMin*60/42.195));
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.toggle('sel',parseInt(b.getAttribute('onclick').match(/\d+/)[0])===wizCfg.goalMin));
 }
+function wSetLongKm(wi,v){
+  if(!wizCfg.planRules) wizCfg.planRules={longKm:[20,21,24,17,26,28,30,16,21,35,23,17,10,5],kmEasy:10,kmMedio:14,kmRep:13};
+  wizCfg.planRules.longKm[wi]=Math.max(5,Math.min(50,+v));
+}
 function wSetGara(wi){wizCfg.garaTestWeek=wi;renderWizStep();}
+function wSetGaraDay(day){if(wizCfg.runDays.includes(day)){wizCfg.garaTestDay=day;renderWizStep();}}
 
-// ═══════════════════════════════════════════════════════════════
-// EFFECTIVE PLAN: base plan → (optional adaptation) → manual edits
-// ═══════════════════════════════════════════════════════════════
 function overlayEdits(pl, edits){
   pl.forEach(week => {
     week.sessions.forEach(session => {
@@ -1031,13 +1453,14 @@ function overlayEdits(pl, edits){
       if (e.crossMode !== undefined) session.crossMode = e.crossMode;
       if (e.fcTarget  !== undefined) session.fcTarget  = e.fcTarget;
     });
-    week.runKm = Math.round(week.sessions.filter(s => s.km).reduce((a,s) => a+(s.km||0), 0));
+    week.runKm = getWeekPlanKm(week);
   });
   return pl;
 }
 function basePlanFor(p){
   return buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8});
+    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,
+    garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}});
 }
 function effectivePlan(p, edits, mode){
   edits = edits || {};
@@ -1107,7 +1530,7 @@ function scaleForAdaptation(pl, info, p){
                        .replace(/km 10–(\d+)/, ()=>`km 10–${Math.max(11,nk-7)}`);
       }
     });
-    week.runKm = Math.round(week.sessions.filter(s=>s.km).reduce((a,s)=>a+(s.km||0),0));
+    week.runKm = getWeekPlanKm(week);
   });
 }
 
@@ -1150,7 +1573,7 @@ function renderAdaptPanel(){
         <div class="mono" style="color:var(--txt2)">${w.label}</div>
         <div><div style="height:6px;border-radius:3px;background:#6b7080;width:${w.runKm/mx*100}%;margin-bottom:2px"></div>
              <div style="height:6px;border-radius:3px;background:var(--accent);width:${B[i].runKm/mx*100}%"></div></div>
-        <div class="mono" style="text-align:right;color:${d<0?'#fbbf24':d>0?'#34d399':'var(--txt3)'}">${w.runKm} → ${B[i].runKm}${d?` (${d>0?'+':''}${d})`:''}</div>`; }).join('')}
+        <div class="mono" style="text-align:right;color:${d<0?'#fbbf24':d>0?'#34d399':'var(--txt3)'}">${formatPlanKm(w.runKm)} → ${formatPlanKm(B[i].runKm)}${d?` (${d>0?'+':''}${formatPlanKm(d)})`:''}</div>`; }).join('')}
     </div>`;
   }
   return html + `</div>`;
@@ -1224,6 +1647,7 @@ function applyCalibGoal(min){
   showToast(`🎯 Obiettivo impostato a ${fmtGoal(g)}`);
 }
 
+
 function showToast(msg, isErr=false){
   const t=document.createElement('div');
   t.style.cssText=`position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
@@ -1242,7 +1666,7 @@ function selectProfile(pid){
   activePid=pid;
   const p=store[pid];
   plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8});
+    runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}});
   zones=calcZones(p.goalMin||210);
   applySessionEdits();
   expandedWeek=currentWeekIdx();
@@ -1253,35 +1677,65 @@ function selectProfile(pid){
   renderTab();
 }
 
+function renderAthleteSidebar(){
+  const sidebar=el('athleteSidebar');
+  if(!sidebar)return;
+  const entries=Object.entries(store).filter(([,p])=>p&&p.name);
+  sidebar.innerHTML=`
+    <div class="athlete-sidebar-title">Atleti</div>
+    <div class="athlete-list">
+      ${entries.map(([pid,p])=>{
+        const pd=PROFILES_DEF[p.profileKey||'intermediate']||PROFILES_DEF.intermediate;
+        return `<button class="athlete-switch-btn ${pid===activePid?'active':''}" onclick="selectProfile('${pid}')" ondblclick="openAthleteEditor('${pid}')" title="Doppio clic per modificare il piano">
+          <span class="athlete-switch-icon">${pd.icon}</span>
+          <span><span class="athlete-switch-name">${p.name}</span><span class="athlete-switch-goal">${fmtGoal(p.goalMin||210)}</span></span>
+        </button>`;
+      }).join('')}
+    </div>
+    <button class="athlete-add-btn" onclick="startWizard()">＋ Nuovo atleta</button>`;
+}
+
+function openAthleteEditor(pid){
+  selectProfile(pid);
+  setTimeout(openEditor,0);
+}
+
 function renderTopbar(){
   const p=store[activePid];
+  renderAthleteSidebar();
   const pd=PROFILES_DEF[p.profileKey||'intermediate']||PROFILES_DEF.intermediate;
   const zz=calcZones(p.goalMin||210);
   const chips=[
     {l:'MP',z:'mp',c:'#fbbf24'},{l:'Soglia',z:'threshold',c:'#fbbf24'},
     {l:'Rep',z:'rep',c:'#a78bfa'},{l:'Facile',z:'easy',c:'#34d399'}
   ].map(({l,z,c})=>`<span class="zchip" style="border-color:${c}44;color:${c};background:${c}11">${l}: ${fmtPace(zz[z].lo)}–${fmtPace(zz[z].hi)}</span>`).join('');
-  const tabs=[['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto']].map(([t,i])=>
+  const tabs=[['mindset','🧠 Visual Run'],['plan','📋'],['dashboard','📊'],['history','📝'],['compare','📈 Confronto']].map(([t,i])=>
     `<button class="tab-btn ${activeTab===t?'active':''}" onclick="switchTab('${t}')">${i}</button>`).join('');
   el('topbar').innerHTML=`
     <button class="back-btn" onclick="renderProfiles()">←</button>
     <span class="profile-badge">${pd.icon} ${p.name}</span>
-    <div class="goal-slider-wrap">
-      <span style="font-size:.7rem;color:var(--txt3)">Goal:</span>
-      <input type="range" min="150" max="360" step="1" value="${p.goalMin||210}" oninput="updateGoal(this.value)">
-      <span class="goal-val" id="topGoal">${fmtGoal(p.goalMin||210)}</span>
+    <div class="goal-ctrl-wrap">
+      <button class="goal-step-btn" onclick="stepGoal(-5)" title="- 5 min">−</button>
+      <button class="goal-val-btn" id="topGoal" onclick="toggleGoalPicker()">${fmtGoal(p.goalMin||210)}</button>
+      <button class="goal-step-btn" onclick="stepGoal(+5)" title="+ 5 min">+</button>
+      <div class="goal-picker hidden" id="goalPicker">
+        ${TARGET_PRESETS.map(t=>`<button class="goal-preset-btn" onclick="pickGoal(${t.m})">${t.l}</button>`).join('')}
+      </div>
     </div>
     <div class="zone-chips" id="zoneChips">${chips}</div>
     <div class="tab-bar">${tabs}</div>
+    <span id="sync-badge" style="font-size:.58rem;font-family:'DM Mono',monospace;color:var(--accent);opacity:0;transition:opacity .5s;flex-shrink:0;">☁ sync</span>
+    <button id="theme-toggle" onclick="toggleTheme()" title="Cambia tema" style="background:none;border:1px solid var(--b1);border-radius:6px;padding:.3rem .5rem;font-size:.9rem;color:var(--txt2);cursor:pointer;flex-shrink:0;transition:all .2s;">🌙</button>
     <div class="athlete-menu" id="athleteMenu">
       <button class="athlete-menu-btn" onclick="toggleAthleteMenu()">⚙ Atleta ▾</button>
       <div class="athlete-menu-drop hidden" id="athleteMenuDrop">
         <button class="amenu-item" onclick="openPlanEditor()">🗓 Modifica Piano</button>
         <button class="amenu-item" onclick="editAthleteSettings();closeAthleteMenu()">✏️ Modifica impostazioni</button>
         <button class="amenu-item" onclick="openCalibration();closeAthleteMenu()">🎯 Calibrazione livello</button>
-        <button class="amenu-item" onclick="closeAthleteMenu();switchTab('plan');setTimeout(()=>{const g=document.getElementById('garminPanel');if(g){g.scrollIntoView({behavior:'smooth'});}},200)">⌚ Esporta per Garmin</button>
+          <button class="amenu-item" onclick="duplicateActiveProfile();closeAthleteMenu()">📄 Duplica piano su nuovo atleta</button>
         <button class="amenu-item" onclick="printPlan();closeAthleteMenu()">🖨 Stampa / Salva PDF</button>
         <button class="amenu-item" onclick="exportOneJSON();closeAthleteMenu()">💾 Esporta profilo (JSON)</button>
+        <button class="amenu-item" onclick="exportSecureBackup();closeAthleteMenu()">🔐 Backup protetto di tutti i profili</button>
         <button class="amenu-item" onclick="saveWithCustomName();closeAthleteMenu()">💾 Salva con nome…</button>
         <button class="amenu-item" onclick="el('importOneInput').click();closeAthleteMenu()">📂 Sostituisci da JSON</button>
         <button class="amenu-item" onclick="el('importNamedInput').click();closeAthleteMenu()">📂 Carica file salvato…</button>
@@ -1291,12 +1745,46 @@ function renderTopbar(){
     </div>`;
 }
 
+function stepGoal(delta){
+  const p=store[activePid];
+  const current=p.goalMin||210;
+  const next=Math.min(360,Math.max(150,current+delta));
+  updateGoal(next);
+}
+
+function toggleGoalPicker(){
+  const picker=document.getElementById('goalPicker');
+  if(!picker) return;
+  picker.classList.toggle('hidden');
+  if(!picker.classList.contains('hidden')){
+    // mark active preset
+    const cur=store[activePid]?.goalMin||210;
+    picker.querySelectorAll('.goal-preset-btn').forEach(b=>{
+      const m=parseInt(b.getAttribute('onclick').match(/\d+/)[0]);
+      b.classList.toggle('active', m===cur);
+    });
+    // close on outside click
+    setTimeout(()=>document.addEventListener('click',closeGoalPickerOutside,{once:true}),10);
+  }
+}
+
+function closeGoalPickerOutside(e){
+  const picker=document.getElementById('goalPicker');
+  if(picker && !picker.contains(e.target)) picker.classList.add('hidden');
+}
+
+function pickGoal(m){
+  updateGoal(m);
+  const picker=document.getElementById('goalPicker');
+  if(picker) picker.classList.add('hidden');
+}
+
 function updateGoal(v){
   const g=parseInt(v);
   store[activePid].goalMin=g;
   saveStore(store);
   zones=calcZones(g);
-  el('topGoal').textContent=fmtGoal(g);
+  const tg=el('topGoal'); if(tg) tg.textContent=fmtGoal(g);
   // Update zone chips
   const zz=zones;
   const chipsEl=el('zoneChips');
@@ -1318,10 +1806,6 @@ function updateGoal(v){
 
 function switchTab(t){
   activeTab=t;
-  ['plan','dashboard','history','compare'].forEach(tab=>{
-    const node=document.getElementById('tab-'+tab);
-    if(node) node.classList.toggle('hidden',tab!==t);
-  });
   renderTab();
   // Re-render topbar tabs
   document.querySelectorAll('.tab-btn').forEach(b=>{
@@ -1329,16 +1813,26 @@ function switchTab(t){
   });
 }
 
+function setActiveTabVisibility(){
+  ['plan','dashboard','history','compare','mindset'].forEach(tab=>{
+    const node=document.getElementById('tab-'+tab);
+    if(node) node.classList.toggle('hidden',tab!==activeTab);
+  });
+}
+
 function renderTab(){
   if(activePid&&store[activePid]) applySessionEdits();   // keeps totals/adaptation in sync with logs and edits
+  setActiveTabVisibility();
   if(activeTab==='plan')      renderPlan();
   if(activeTab==='dashboard') renderDashboard();
   if(activeTab==='history')   renderHistory();
   if(activeTab==='compare')   renderCompare();
+  if(activeTab==='mindset')   msTabRender();
 }
 
 // ─── PLAN TAB ───
 let garminSelectedWeeks = new Set(['all']);
+let weeklyLoadFiltersByPid = {};
 
 function renderPlan(){
   show('tab-plan'); hide('tab-dashboard'); hide('tab-history');
@@ -1348,21 +1842,8 @@ function renderPlan(){
     {name:'Sviluppo Specifico',badge:'Fase 2',weeks:[4,5,6,7,8]},
     {name:'Picco & Taper',   badge:'Fase 3', weeks:[9,10,11,12,13]},
   ];
-  const L=weeklyLoadSeries();
-  const sum=a=>Math.round(a.reduce((x,y)=>x+y,0));
-  const crossMin=plan.reduce((a,w)=>a+w.sessions.filter(s=>s.type==='cross').reduce((b,s)=>b+(s.dur||0),0),0);
-  const legend=[['rgba(52,211,153,0.85)','Facile',sum(L.easy)+' km'],['rgba(251,191,36,0.85)','Medio',sum(L.med)+' km'],
-    ['rgba(167,139,250,0.85)','Ripetute / test',sum(L.rep)+' km'],['rgba(251,113,133,0.85)','Lungo / gara',sum(L.lng)+' km'],
-    ['rgba(56,189,248,0.6)','Cross',crossMin+' min']];
-  const loadPanel=`<div class="adh-chart" style="margin-bottom:1.25rem">
-    <div style="font-size:.8rem;font-weight:700;margin-bottom:.15rem">Carichi del piano · km a settimana per tipo</div>
-    <div style="font-size:.7rem;color:var(--txt3);margin-bottom:.6rem">Si aggiorna a ogni modifica. Il cross è in scala (min ÷ 6) per stare nel grafico.</div>
-    <div style="display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem">
-      ${legend.map(([c,l,t])=>`<div style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--txt2)"><span style="width:10px;height:10px;border-radius:2px;background:${c}"></span>${l} <b style="color:var(--txt)">${t}</b></div>`).join('')}
-    </div>
-    <div style="position:relative;height:230px"><canvas id="planLoadChart" style="width:100%;height:100%;display:block"></canvas></div>
-  </div>`;
-  cont.innerHTML=renderAdaptPanel()+loadPanel+phases.map(ph=>`
+  const totalKm=getPlanTotalKm();
+  cont.innerHTML=renderAdaptPanel()+`<div class="plan-total-bar"><span class="plan-total-label">Km totali pianificati</span><strong class="plan-total-value">${formatPlanKm(totalKm)} km</strong></div>`+renderWeeklyLoadChart()+phases.map(ph=>`
     <div class="phase-hdr">
       <span class="phase-badge">${ph.badge}</span>
       <span class="phase-name">${ph.name}</span>
@@ -1370,27 +1851,83 @@ function renderPlan(){
     ${ph.weeks.map(wi=>renderWeekCard(wi)).join('')}
   `).join('')+renderPaceTable()+renderGarminPanel();
   addWeekCardListeners();
-  requestAnimationFrame(()=>drawStackedBar('planLoadChart',L.labels,[
-    {data:L.easy,color:'rgba(52,211,153,0.85)'},{data:L.med,color:'rgba(251,191,36,0.85)'},
-    {data:L.rep,color:'rgba(167,139,250,0.85)'},{data:L.lng,color:'rgba(251,113,133,0.85)'},
-    {data:L.crs,color:'rgba(56,189,248,0.5)'}]));
 }
 
-function weeklyLoadSeries(){
-  const r={labels:[],easy:[],med:[],rep:[],lng:[],crs:[]};
-  const rd=v=>Math.round(v*10)/10;
-  plan.forEach(w=>{
-    let easy=0,med=0,rep=0,lng=0,crs=0;
-    w.sessions.forEach(s=>{
-      if(s.type==='easy') easy+=s.km||0;
-      else if(s.type==='medio') med+=s.km||0;
-      else if(s.type==='rep'||s.type==='test') rep+=s.km||0;
-      else if(s.type==='lungo'||s.type==='race') lng+=s.km||0;
-      else if(s.type==='cross') crs+=(s.dur||0)/6;
-    });
-    r.labels.push(w.label);r.easy.push(rd(easy));r.med.push(rd(med));r.rep.push(rd(rep));r.lng.push(rd(lng));r.crs.push(rd(crs));
-  });
-  return r;
+function getPlanTotalKm(){
+  return plan.reduce((total,week)=>total+getWeekPlanKm(week),0);
+}
+
+function getWeekPlanKm(week){
+  return week.sessions.reduce((sum,session)=>sum+(session.km||0),0);
+}
+
+function formatPlanKm(km){
+  return Number.isInteger(km)?String(km):km.toFixed(1).replace('.',',');
+}
+
+function getWeeklyLoadTypes(){
+  const all=['easy','cross','medio','lungo','rep','test','race'];
+  if(!activePid)return all;
+  if(!weeklyLoadFiltersByPid[activePid]) weeklyLoadFiltersByPid[activePid]=new Set(all);
+  return weeklyLoadFiltersByPid[activePid];
+}
+
+function toggleWeeklyLoadFilter(type){
+  const filters=getWeeklyLoadTypes();
+  if(filters.has(type)){
+    if(filters.size===1){showToast('Mantieni almeno un tipo attivo',true);return;}
+    filters.delete(type);
+  } else filters.add(type);
+  renderPlan();
+}
+
+function resetWeeklyLoadFilters(){
+  weeklyLoadFiltersByPid[activePid]=new Set(['easy','cross','medio','lungo','rep','test','race']);
+  renderPlan();
+}
+
+function renderWeeklyLoadChart(){
+  const typeColors={easy:'#58A77A',cross:'#4E91A6',medio:'#C59A4A',lungo:'#B96C7A',rep:'#8875A8',test:'#3D9993',race:'#D4654C'};
+  const typeLabels={easy:'Facile',cross:'Cross',medio:'Medio',lungo:'Lungo',rep:'Ripetute',test:'Gara test',race:'Gara'};
+  const typeOrder=['easy','cross','medio','lungo','rep','test','race'];
+  const activeTypes=getWeeklyLoadTypes();
+  const filteredWeekKm=week=>week.sessions.reduce((sum,session)=>sum+(activeTypes.has(session.type)?(session.km||0):0),0);
+  const maxKm=Math.max(...plan.map(filteredWeekKm),1);
+  const bars=plan.map(week=>{
+    const km=filteredWeekKm(week);
+    const height=Math.max(km/maxKm*112,3);
+    const totals=typeOrder.reduce((result,type)=>{
+      result[type]=week.sessions.filter(session=>session.type===type).reduce((sum,session)=>sum+(session.km||0),0);
+      return result;
+    },{});
+    const segments=typeOrder.filter(type=>activeTypes.has(type)&&totals[type]>0).map(type=>
+      `<div class="weekly-load-segment" style="height:${totals[type]/maxKm*112}px;background:${typeColors[type]}" title="${typeLabels[type]}: ${formatPlanKm(totals[type])} km"></div>`
+    ).join('');
+    const breakdown=typeOrder.filter(type=>activeTypes.has(type)&&totals[type]>0).map(type=>`${typeLabels[type]} ${formatPlanKm(totals[type])} km`).join(' · ');
+    return `<div class="weekly-load-col" title="${week.label}: ${formatPlanKm(km)} km">
+      <span class="weekly-load-value">${formatPlanKm(km)}</span>
+      <div class="weekly-load-stack" style="height:${height}px" title="${breakdown}">${segments}</div>
+      <span class="weekly-load-label">${week.label}</span>
+    </div>`;
+  }).join('');
+  const filters=typeOrder.map(type=>`<button class="weekly-load-filter-btn ${activeTypes.has(type)?'active':''}" style="--filter-color:${typeColors[type]}" onclick="toggleWeeklyLoadFilter('${type}')">
+    <i class="weekly-load-filter-dot"></i>${typeLabels[type]}</button>`).join('');
+  return `<div class="weekly-load-chart">
+    <div class="weekly-load-title">Carico settimanale · km filtrati</div>
+    <div class="weekly-load-legend">
+      ${typeOrder.map(type=>`<span><i style="background:${typeColors[type]}"></i>${typeLabels[type]}</span>`).join('')}
+    </div>
+    <div class="weekly-load-scroll-wrap">
+      <div class="weekly-load-layout">
+        <div class="weekly-load-bars">${bars}</div>
+        <div class="weekly-load-filter-panel">
+          <div class="weekly-load-filter-title">Filtra allenamenti</div>
+          ${filters}
+          <button class="weekly-load-reset" onclick="resetWeeklyLoadFilters()">Mostra tutti</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
 function renderWeekCard(wi){
@@ -1417,7 +1954,7 @@ function renderWeekCard(wi){
       ${isCur?`<span class="week-badge">QUESTA SETTIMANA</span>`:''}
       <span class="week-dates">${week.dateRange}</span>
       <div class="adh-dots">${dots}</div>
-      <span class="week-km">~${week.runKm}km</span>
+      <span class="week-km">~${formatPlanKm(getWeekPlanKm(week))}km</span>
       <span class="wtag ${tagClass}">${tagLabel}</span>
       <span class="chevron ${isOpen?'open':''}">▼</span>
     </div>
@@ -1450,13 +1987,15 @@ function renderSessionCell(s,wi){
     ? `<span class="s-pace" style="color:var(--cross)">${s.pace||'FC 65–78%'}</span>`
     : s.zone?`<span class="s-pace" data-zone="${s.zone}">${paceStr(zones,s.zone)}</span>`:'';
   const kmHtml=s.type==='cross'
-    ? `<div class="s-cross-dur">${s.dur||50}'</div>`
+    ? `${s.km?`<div class="s-km">${s.km} km</div>`:''}<div class="s-cross-dur">${s.dur||50}'</div>`
     : `<div class="s-km">${s.km===42.195?'42.2':s.km} km</div>`;
   const p=store[activePid];
+  const sessDate=addDays(START,wi*7+s.day);
+  const sessDateStr=`${sessDate.getDate()}/${sessDate.getMonth()+1}`;
   return `
   <div class="session ${loggedCls}" onclick="openSessionAction('${key}',${wi},${s.day})">
     <div class="s-status-badge">${badge}</div>
-    <div class="s-day">${s.dayName}</div>
+    <div class="s-day">${s.dayName} <span class="s-date">${sessDateStr}</span></div>
     <div class="s-type">
       <div class="s-type-dot" style="background:${sm.color}"></div>
       <span class="s-type-lbl" style="color:${sm.color}">${s.special||sm.label}</span>
@@ -1467,6 +2006,15 @@ function renderSessionCell(s,wi){
     ${lData}
     ${!lg?'<div class="s-cta">clicca per registrare →</div>':''}
   </div>`;
+}
+
+function toggleZoneNote(id, row){
+  const note=document.getElementById(id);
+  if(!note) return;
+  const open=!note.classList.contains('hidden');
+  note.classList.toggle('hidden',open);
+  const arrow=row.querySelector('.ptable-arrow');
+  if(arrow) arrow.style.transform=open?'':'rotate(90deg)';
 }
 
 function renderPaceTable(){
@@ -1481,11 +2029,15 @@ function renderPaceTable(){
           {z:'mp',      label:'Ritmo Maratona (MP)', c:'#fbbf24', fc:'82–87%', note:'Il ritmo gara. Confortevole ma controllato.'},
           {z:'threshold',label:'Soglia / Medio',     c:'#fbbf24', fc:'87–92%', note:'Comfortably hard. Alza il lattato threshold.'},
           {z:'rep',     label:'Ripetute / Qualità',  c:'#a78bfa', fc:'92–97%', note:'VO₂max ed economia di corsa.'},
-        ].map(r=>`<tr>
+        ].map(r=>`<tr class="ptable-main-row" onclick="toggleZoneNote('znote-${r.z}',this)" style="cursor:pointer">
           <td><span class="pname"><span style="width:7px;height:7px;border-radius:50%;background:${r.c};display:inline-block;flex-shrink:0"></span>${r.label}</span></td>
           <td><span class="pval" id="tz-${r.z}">${paceStr(zones,r.z)}</span></td>
           <td style="color:var(--txt3)">${r.fc}</td>
-          <td style="color:var(--txt2);font-size:.74rem">${r.note}</td>
+          <td class="ptable-note-col" style="color:var(--txt2);font-size:.74rem">${r.note}</td>
+          <td class="ptable-arrow">›</td>
+        </tr>
+        <tr class="ptable-note-row hidden" id="znote-${r.z}">
+          <td colspan="5" class="ptable-note-expanded">${r.note}</td>
         </tr>`).join('')}
       </tbody>
     </table>
@@ -1495,10 +2047,9 @@ function renderPaceTable(){
 // One-time delegated listener — set up once, handles all week headers
 let _weekListenerReady=false;
 function addWeekCardListeners(){
-  const host=document.getElementById('planWeeks');
-  if(host._wk) return;           // #planWeeks persists across renders: attach exactly once
-  host._wk=true;
-  host.addEventListener('click',e=>{
+  if(_weekListenerReady) return;
+  _weekListenerReady=true;
+  document.getElementById('planWeeks').addEventListener('click',e=>{
     const hdr=e.target.closest('[id^="whdr-"]');
     if(!hdr) return;
     // Don't toggle if click came from inside a session cell
@@ -1515,223 +2066,63 @@ function addWeekCardListeners(){
 
 // ─── DASHBOARD TAB ───
 function renderDashboard(){
-  hide('tab-plan'); show('tab-dashboard'); hide('tab-history'); hide('tab-compare');
-  const p  = store[activePid];
-  const log= p.log || {};
-  const pd = PROFILES_DEF[p.profileKey||'intermediate'];
-  const zz = calcZones(p.goalMin||210);
-
-  // Plan uses current `plan` array (already has edits applied via applySessionEdits)
-  const allS     = plan.flatMap(w=>w.sessions).filter(s=>s.type!=='rest'&&s.type!=='cross');
-  const entries  = Object.values(log);
-  const completed= entries.filter(e=>e.completed);
-  const skipped  = entries.filter(e=>!e.completed);
-  const totalRealKm = completed.reduce((a,e)=>a+(num(e.km)||0),0);
-  const totalPlanKm = plan.reduce((a,w)=>a+w.runKm,0);
-  const loggedDays = new Set(Object.keys(log).map(baseKey)).size;
-  const adh = allS.length ? Math.min(100,Math.round(loggedDays/allS.length*100)) : 0;
-  const feels= completed.filter(e=>e.feel).map(e=>e.feel);
-  const avgFeel = feels.length ? (feels.reduce((a,b)=>a+b,0)/feels.length).toFixed(1) : '—';
-  const paces = completed.filter(e=>e.pace).map(e=>parsePaceToSec(e.pace)).filter(Boolean);
-  const bestPace = paces.length ? fmtPace(Math.min(...paces)) : '—';
-
-  // Per-week data for charts
-  const wkLabels=[], wkEasy=[], wkMed=[], wkRep=[], wkLng=[], wkCrs=[], wkReal=[];
-  plan.forEach(w=>{
-    wkLabels.push(w.label);
-    let easy=0,med=0,rep=0,lng=0,crs=0,real=0;
-    w.sessions.forEach(s=>{
-      if(s.type==='easy')  easy+=(s.km||0);
-      else if(s.type==='medio'||s.type==='threshold') med+=(s.km||0);
-      else if(s.type==='rep'||s.type==='test')        rep+=(s.km||0);
-      else if(s.type==='lungo'||s.type==='race')      lng+=(s.km||0);
-      else if(s.type==='cross')                        crs+=(s.dur||0)/6; // approx km equiv
-      dayLogs(log,w.wi,s.day).forEach(lg=>{ if(lg?.completed) real+=num(lg.km||0); });
-    });
-    wkEasy.push(Math.round(easy*10)/10);
-    wkMed.push(Math.round(med*10)/10);
-    wkRep.push(Math.round(rep*10)/10);
-    wkLng.push(Math.round(lng*10)/10);
-    wkCrs.push(Math.round(crs*10)/10);
-    wkReal.push(Math.round(real*10)/10);
-  });
+  hide('tab-plan'); show('tab-dashboard'); hide('tab-history');
+  const p=store[activePid];
+  const log=p.log||{};
+  const pd=PROFILES_DEF[p.profileKey||'intermediate'];
+  const zz=calcZones(p.goalMin||210);
+  const allS=plan.flatMap(w=>w.sessions).filter(s=>s.type!=='rest');
+  const entries=Object.values(log);
+  const completed=entries.filter(e=>e.completed);
+  const skipped=entries.filter(e=>!e.completed);
+  const totalKm=completed.reduce((a,e)=>a+(num(e.km)||0),0);
+  const loggedDays=new Set(Object.keys(log).map(baseKey)).size;
+  const adh=allS.length?Math.min(100,Math.round(loggedDays/allS.length*100)):0;
+  const feels=completed.filter(e=>e.feel).map(e=>e.feel);
+  const avgFeel=feels.length?(feels.reduce((a,b)=>a+b,0)/feels.length).toFixed(1):'—';
+  const paces=completed.filter(e=>e.pace).map(e=>{
+    const [m,s]=(e.pace||'').split(':').map(Number);return m*60+(s||0);}).filter(Boolean);
+  const bestPace=paces.length?fmtPace(Math.min(...paces)):'—';
 
   const statCards=[
-    {label:'Volume Piano',     val:totalPlanKm+'km',   sub:`${plan.length} settimane`,          mono:true, color:'var(--txt)'},
-    {label:'Km Corsi',         val:Math.round(totalRealKm)+'km', sub:`${Math.round(totalRealKm/Math.max(totalPlanKm,1)*100)}% del piano`, mono:true,
-     color:totalRealKm>=totalPlanKm*0.9?'#34d399':totalRealKm>=totalPlanKm*0.6?'#fbbf24':'#fb7185'},
-    {label:'Aderenza',         val:`${adh}%`,          sub:`${entries.length}/${allS.length} sessioni`, ring:adh, color:pd.color},
-    {label:'Completate',       val:completed.length+'',sub:`${skipped.length} saltate`,          color:'var(--txt)'},
-    {label:'Sensazione Media', val:avgFeel,             sub:'su scala 1–5 😊',                   color:'var(--txt)'},
-    {label:'Miglior Ritmo',    val:bestPace,            sub:`target MP: ${fmtPace(zz.mp.lo)}/km`, mono:true, color:'#f5c842'},
-  ].map(s=>`<div class="stat-card">
-    ${s.ring!=null?buildRing(s.ring,22,3.5,s.color||'#38bdf8',s.ring+'%'):'<div style="width:44px;flex-shrink:0"></div>'}
-    <div><div class="stat-lbl">${s.label}</div>
-    <div class="stat-val ${s.mono?'mono':''}" style="color:${s.color||'var(--txt)'}">${s.val}</div>
-    <div class="stat-sub">${s.sub||''}</div></div>
-  </div>`).join('');
+    {label:'Aderenza Piano',val:`${adh}%`,sub:`${entries.length}/${allS.length} sessioni`,ring:adh,color:pd.color},
+    {label:'Km Totalizzati', val:Math.round(totalKm)+'',sub:'km corsi finora',ring:null},
+    {label:'Sessioni Completate',val:completed.length+'',sub:`${skipped.length} saltate`,ring:null},
+    {label:'Sensazione Media',val:avgFeel,sub:'su scala 1–5',ring:null},
+    {label:'Miglior Ritmo',  val:bestPace,sub:'min/km (miglior corsa)',ring:null,mono:true},
+    {label:'Ritmo MP Attuale',val:fmtPace(zz.mp.lo),sub:fmtGoal(p.goalMin||210)+' obiettivo',ring:null,mono:true,color:'#ff5c35'},
+  ].map(s=>`
+    <div class="stat-card">
+      ${s.ring!==null?buildRing(s.ring,22,3.5,s.color||'#38bdf8',s.ring+'%'):'<div style="width:44px"></div>'}
+      <div>
+        <div class="stat-lbl">${s.label}</div>
+        <div class="stat-val ${s.mono?'mono':''}" style="color:${s.color||'var(--txt)'}">${s.val}</div>
+        <div class="stat-sub">${s.sub}</div>
+      </div>
+    </div>`).join('');
+
+  // Weekly adherence bars
+  const bars=plan.map(week=>{
+    const wS=week.sessions.filter(s=>s.type!=='rest');
+    const wL=week.sessions.filter(s=>dayLogs(log,week.wi,s.day).length>0);
+    const pct=wS.length?Math.min(1,wL.length/wS.length):0;
+    const isCur=week.wi===currentWeekIdx();
+    return `<div class="adh-bar-wrap">
+      <div class="adh-bar" style="background:${pct>0?'#ff5c35':'#1e1e28'};height:${Math.max(pct*64,2)}px;opacity:${pct===0?0.3:1};${isCur?'box-shadow:0 0 6px #ff5c35':''}"></div>
+      <span class="adh-bar-lbl" style="color:${isCur?'#ff5c35':'#3a3a4a'}">${week.label}</span>
+    </div>`;
+  }).join('');
 
   el('dashContent').innerHTML=`
     <h2 style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:1.25rem">Statistiche · ${p.name}</h2>
-    <div class="stats-grid" style="margin-bottom:1.5rem">${statCards}</div>
-
-    <!-- Chart 1: Stacked volume by type -->
-    <div class="adh-chart" style="margin-bottom:1rem">
-      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--txt3);margin-bottom:.5rem">
-        📊 Volume Settimanale per Tipo (km pianificati)
-      </div>
-      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem">
-        ${[['#34d399','Facile'],['#fbbf24','Medio'],['#a78bfa','Ripetute'],['#fb7185','Lungo'],['#38bdf8','Cross≈']].map(([c,l])=>
-          `<div style="display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--txt2)">
-            <div style="width:8px;height:8px;border-radius:50%;background:${c};flex-shrink:0"></div>${l}</div>`).join('')}
-      </div>
-      <div style="position:relative;height:200px"><canvas id="dashVolChart" style="width:100%;height:100%;display:block"></canvas></div>
-    </div>
-
-    <!-- Chart 2: Piano vs Reale -->
-    <div class="adh-chart" style="margin-bottom:1rem">
-      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--txt3);margin-bottom:.5rem">
-        📈 Piano vs Reale (km/settimana)
-      </div>
-      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem">
-        <div style="display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--txt2)"><div style="width:14px;height:3px;background:#ff5c35;border-radius:2px"></div>Pianificati</div>
-        <div style="display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--txt2)"><div style="width:14px;height:3px;background:#34d399;border-radius:2px"></div>Effettuati</div>
-      </div>
-      <div style="position:relative;height:180px"><canvas id="dashCmpChart" style="width:100%;height:100%;display:block"></canvas></div>
-    </div>
-
-    <!-- Chart 3: Aderenza per settimana -->
+    <div class="stats-grid">${statCards}</div>
     <div class="adh-chart">
-      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--txt3);margin-bottom:.6rem">
-        ✅ Aderenza per Settimana
-      </div>
-      <div class="adh-chart-bars">
-        ${plan.map(week=>{
-          const wS=week.sessions.filter(s=>s.type!=='rest');
-          const wL=week.sessions.filter(s=>dayLogs(log,week.wi,s.day).length>0);
-          const pct=wS.length?Math.min(1,wL.length/wS.length):0;
-          const isCur=week.wi===currentWeekIdx();
-          return `<div class="adh-bar-wrap">
-            <div class="adh-bar" style="background:${pct>0?(pct>=0.8?'#34d399':pct>=0.5?'#fbbf24':'#fb7185'):'#1e1e28'};height:${Math.max(pct*64,2)}px;opacity:${pct===0?0.25:1};${isCur?'box-shadow:0 0 6px #ff5c35':''}"></div>
-            <span class="adh-bar-lbl" style="color:${isCur?'#ff5c35':'#3a3a4a'}">${week.label}</span>
-          </div>`;
-        }).join('')}
-      </div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--txt3)">Aderenza per Settimana</div>
+      <div class="adh-chart-bars">${bars}</div>
     </div>`;
-
-  // Draw charts with Canvas API (no library needed)
-  requestAnimationFrame(()=>{
-    drawStackedBar('dashVolChart', wkLabels, [
-      {data:wkEasy, color:'rgba(52,211,153,0.85)'},
-      {data:wkMed,  color:'rgba(251,191,36,0.85)'},
-      {data:wkRep,  color:'rgba(167,139,250,0.85)'},
-      {data:wkLng,  color:'rgba(251,113,133,0.85)'},
-      {data:wkCrs,  color:'rgba(56,189,248,0.5)'},
-    ]);
-    drawLineComparison('dashCmpChart', wkLabels, wkLabels.map((_,i)=>wkEasy[i]+wkMed[i]+wkRep[i]+wkLng[i]), wkReal);
-  });
-}
-
-function drawStackedBar(canvasId, labels, series) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  canvas.width  = canvas.offsetWidth  || 700;
-  canvas.height = canvas.offsetHeight || 200;
-  const ctx = canvas.getContext('2d');
-  const W=canvas.width, H=canvas.height;
-  const pad={t:8,r:8,b:24,l:34};
-  const iW=W-pad.l-pad.r, iH=H-pad.t-pad.b;
-  const n=labels.length;
-  const barW=iW/n*0.72, gap=iW/n*0.28;
-
-  // Max total
-  const totals=labels.map((_,i)=>series.reduce((s,sr)=>s+(sr.data[i]||0),0));
-  const maxV=Math.max(...totals,1);
-
-  // Grid lines
-  ctx.strokeStyle='#2a2a35'; ctx.lineWidth=0.5;
-  [0,.25,.5,.75,1].forEach(f=>{
-    const y=pad.t+iH*(1-f);
-    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
-    if(f>0){
-      ctx.fillStyle='#5a5e70'; ctx.font='8px monospace'; ctx.textAlign='right';
-      ctx.fillText(Math.round(maxV*f), pad.l-3, y+3);
-    }
-  });
-
-  // Bars
-  labels.forEach((lbl,i)=>{
-    const x=pad.l+i*(iW/n)+(iW/n-barW)/2;
-    let yBase=pad.t+iH;
-    series.forEach(sr=>{
-      const v=sr.data[i]||0;
-      const h=v/maxV*iH;
-      if(h<0.5) return;
-      ctx.fillStyle=sr.color;
-      ctx.fillRect(x, yBase-h, barW, h);
-      yBase-=h;
-    });
-    // Label
-    ctx.fillStyle='#5a5e70'; ctx.font='7.5px Inter,sans-serif'; ctx.textAlign='center';
-    ctx.fillText(lbl, x+barW/2, H-5);
-    // Total on top
-    if(totals[i]>0){
-      ctx.fillStyle='#9498a8'; ctx.font='7px monospace'; ctx.textAlign='center';
-      ctx.fillText(totals[i], x+barW/2, yBase-2);
-    }
-  });
-}
-
-function drawLineComparison(canvasId, labels, planData, realData) {
-  const canvas=document.getElementById(canvasId);
-  if(!canvas) return;
-  canvas.width=canvas.offsetWidth||700; canvas.height=canvas.offsetHeight||180;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width, H=canvas.height;
-  const pad={t:8,r:8,b:24,l:34};
-  const iW=W-pad.l-pad.r, iH=H-pad.t-pad.b;
-  const n=labels.length;
-  const maxV=Math.max(...planData,...realData,1);
-  const xOf=i=>pad.l+i/(n-1)*iW;
-  const yOf=v=>pad.t+iH*(1-v/maxV);
-
-  // Grid
-  ctx.strokeStyle='#2a2a35'; ctx.lineWidth=0.5;
-  [0,.25,.5,.75,1].forEach(f=>{
-    const y=pad.t+iH*(1-f);
-    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
-    ctx.fillStyle='#5a5e70';ctx.font='8px monospace';ctx.textAlign='right';
-    ctx.fillText(Math.round(maxV*f),pad.l-3,y+3);
-  });
-
-  // Plan line (dashed)
-  ctx.strokeStyle='#ff5c35'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
-  ctx.beginPath();
-  planData.forEach((v,i)=>{const x=xOf(i),y=yOf(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
-  ctx.stroke(); ctx.setLineDash([]);
-
-  // Real area
-  ctx.fillStyle='rgba(52,211,153,.1)';
-  ctx.beginPath();
-  realData.forEach((v,i)=>{const x=xOf(i),y=yOf(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
-  ctx.lineTo(xOf(n-1),pad.t+iH);ctx.lineTo(xOf(0),pad.t+iH);ctx.closePath();ctx.fill();
-
-  // Real line
-  ctx.strokeStyle='#34d399'; ctx.lineWidth=2;
-  ctx.beginPath();
-  realData.forEach((v,i)=>{const x=xOf(i),y=yOf(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
-  ctx.stroke();
-
-  // Dots + labels
-  labels.forEach((lbl,i)=>{
-    if(realData[i]>0){ctx.fillStyle='#34d399';ctx.beginPath();ctx.arc(xOf(i),yOf(realData[i]),3,0,Math.PI*2);ctx.fill();}
-    ctx.fillStyle='#5a5e70';ctx.font='7.5px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText(lbl,xOf(i),H-5);
-  });
 }
 
 // ─── HISTORY TAB ───
-
 // ─── PACE vs HEART RATE HISTORY ───
 let _phPts=[];
 function paceHrPoints(){
@@ -1842,9 +2233,9 @@ function renderHistory(){
 function openLog(key,wi,day){
   const week=plan[wi];
   const session=week?.sessions.find(s=>s.day===day);
+  if(!session)return;
   const log=store[activePid].log||{};
   const existing=log[key]||null;
-  if(!session)return;
   const sm=SESS_META[session.type]||SESS_META.easy;
   const feel=existing?.feel||3;
 
@@ -1986,6 +2377,7 @@ function deleteLog(key){
   renderTab();
 }
 
+
 // Close modal on overlay click (one-time, safe)
 document.getElementById('modal').addEventListener('click',e=>{
   if(e.target===document.getElementById('modal')) closeModal();
@@ -2015,14 +2407,24 @@ document.addEventListener('click',e=>{
 // ═══════════════════════════════════════════════════════════════
 function editAthleteSettings(){
   const p=store[activePid];
+  const runDays=p.runDays||[0,2,4,6];
   wizStep=0;
+  const defaultLong=[20,21,24,17,26,28,30,16,21,PROFILES_DEF[p.profileKey||'intermediate'].peakLong,23,17,10,5];
   wizCfg={
     name:p.name||'',
     profileKey:p.profileKey||'intermediate',
     goalMin:p.goalMin||210,
-    runDays:p.runDays||[0,2,4,6],
+    runDays,
     crossDay:p.crossDay??1,
     garaTestWeek:p.garaTestWeek??8,
+    garaTestDay:runDays.includes(p.garaTestDay??6)?(p.garaTestDay??6):runDays[runDays.length-1],
+    dayTypes:p.dayTypes||{},
+    planRules:{
+      longKm:(p.planRules&&p.planRules.longKm)||defaultLong,
+      kmEasy:(p.planRules&&p.planRules.kmEasy)||10,
+      kmMedio:(p.planRules&&p.planRules.kmMedio)||14,
+      kmRep:(p.planRules&&p.planRules.kmRep)||13,
+    },
   };
   // Override finish to update instead of create
   window._editingPid=activePid;
@@ -2069,6 +2471,25 @@ function deleteProfileConfirmed(){
   renderProfiles();
 }
 
+function duplicateActiveProfile(){
+  const source=store[activePid];
+  if(!source)return;
+  const name=prompt('Nome del nuovo atleta:',`${source.name} - copia`);
+  if(!name||name.trim().length<2)return;
+  const pid='a_'+Date.now();
+  store[pid]={
+    ...JSON.parse(JSON.stringify(source)),
+    name:name.trim(),
+    log:{},
+    activities:[],
+    createdAt:today(),
+    duplicatedFrom:activePid,
+  };
+  saveStore(store);
+  selectProfile(pid);
+  showToast(`✅ Piano duplicato per ${store[pid].name}`);
+}
+
 // ═══════════════════════════════════════════════════════════════
 // EXPORT / IMPORT JSON
 // ═══════════════════════════════════════════════════════════════
@@ -2080,12 +2501,56 @@ function downloadJSON(data, filename){
   setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
+function downloadText(text,filename,type='text/plain;charset=utf-8'){
+  const blob=new Blob([text],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename; a.style.display='none';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
 function exportAllJSON(){
   const ts=new Date().toISOString().slice(0,10);
   downloadJSON({
     _meta:{app:'Maratona Firenze',version:2,exportedAt:new Date().toISOString(),totalAthletes:Object.keys(store).length},
     athletes:store
   }, `maratona-firenze-tutti-${ts}.json`);
+}
+
+function bytesToBase64(bytes){
+  let binary='';
+  bytes.forEach(byte=>binary+=String.fromCharCode(byte));
+  return btoa(binary);
+}
+
+function base64ToBytes(value){
+  const binary=atob(value);
+  return Uint8Array.from(binary,char=>char.charCodeAt(0));
+}
+
+async function deriveBackupKey(password,salt){
+  const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+
+async function exportSecureBackup(){
+  if(!Object.keys(store).length){showToast('Nessun profilo da salvare',true);return;}
+  const password=prompt('Inserisci una password per cifrare il backup:');
+  if(!password)return;
+  const confirmPassword=prompt('Ripeti la password:');
+  if(password!==confirmPassword){showToast('❌ Le password non coincidono',true);return;}
+  try{
+    const salt=crypto.getRandomValues(new Uint8Array(16));
+    const iv=crypto.getRandomValues(new Uint8Array(12));
+    const key=await deriveBackupKey(password,salt);
+    const payload=JSON.stringify({_meta:{app:'Maratona Firenze',version:2,exportedAt:new Date().toISOString()},athletes:store});
+    const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(payload));
+    const backup={_encrypted:true,algorithm:'AES-GCM',kdf:'PBKDF2-SHA-256',iterations:150000,salt:bytesToBase64(salt),iv:bytesToBase64(iv),data:bytesToBase64(new Uint8Array(encrypted))};
+    const ts=new Date().toISOString().slice(0,10);
+    downloadJSON(backup,`maratona-firenze-backup-${ts}.mfbackup`);
+    showToast('🔐 Backup cifrato scaricato');
+  }catch(err){showToast('❌ Impossibile creare il backup protetto',true);}
 }
 
 function exportOneJSON(){
@@ -2099,6 +2564,19 @@ function exportOneJSON(){
   }, `maratona-${safeName}-${ts}.json`);
 }
 
+// Reads plain JSON or the password-protected backup produced by "Backup protetto"
+async function readBackupData(text){
+  let data=JSON.parse(text);
+  if(data&&data._encrypted){
+    const password=prompt('Inserisci la password del backup:');
+    if(!password) throw new Error('no password');
+    const salt=base64ToBytes(data.salt),iv=base64ToBytes(data.iv);
+    const key=await deriveBackupKey(password,salt);
+    const decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,base64ToBytes(data.data));
+    data=JSON.parse(new TextDecoder().decode(decrypted));
+  }
+  return data;
+}
 // Save the active athlete (plan settings, edits, log, activities) under a name the user chooses
 function saveWithCustomName(){
   if(!activePid) return;
@@ -2114,25 +2592,19 @@ function saveWithCustomName(){
   showToast(`💾 Salvato: ${name}.json`);
 }
 
-// Load a saved file back: replaces the same athlete or adds a new one
+// Load a saved file back: one athlete or many; same-id profiles are replaced only if you confirm
 function loadNamedFile(input){
   const file=input.files[0];
   if(!file) return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     try{
-      const data=JSON.parse(e.target.result);
-      let pid=data._meta?.athleteId;
-      const p=data.athlete||(data.athletes?Object.values(data.athletes)[0]:data);
-      if(!p||!p.name) throw new Error('no athlete');
-      if(!pid||(store[pid]&&!confirm(`Il profilo "${store[pid].name}" esiste già.\nSostituirlo con il contenuto del file?\n\nOK = sostituisci · Annulla = carica come nuovo atleta`))){
-        pid='a'+Date.now().toString(36);
-      }
-      store[pid]={...p};
-      saveStore(store);
+      const list=collectAthletes(await readBackupData(e.target.result));
+      if(!list.length) throw new Error('empty');
+      const {n,lastPid}=mergeAthletes(list);
       input.value='';
-      selectProfile(pid);
-      showToast(`✅ Caricato: ${p.name}`);
+      if(n===1){ selectProfile(lastPid); } else { renderProfiles(); }
+      showToast(`✅ Caricat${n===1?'o':'i'}: ${n} profil${n===1?'o':'i'}`);
     }catch(err){
       input.value='';
       showToast('❌ File non valido',true);
@@ -2141,21 +2613,57 @@ function loadNamedFile(input){
   reader.readAsText(file);
 }
 
+// Accepts every format this app (or its older versions) ever produced:
+// {athletes:{...}}, {athlete:{...}}, a raw store {pid:{name,...}}, a single athlete {name,...}, or an array of athletes
+function collectAthletes(data){
+  const out=[];
+  const norm=(pid,a)=>{
+    if(!a||typeof a!=='object'||!a.name) return;
+    out.push([pid||('a'+Date.now().toString(36)+out.length),{
+      ...a,
+      profileKey:a.profileKey||'intermediate', goalMin:a.goalMin||210,
+      runDays:Array.isArray(a.runDays)?a.runDays:[0,2,4,6], crossDay:a.crossDay??1, garaTestWeek:a.garaTestWeek??8,
+      log:(a.log&&typeof a.log==='object')?a.log:{},
+      sessionEdits:(a.sessionEdits&&typeof a.sessionEdits==='object')?a.sessionEdits:{},
+      activities:Array.isArray(a.activities)?a.activities:[]
+    }]);
+  };
+  if(Array.isArray(data)) data.forEach((a,i)=>norm(null,a));
+  else if(data&&data.athletes) Object.entries(data.athletes).forEach(([k,a])=>norm(k,a));
+  else if(data&&data.athlete) norm(data._meta?.athleteId,data.athlete);
+  else if(data&&data.name) norm(data._meta?.athleteId,data);
+  else if(data&&typeof data==='object') Object.entries(data).forEach(([k,a])=>{ if(!k.startsWith('_')) norm(k,a); });
+  return out;
+}
+function mergeAthletes(list){
+  const clashes=list.filter(([pid])=>store[pid]);
+  const replace=clashes.length?confirm(`${clashes.length} profil${clashes.length===1?'o esiste':'i esistono'} già (${clashes.map(([,a])=>a.name).join(', ')}).\n\nOK = sostituisci con i dati del file\nAnnulla = importali come profili nuovi, senza toccare gli esistenti`):false;
+  let n=0, lastPid=null;
+  list.forEach(([pid,a],i)=>{
+    if(store[pid]&&!replace) pid='a'+Date.now().toString(36)+i;
+    store[pid]=a; lastPid=pid; n++;
+  });
+  saveStore(store);
+  return {n,lastPid};
+}
 function importAllJSON(input){
   const file=input.files[0];
   if(!file)return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     try{
-      const data=JSON.parse(e.target.result);
-      const athletes=data.athletes||data; // support both formats
-      // Merge: new athletes added, existing by pid updated
-      let imported=0;
-      Object.entries(athletes).forEach(([pid,p])=>{
-        if(pid.startsWith('_'))return;
-        if(p&&p.name){store[pid]=p;imported++;}
-      });
-      saveStore(store);
+      let data=JSON.parse(e.target.result);
+      if(data._encrypted){
+        const password=prompt('Inserisci la password del backup:');
+        if(!password){input.value='';return;}
+        const salt=base64ToBytes(data.salt),iv=base64ToBytes(data.iv);
+        const key=await deriveBackupKey(password,salt);
+        const decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,base64ToBytes(data.data));
+        data=JSON.parse(new TextDecoder().decode(decrypted));
+      }
+      const list=collectAthletes(data);
+      if(!list.length) throw new Error('empty');
+      const {n:imported}=mergeAthletes(list);
       input.value='';
       showToast(`✅ ${imported} profil${imported===1?'o':'i'} importat${imported===1?'o':'i'}`);
       renderProfiles();
@@ -2184,7 +2692,7 @@ function importOneJSON(input){
       saveStore(store);
       input.value='';
       plan=buildPlan({profileKey:p.profileKey||'intermediate',goalMin:p.goalMin||210,
-        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8});
+        runDays:p.runDays||[0,2,4,6],crossDay:p.crossDay??1,garaTestWeek:p.garaTestWeek??8,garaTestDay:p.garaTestDay??6,dayTypes:p.dayTypes||{},planRules:p.planRules||{}});
       zones=calcZones(p.goalMin||210);
       renderTopbar();
       renderTab();
@@ -2208,8 +2716,6 @@ function openSessionAction(key,wi,day){
   const log=store[activePid].log||{};
   const existing=log[key]||null;
   const sm=SESS_META[session.type]||SESS_META.easy;
-  const p=store[activePid];
-  const hasEdit=p.sessionEdits&&p.sessionEdits[`w${wi}_d${day}`];
 
   el('modalBox').innerHTML=`
     <div class="modal-header" style="margin-bottom:1rem">
@@ -2284,7 +2790,7 @@ function openSessionEditor(key,wi,day){
       <div class="editor-type-grid" id="editTypeGrid">${typeBtns}</div>
     </div>
 
-    <div class="editor-section" id="editRunFields" style="${cur.type==='cross'||cur.type==='rest'?'display:none':''}">
+    <div class="editor-section" id="editRunFields" style="${cur.type==='rest'?'display:none':''}">
       <div class="editor-section-title">Volume e dettagli</div>
       <div class="editor-row">
         <div>
@@ -2357,8 +2863,8 @@ function saveSessionEdit(edKey,wi,day){
   const type=window._editType||(document.querySelector('.etype-btn.sel')?.getAttribute('onclick').match(/'([^']+)'/)?.[1])||'easy';
   const edit={
     type,
-    km:      num(el('editKm')?.value)||undefined,
-    dur:     parseInt(el('editDur')?.value)||undefined,
+    km:      type==='rest' ? undefined : num(el('editKm')?.value)||undefined,
+    dur:     type==='cross' ? parseInt(el('editDur')?.value)||50 : undefined,
     desc:    el('editDesc')?.value||'',
     zone:    el('editZone')?.value||'easy',
     special: el('editSpecial')?.value||'',
@@ -2391,6 +2897,7 @@ function resetSessionEdit(edKey){
 // FULL-PAGE PLAN EDITOR
 // ═══════════════════════════════════════════════════════════════
 let edSelectedCell = null; // {wi, day}
+let edSelectedCells = []; // [{wi, day}]
 let edDragType     = null; // type being dragged from palette
 let edStagedEdits  = {};   // pending edits, cloned from store on open
 
@@ -2399,6 +2906,7 @@ function openEditor() {
   const p = store[activePid];
   edStagedEdits = JSON.parse(JSON.stringify(p.sessionEdits || {}));
   edSelectedCell = null;
+  edSelectedCells = [];
 
   // Rebuild plan freshly then apply staged edits
   rebuildEditorPlan();
@@ -2489,7 +2997,7 @@ function renderEditorGrid() {
     html += `<div class="ed-week-row" data-wi="${week.wi}">
       <div class="ed-week-label">
         ${week.label}
-        <small>${week.runKm}km</small>
+        <small>${formatPlanKm(getWeekPlanKm(week))}km</small>
         <small style="color:${
           week.tag==='picco'?'var(--gold)':
           week.tag==='scarico'?'var(--easy)':
@@ -2500,15 +3008,13 @@ function renderEditorGrid() {
       ${week.sessions.map(session => {
         const k = `w${week.wi}_d${session.day}`;
         const m = SESS_META[session.type] || SESS_META.rest;
-        const isSel = edSelectedCell && edSelectedCell.wi===week.wi && edSelectedCell.day===session.day;
+        const isSel = edSelectedCells.some(cell=>cell.wi===week.wi && cell.day===session.day);
         const hasEdit = !!edStagedEdits[k];
         const hasLog  = !!log[k];
         const isRest  = session.type === 'rest';
-        const kmDisp  = session.type === 'cross'
-          ? `${({'bike':'🚴','swim':'🏊','ellip':'⚙','other':'🏋'}[session.crossMode]||'🚴')} ${session.dur||50}'`
-          : session.km===42.195 ? '42.2km' : session.km ? `${session.km}km` : '';
+        const kmDisp  = session.km===42.195 ? '42.2km' : session.km ? `${session.km}km` : session.dur ? `${session.dur}'` : '';
         const paceDisp= session.zone && zones[session.zone] ? paceStr(zones,session.zone) : '';
-        return `<div class="ed-cell${isRest?' rest':''}${isSel?' selected':''}${hasLog?' logged':''}"
+        return `<div class="ed-cell${isRest?' rest':''}${isSel?' selected multi-selected':''}${hasLog?' logged':''}"
           data-wi="${week.wi}" data-day="${session.day}"
           draggable="true"
           ondragstart="cellDragStart(event,${week.wi},${session.day})"
@@ -2516,7 +3022,7 @@ function renderEditorGrid() {
           ondragover="edDragOver(event,${week.wi},${session.day})"
           ondragleave="edDragLeave(event)"
           ondrop="edDrop(event,${week.wi},${session.day})"
-          onclick="edSelectCell(${week.wi},${session.day})">
+          onclick="edSelectCell(${week.wi},${session.day},event)">
           ${isRest
             ? `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
                 height:100%;min-height:60px;gap:.25rem;pointer-events:none">
@@ -2544,16 +3050,24 @@ function renderEditorGrid() {
 }
 
 // ── SELECT CELL ──
-function edSelectCell(wi, day) {
-  edSelectedCell = { wi, day };
+function edSelectCell(wi, day, event) {
+  const key=`${wi}_${day}`;
+  if(event?.ctrlKey||event?.metaKey){
+    const index=edSelectedCells.findIndex(cell=>`${cell.wi}_${cell.day}`===key);
+    if(index>=0) edSelectedCells.splice(index,1);
+    else edSelectedCells.push({wi,day});
+  } else {
+    edSelectedCells=[{wi,day}];
+  }
+  edSelectedCell=edSelectedCells[edSelectedCells.length-1]||null;
   renderEditorGrid();
   const week = plan[wi];
   const session = week?.sessions.find(s => s.day === day);
-  renderEditorPanel(session, wi, day);
+  renderEditorPanel(session, wi, day, edSelectedCells.length);
 }
 
 // ── RIGHT PANEL ──
-function renderEditorPanel(session, wi, day) {
+function renderEditorPanel(session, wi, day, selectedCount=1) {
   const panel = el('edPanel');
   if (!session) {
     panel.innerHTML = `<div class="ed-panel-empty">
@@ -2571,26 +3085,15 @@ function renderEditorPanel(session, wi, day) {
   const typeOpts= ['easy','rep','medio','lungo','cross','rest','test','race'];
   const zoneOpts= ['easy','longEasy','mp','threshold','rep','longMP','halfTest','race'];
 
-  // Cross intensity options
-  const crossModes = [
-    {val:'bike',   lbl:'🚴 Bici'},
-    {val:'swim',   lbl:'🏊 Nuoto'},
-    {val:'ellip',  lbl:'⚙ Ellittica'},
-    {val:'other',  lbl:'🏋 Altro'},
-  ];
-  const curMode = (edStagedEdits[k]?.crossMode) || session.crossMode || 'bike';
-
   panel.innerHTML = `
     <div class="ed-panel-hdr">
       <div style="display:flex;align-items:center;gap:.4rem">
         <div style="width:8px;height:8px;border-radius:50%;background:${m.color};flex-shrink:0"></div>
-        W${wi+1} · ${DAYS_L[day]}
+        W${wi+1} · ${DAYS_L[day]}${selectedCount>1?` · ${selectedCount} sessioni selezionate`:''}
       </div>
       <small>${DAYS_L[day]} — settimana ${wi+1}</small>
     </div>
     <div class="ed-panel-content">
-
-      <!-- Tipo -->
       <div class="ed-field">
         <label>Tipo sessione</label>
         <div class="ed-type-grid">
@@ -2603,84 +3106,40 @@ function renderEditorPanel(session, wi, day) {
           }).join('')}
         </div>
       </div>
-
-      ${isRest
-        ? `<div style="color:var(--txt3);font-size:.8rem;padding:.35rem 0;line-height:1.55">
-             Giorno di riposo.<br>Cambia tipo sopra per aggiungere un allenamento<br>
-             oppure trascina qui una sessione dalla griglia.
-           </div>`
-        : isCross
-          ? `<!-- CROSS fields -->
-             <div class="ed-field">
-               <label>Modalità cross</label>
-               <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem">
-                 ${crossModes.map(c=>`<button class="ed-type-btn${curMode===c.val?' sel':''}"
-                   style="${curMode===c.val?'border-color:var(--cross);color:var(--cross);background:rgba(56,189,248,.12)':''}"
-                   onclick="edSetCrossMode(${wi},${day},'${c.val}')">${c.lbl}</button>`).join('')}
-               </div>
-             </div>
-             <div class="ed-field">
-               <label>Durata (minuti)</label>
-               <input class="ed-input" type="number" id="edDurInput"
-                 min="10" max="240" step="5"
-                 value="${session.dur||50}"
-                 oninput="edSetDur(${wi},${day},this.value)"
-                 onchange="edSetDur(${wi},${day},this.value)">
-             </div>
-             <div class="ed-field">
-               <label>Intensità target FC%</label>
-               <div style="display:flex;align-items:center;gap:.6rem">
-                 <input type="range" min="55" max="95" step="5"
-                   value="${session.fcTarget||70}"
-                   oninput="this.nextElementSibling.textContent=this.value+'%';edSetFcTarget(${wi},${day},this.value)"
-                   style="flex:1;accent-color:var(--cross)">
-                 <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--cross);min-width:2.8rem">${session.fcTarget||70}%</span>
-               </div>
-             </div>
-             <div class="ed-field">
-               <label>Descrizione / struttura</label>
-               <textarea class="ed-input" rows="2" id="edDescInput"
-                 oninput="edSetDesc(${wi},${day},this.value)">${session.desc||''}</textarea>
-             </div>`
-          : `<!-- RUN fields -->
-             <div class="ed-field">
-               <label>Distanza (km)</label>
-               <div style="display:flex;gap:.4rem;align-items:center">
-                 <input class="ed-input" type="text" inputmode="decimal" id="edKmInput"
-                   value="${session.km||''}" placeholder="es. 12"
-                   oninput="edSetKm(${wi},${day},this.value)"
-                   onchange="edSetKm(${wi},${day},this.value)"
-                   style="flex:1">
-                 <div style="display:flex;flex-direction:column;gap:.2rem">
-                   <button onclick="edKmStep(${wi},${day},1)"  style="padding:.18rem .45rem;border-radius:4px;border:1px solid var(--b2);background:var(--bg);color:var(--txt2);font-size:.75rem;cursor:pointer">+1</button>
-                   <button onclick="edKmStep(${wi},${day},-1)" style="padding:.18rem .45rem;border-radius:4px;border:1px solid var(--b2);background:var(--bg);color:var(--txt2);font-size:.75rem;cursor:pointer">−1</button>
-                 </div>
-               </div>
-             </div>
-             <div class="ed-field">
-               <label>Zona ritmo</label>
-               <select class="ed-input" onchange="edSetZone(${wi},${day},this.value)">
-                 ${zoneOpts.map(z => `<option value="${z}" ${session.zone===z?'selected':''}>${z}</option>`).join('')}
-               </select>
-               ${session.zone && zones[session.zone]
-                 ? `<div style="font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold);margin-top:.35rem">
-                      ${fmtPace(zones[session.zone].lo)} – ${fmtPace(zones[session.zone].hi)} /km</div>` : ''}
-             </div>
-             <div class="ed-field">
-               <label>Descrizione</label>
-               <textarea class="ed-input" rows="3" id="edDescInput"
-                 oninput="edSetDesc(${wi},${day},this.value)">${session.desc||''}</textarea>
-             </div>
-             <div class="ed-field">
-               <label>Etichetta speciale (opzionale)</label>
-               <input class="ed-input" id="edSpecialInput"
-                 value="${session.special||''}" placeholder="es. 🏔 PICCO"
-                 oninput="edSetSpecial(${wi},${day},this.value)">
-             </div>`
-      }
+      ${!isRest ? `
+      <div class="ed-field" id="edKmField">
+        <label>Distanza (km)</label>
+        <input class="ed-input" type="text" inputmode="decimal" id="edKmInput"
+          value="${session.km||''}" placeholder="es. 12"
+          onchange="edSetKm(${wi},${day},this.value)">
+      </div>
+      <div class="ed-field" id="edDurField" style="${isCross?'':'display:none'}">
+        <label>Durata cross (min)</label>
+        <input class="ed-input" type="number" id="edDurInput" min="10" max="180"
+          value="${session.dur||50}"
+          onchange="edSetDur(${wi},${day},this.value)">
+      </div>
+      <div class="ed-field" id="edZoneField" style="${isCross?'display:none':''}">
+        <label>Zona ritmo</label>
+        <select class="ed-input" onchange="edSetZone(${wi},${day},this.value)">
+          ${zoneOpts.map(z => `<option value="${z}" ${session.zone===z?'selected':''}>${z}</option>`).join('')}
+        </select>
+      </div>
+      <div class="ed-field">
+        <label>Descrizione</label>
+        <textarea class="ed-input" rows="3" id="edDescInput"
+          onchange="edSetDesc(${wi},${day},this.value)">${session.desc||''}</textarea>
+      </div>
+      <div class="ed-field">
+        <label>Etichetta speciale (opzionale)</label>
+        <input class="ed-input" id="edSpecialInput" value="${session.special||''}" placeholder="es. 🏔 PICCO"
+          onchange="edSetSpecial(${wi},${day},this.value)">
+      </div>
+      ` : '<div style="color:var(--txt3);font-size:.8rem;padding:.5rem 0">Giorno di riposo — cambia tipo per aggiungere un allenamento</div>'}
     </div>
     <div class="ed-panel-actions">
-      ${hasEdit ? `<button class="ed-reset-btn" onclick="quickReset(${wi},${day})">↺ Ripristina originale</button>` : ''}
+      <button class="ed-save-btn" onclick="edSaveAndRefresh(${wi},${day})">Applica modifiche</button>
+      ${hasEdit ? `<button class="ed-reset-btn" onclick="quickReset(${wi},${day})">↺ Ripristina sessione originale</button>` : ''}
     </div>`;
 }
 
@@ -2702,104 +3161,54 @@ function edGetOrCreateEdit(wi, day) {
 }
 
 function edSetType(wi, day, type) {
-  const e = edGetOrCreateEdit(wi, day);
-  const prev = e.type;
-  e.type = type;
-  if (type === 'cross') {
-    e.km  = undefined;
-    e.dur = e.dur || 50;
-    if (!e.crossMode) e.crossMode = 'bike';
-  } else if (type === 'rest') {
-    e.km = undefined; e.dur = undefined;
-  } else {
-    // switching away from cross: restore km from original session if we have no km yet
-    if (prev === 'cross' && !e.km) {
-      const orig = plan[wi]?.sessions.find(s => s.day === day);
-      e.km = orig?.km || 10;
-    }
-    e.dur = undefined;
-  }
-  // Auto-assign zone for common types
-  const zoneMap = { easy:'easy', rep:'rep', medio:'threshold', lungo:'longMP', test:'halfTest', race:'race' };
-  if (zoneMap[type]) e.zone = zoneMap[type];
-  edApplyEdit(wi, day, e);
-}
-
-function edSetCrossMode(wi, day, mode) {
-  const e = edGetOrCreateEdit(wi, day);
-  e.crossMode = mode;
-  edApplyEdit(wi, day, e);
-}
-
-function edSetFcTarget(wi, day, v) {
-  const e = edGetOrCreateEdit(wi, day);
-  e.fcTarget = parseInt(v);
-  // Don't need full rebuild just for FC — update edit silently
-  edStagedEdits[`w${wi}_d${day}`] = e;
-}
-
-function edKmStep(wi, day, delta) {
-  const e = edGetOrCreateEdit(wi, day);
-  const session = plan[wi]?.sessions.find(s => s.day === day);
-  e.km = Math.max(1, Math.round(((e.km ?? session?.km ?? 10) + delta) * 2) / 2);
-  edApplyEdit(wi, day, e);
+  edApplyToSelection(wi,day,e=>{
+    e.type = type;
+    if (type === 'cross') e.dur = e.dur || 50;
+    if (type === 'rest') { e.km = undefined; e.dur = undefined; }
+    const zoneMap = {easy:'easy',rep:'rep',medio:'threshold',lungo:'longMP',test:'halfTest',race:'race'};
+    if (!e.zone && zoneMap[type]) e.zone = zoneMap[type];
+  });
 }
 
 function edSetKm(wi, day, v) {
-  const val = num(v);
-  if (isNaN(val) || val <= 0) return;
-  const e = edGetOrCreateEdit(wi, day);
-  e.km = val;
-  edApplyEdit(wi, day, e);
+  edApplyToSelection(wi,day,e=>{ e.km = num(v) || undefined; });
 }
 function edSetDur(wi, day, v) {
-  const val = parseInt(v);
-  if (isNaN(val) || val < 1) return;
-  const e = edGetOrCreateEdit(wi, day);
-  e.dur = val;
-  edApplyEdit(wi, day, e);
+  edApplyToSelection(wi,day,e=>{ e.dur = parseInt(v) || 50; });
 }
 function edSetZone(wi, day, v) {
-  const e = edGetOrCreateEdit(wi, day);
-  e.zone = v;
-  edApplyEdit(wi, day, e);
+  edApplyToSelection(wi,day,e=>{ e.zone = v; });
 }
 function edSetDesc(wi, day, v) {
-  const e = edGetOrCreateEdit(wi, day);
-  e.desc = v;
-  // Lightweight: update edit + re-render grid (no full rebuild needed)
-  edStagedEdits[`w${wi}_d${day}`] = e;
+  edApplyToSelection(wi,day,e=>{ e.desc = v; });
 }
 function edSetSpecial(wi, day, v) {
-  const e = edGetOrCreateEdit(wi, day);
-  e.special = v;
-  edStagedEdits[`w${wi}_d${day}`] = e;
+  edApplyToSelection(wi,day,e=>{ e.special = v; });
 }
 
 function adjustKm(delta) {
-  if (!edSelectedCell) { showToast('Seleziona prima una sessione', true); return; }
-  const { wi, day } = edSelectedCell;
-  const session = plan[wi]?.sessions.find(s => s.day === day);
-  if (!session || session.type === 'rest') return;
-  const e = edGetOrCreateEdit(wi, day);
-  if (session.type === 'cross') {
-    e.dur = Math.max(10, (e.dur ?? session.dur ?? 50) + delta * 5);
-  } else {
-    e.km = Math.max(1, Math.round(((e.km ?? session.km ?? 10) + delta) * 2) / 2);
-  }
-  edApplyEdit(wi, day, e);
+  if (!edSelectedCells.length) { showToast('Seleziona prima una sessione',true); return; }
+  edApplyToSelection(null,null,e=>{
+    const session=plan[e._wi]?.sessions.find(s=>s.day===e._day);
+    if (!session || session.type === 'rest' || session.type === 'cross') return;
+    e.km=Math.max(1,Math.round(((e.km||session.km||10)+delta)*2)/2);
+  });
 }
 
-function edApplyEdit(wi, day, edit) {
-  const k = `w${wi}_d${day}`;
-  edStagedEdits[k] = edit;
+function edApplyToSelection(wi, day, mutate) {
+  const targets=edSelectedCells.length?edSelectedCells:[{wi,day}];
+  targets.forEach(target=>{
+    const edit=edGetOrCreateEdit(target.wi,target.day);
+    edit._wi=target.wi; edit._day=target.day;
+    mutate(edit);
+    delete edit._wi; delete edit._day;
+    edStagedEdits[`w${target.wi}_d${target.day}`]=edit;
+  });
   rebuildEditorPlan();
   renderEditorGrid();
-  // Re-render panel with updated session
-  const session = plan[wi]?.sessions.find(s => s.day === day);
-  if (session) renderEditorPanel(session, wi, day);
-  // Keep selection
-  edSelectedCell = { wi, day };
+  const current=edSelectedCell||targets[targets.length-1];
+  const session=plan[current.wi]?.sessions.find(s=>s.day===current.day);
+  if(session) renderEditorPanel(session,current.wi,current.day,edSelectedCells.length);
 }
 
 function edSaveAndRefresh(wi, day) {
@@ -2830,8 +3239,8 @@ function paletteDragEnd() {
   document.querySelectorAll('.palette-item').forEach(i => i.classList.remove('dragging'));
 }
 function applyTypeFromPalette(type) {
-  if (!edSelectedCell) { showToast('Seleziona prima una cella nel piano',true); return; }
-  edSetType(edSelectedCell.wi, edSelectedCell.day, type);
+  if (!edSelectedCells.length) { showToast('Seleziona prima una cella nel piano',true); return; }
+  edSetType(edSelectedCells[0].wi, edSelectedCells[0].day, type);
 }
 
 // ── CELL-TO-CELL DRAG (swap or copy) ──
@@ -2885,6 +3294,7 @@ function edDrop(e, wi, day) {
     return;
   }
   if (edDragType) {
+    edSelectedCells = [{wi,day}];
     edSelectedCell = { wi, day };
     edSetType(wi, day, edDragType);
     edDragType = null;
@@ -2951,7 +3361,7 @@ function renderGarminPanel() {
       <div>
         <div class="garmin-hdr-title">Esporta per Garmin Connect</div>
       </div>
-      <span class="garmin-hdr-sub">Workout strutturati pronti all'importazione</span>
+      <span class="garmin-hdr-sub">Attività e workout pronti all'importazione</span>
     </div>
     <div class="garmin-body">
 
@@ -2968,7 +3378,7 @@ function renderGarminPanel() {
           <span>⌚</span> Scarica .FIT
         </button>
         <button class="garmin-export-btn tcx" onclick="exportGarminTCX()">
-          <span>📄</span> Scarica .TCX
+          <span>📄</span> Scarica attività .TCX
         </button>
         <button class="garmin-export-btn ics" onclick="exportICS()">
           <span>📅</span> Scarica .ICS (Calendario)
@@ -3019,9 +3429,12 @@ function renderGarminPanel() {
           </div>
 
           <div style="border-top:1px solid var(--b1);padding-top:.7rem;font-size:.75rem;color:var(--txt3);line-height:1.55;">
-            💡 <strong style="color:var(--txt2)">Alternativa più affidabile:</strong>
-            Il formato <strong style="color:var(--txt)">.TCX</strong> è accettato da Garmin Connect con lo stesso flusso.
-            Se il .FIT non viene riconosciuto, prova il .TCX — stesso risultato, formato più permissivo.<br><br>
+            💡 <strong style="color:var(--txt2)">Attenzione:</strong>
+            Il pulsante <strong style="color:var(--txt)">.TCX</strong> scarica un file separato per ogni
+            <strong style="color:var(--txt)">attività registrata</strong>: importali in Garmin Connect tramite
+            <strong style="color:var(--txt)">Importa attività</strong>, uno alla volta se necessario.
+            Il <strong style="color:var(--txt)">.FIT</strong> resta invece un workout pianificato e va importato in
+            <strong style="color:var(--txt)">Allenamenti / Workouts</strong>.<br><br>
             ⚠ I ritmi di passo sono calcolati sul tuo obiettivo attuale
             <strong style="color:var(--accent)">${fmtGoal(store[activePid]?.goalMin||210)}</strong>
             — MP target <strong style="color:var(--gold);font-family:'DM Mono',monospace">${fmtPace(calcZones(store[activePid]?.goalMin||210).mp.lo)} /km</strong>.
@@ -3081,7 +3494,9 @@ function exportGarminFIT() {
     const safe  = (s.special || SESS_META[s.type]?.label || 'run').replace(/[^a-zA-Z0-9]/g, '');
     a.href     = url;
     a.download = `W${s.wi+1}_${safe}.fit`;
-    setTimeout(() => { a.click(); URL.revokeObjectURL(url); }, idx * 400);
+    a.style.display='none';
+    document.body.appendChild(a);
+    setTimeout(() => { a.click(); a.remove(); URL.revokeObjectURL(url); }, idx * 400);
   });
   showToast(`⌚ ${sessions.length} file .fit pronti`);
 }
@@ -3134,65 +3549,61 @@ function buildFITWorkout(session, fileIndex) {
   // Local 0 → File ID (global 0)
   //  field 0: type       u8  (0x00)  value 5 = workout
   //  field 1: manufacturer u16 (0x84) value 1 = Garmin
-  //  field 4: time_created u32 (0x86)
-  w8(0x40); w8(0); w8(0); w16(0); w8(3);
+  //  field 2: product u16, field 3: serial_number u32, field 4: time_created u32, field 5: number u16
+  w8(0x40); w8(0); w8(0); w16(0); w8(6);
     w8(0); w8(1); w8(0x00);   // type: enum
     w8(1); w8(2); w8(0x84);   // manufacturer: uint16
+    w8(2); w8(2); w8(0x84);   // product: uint16
+    w8(3); w8(4); w8(0x86);   // serial_number: uint32
     w8(4); w8(4); w8(0x86);   // time_created: uint32
+    w8(5); w8(2); w8(0x84);   // number: uint16
 
   // Data for local 0
   w8(0x00);
     w8(5);                    // type = workout
     w16(1);                   // manufacturer = Garmin
+    w16(1);                   // product
+    w32(1);                   // serial_number
     w32(fitEpoch);            // time_created
+    w16(fileIndex);            // number
 
-  // Local 1 → Workout (global 26)
-  //  field 4:  sport       u8  (running=1)
-  //  field 5:  wkt_name    string[17]
-  //  field 6:  num_valid_steps u16
-  w8(0x41); w8(0); w8(0); w16(26); w8(3);
-    w8(4); w8(1);  w8(0x00);  // sport: enum
-    w8(5); w8(17); w8(0x07);  // wkt_name: string[17]
-    w8(6); w8(2);  w8(0x84);  // num_valid_steps: uint16
+  // Local 1 → Workout (global 26): sport, sub_sport, step count, name.
+  w8(0x41); w8(0); w8(0); w16(26); w8(4);
+    w8(4); w8(1);  w8(0x00);
+    w8(5); w8(1);  w8(0x00);
+    w8(6); w8(2);  w8(0x84);
+    w8(9); w8(17); w8(0x07);
 
   // Data for local 1
   w8(0x01);
     w8(1);                    // sport = running
-    wStr(wktName, 17);        // name (null-terminated, padded)
-    w16(steps.length);        // num_valid_steps
+    w8(0);                     // sub_sport = generic
+    w16(steps.length);         // num_valid_steps
+    wStr(wktName, 17);         // workout_name
 
-  // Local 2 → Workout Step (global 27)
-  //  field 0:  wkt_step_name  string[17]
-  //  field 1:  duration_value uint32
-  //  field 2:  target_value   uint32  (speed low, mm/s)
-  //  field 3:  custom_target_value_low  uint32  (speed low)
-  //  field 4:  custom_target_value_high uint32  (speed high)
-  //  field 5:  message_index  uint16
-  //  field 6:  duration_type  enum (0=time,1=dist,5=open)
-  //  field 7:  target_type    enum (0=speed,2=open)
-  //  field 8:  intensity      enum (0=active,1=rest,2=warmup,3=cooldown)
-  w8(0x42); w8(0); w8(0); w16(27); w8(9);
-    w8(0); w8(17); w8(0x07);  // wkt_step_name: string[17]
-    w8(1); w8(4);  w8(0x86);  // duration_value: uint32
-    w8(2); w8(4);  w8(0x86);  // target_value: uint32
-    w8(3); w8(4);  w8(0x86);  // custom_target_value_low: uint32
-    w8(4); w8(4);  w8(0x86);  // custom_target_value_high: uint32
-    w8(5); w8(2);  w8(0x84);  // message_index: uint16
-    w8(6); w8(1);  w8(0x00);  // duration_type: enum
-    w8(7); w8(1);  w8(0x00);  // target_type: enum
-    w8(8); w8(1);  w8(0x00);  // intensity: enum
+  // Local 2 → Workout Step (global 27): index, name, duration and target fields.
+  w8(0x42); w8(0); w8(0); w16(27); w8(8);
+    w8(254); w8(2); w8(0x84);
+    w8(0); w8(17); w8(0x07);
+    w8(1); w8(1);  w8(0x00);
+    w8(2); w8(4);  w8(0x86);
+    w8(3); w8(1);  w8(0x00);
+    w8(4); w8(4);  w8(0x86);
+    w8(5); w8(4);  w8(0x86);
+    w8(6); w8(4);  w8(0x86);
+    w8(7); w8(1);  w8(0x00);
 
   // Data for local 2 (one per step)
   steps.forEach((step, i) => {
     w8(0x02);
-    wStr(step.name, 17);          // step name
-    w32(step.durValue);           // duration value (meters or seconds)
-    w32(step.tgtType === 0 ? spdFast : 0xFFFFFFFF);  // target_value (invalid if open)
-    w32(step.tgtType === 0 ? spdSlow : 0xFFFFFFFF);  // custom low (slowest speed)
-    w32(step.tgtType === 0 ? spdFast : 0xFFFFFFFF);  // custom high (fastest speed)
     w16(i);                       // message_index
-    w8(step.durType);             // duration_type (1=distance, 0=time, 5=open)
-    w8(step.tgtType);             // target_type (0=speed, 2=open)
+    wStr(step.name, 17);          // step name
+    w8(step.durType);             // duration_type
+    w32(step.durValue);           // duration value
+    w8(step.tgtType);             // target_type
+    w32(step.tgtType === 0 ? spdFast : 0xFFFFFFFF);
+    w32(step.tgtType === 0 ? spdSlow : 0xFFFFFFFF);
+    w32(step.tgtType === 0 ? spdFast : 0xFFFFFFFF);
     w8(step.intensity);           // intensity
   });
 
@@ -3277,7 +3688,10 @@ function buildFITSteps(session, spdFast, spdSlow, warmM, mainM, coolM) {
 
 function makeWktName(s) {
   const sm   = SESS_META[s.type] || SESS_META.easy;
-  const raw  = `W${s.wi+1} ${s.special || sm.label} ${s.km||''}km`;
+  const label = (s.special || sm.label || 'Workout')
+    .normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^A-Za-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+  const raw  = `W${s.wi+1} ${label} ${s.km||''}km`.trim();
   return raw.slice(0, 16); // max 16 chars + null → fits in 17-byte field
 }
 
@@ -3316,7 +3730,7 @@ function exportGarminTCX() {
   const z = calcZones(store[activePid]?.goalMin || 210);
   const p = store[activePid];
 
-  const workouts = weeks.flatMap(w =>
+  const activities = weeks.flatMap(w =>
     w.sessions
       .filter(s => s.type !== 'rest' && s.type !== 'cross')
       .map(s => {
@@ -3387,29 +3801,52 @@ function exportGarminTCX() {
             </Step>`;
         }
 
-        return `  <Workout Sport="Running">
-    <Name>${escXML(name)}</Name>
-    <ScheduledOn>${iso.split('T')[0]}</ScheduledOn>
-    <Notes>${escXML(s.desc||'')} | Ritmo: ${fmtPace(loS)}–${fmtPace(hiS)} /km</Notes>
-    ${steps}
-  </Workout>`;
+        const durationSec=Math.max(60,Math.round((s.km||10)*loS));
+        const start=new Date(iso), end=new Date(start.getTime()+durationSec*1000);
+        const trackpoints=Array.from({length:Math.max(2,Math.min(20,Math.ceil((s.km||10)/2)))},(_,i)=>{
+          const point=new Date(start.getTime()+durationSec*1000*i/(Math.max(2,Math.min(20,Math.ceil((s.km||10)/2)))-1));
+          return `<Trackpoint><Time>${point.toISOString()}</Time><DistanceMeters>${Math.round(distM*i/(Math.max(2,Math.min(20,Math.ceil((s.km||10)/2)))-1))}</DistanceMeters></Trackpoint>`;
+        }).join('');
+        return `  <Activity Sport="Running">
+    <Id>${start.toISOString()}</Id>
+    <Lap StartTime="${start.toISOString()}">
+      <TotalTimeSeconds>${durationSec}</TotalTimeSeconds>
+      <DistanceMeters>${distM}</DistanceMeters>
+      <Calories>0</Calories>
+      <Intensity>Active</Intensity>
+      <TriggerMethod>Manual</TriggerMethod>
+      <Track>${trackpoints}</Track>
+    </Lap>
+    <Creator xsi:type="Device_t"><Name>Maratona Firenze</Name><UnitId>1</UnitId><ProductID>1</ProductID><Version><VersionMajor>1</VersionMajor><VersionMinor>0</VersionMinor><BuildMajor>0</BuildMajor><BuildMinor>0</BuildMinor></Version></Creator>
+  </Activity>`;
       })
   ).join('\n');
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const tcxPrefix = `<?xml version="1.0" encoding="UTF-8"?>
 <TrainingCenterDatabase
   xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2
     http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd">
-  <Workouts>
-${workouts}
-  </Workouts>
-</TrainingCenterDatabase>`;
+  <Author xsi:type="Application_t">
+    <Name>Maratona Firenze</Name>
+    <Build>
+      <Version><VersionMajor>1</VersionMajor><VersionMinor>0</VersionMinor><BuildMajor>0</BuildMajor><BuildMinor>0</BuildMinor></Version>
+      <VersionString>1.0</VersionString>
+    </Build>
+    <LangID>it</LangID>
+    <PartNumber>MARATONA-FIRENZE</PartNumber>
+  </Author>
+  <Activities>`;
+  const activityBlocks=activities.match(/  <Activity[\s\S]*?<\/Activity>/g)||[];
+  const tcxSuffix='  </Activities>\n</TrainingCenterDatabase>';
 
   const ts = new Date().toISOString().slice(0,10);
-  downloadJSON(xml, `maratona-firenze-${ts}.tcx`);
-  showToast('📄 File TCX scaricato');
+  activityBlocks.forEach((activity,index)=>{
+    const xml=`${tcxPrefix}\n${activity}\n${tcxSuffix}`;
+    setTimeout(()=>downloadText(xml, `maratona-firenze-${ts}-${String(index+1).padStart(2,'0')}.tcx`, 'application/xml;charset=utf-8'), index*400);
+  });
+  showToast(`📄 ${activityBlocks.length} file TCX in download (uno per attività)`);
 }
 
 // ── ICS CALENDAR EXPORT ──
@@ -3475,7 +3912,7 @@ function openPlanEditor() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// ACTIVITY IMPORT — GPX / TCX / Garmin CSV / JSON
+// ACTIVITY IMPORT — GPX / TCX / FIT / Garmin CSV / JSON
 // ═══════════════════════════════════════════════════════════════
 
 function parsePaceToSec(str) {
@@ -3524,16 +3961,18 @@ function parseGPX(text) {
 function parseTCX(text) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(text, 'text/xml');
-  const activities = [...doc.querySelectorAll('Activity')];
+  const activities = [...doc.getElementsByTagNameNS('*','Activity')];
   return activities.map(act => {
-    const date = act.querySelector('Id')?.textContent?.split('T')[0] || today();
-    const name = act.querySelector('Notes')?.textContent || 'Attività TCX';
-    const laps = [...act.querySelectorAll('Lap')];
+    const childText=(tag,root=act)=>root.getElementsByTagNameNS('*',tag)[0]?.textContent||'';
+    const date = childText('Id').split('T')[0] || today();
+    const name = childText('Notes') || 'Attività TCX';
+    const laps = [...act.getElementsByTagNameNS('*','Lap')];
     let distM = 0, totalTime = 0, totalHR = 0, hrCount = 0;
     laps.forEach(lap => {
-      distM    += parseFloat(lap.querySelector('DistanceMeters')?.textContent || 0);
-      totalTime += parseFloat(lap.querySelector('TotalTimeSeconds')?.textContent || 0);
-      const hr = lap.querySelector('AverageHeartRateBpm Value')?.textContent;
+      const lapText=tag=>lap.getElementsByTagNameNS('*',tag)[0]?.textContent||'';
+      distM    += parseFloat(lapText('DistanceMeters')) || 0;
+      totalTime += parseFloat(lapText('TotalTimeSeconds')) || 0;
+      const hr = lapText('Value');
       if (hr) { totalHR += parseInt(hr); hrCount++; }
     });
     const km = distM / 1000;
@@ -3545,6 +3984,73 @@ function parseTCX(text) {
       hr: hrCount ? Math.round(totalHR/hrCount) : null,
     };
   }).filter(a => a.km > 0);
+}
+
+function parseFIT(buffer) {
+  const bytes=new Uint8Array(buffer);
+  if(bytes.length<14 || String.fromCharCode(...bytes.slice(8,12))!=='.FIT') return [];
+  const headerSize=bytes[0],dataSize=bytes[4]|(bytes[5]<<8)|(bytes[6]<<16)|(bytes[7]<<24);
+  const view=new DataView(buffer), definitions={}, records=[];
+  let offset=headerSize, end=Math.min(bytes.length,headerSize+dataSize),lastTimestamp=null;
+  const readValue=(raw,base,size,scale,offsetValue)=>{
+    if(raw===null)return null;
+    let value;
+    if(base===0x06)value=view.getUint32(raw,true);
+    else if(base===0x04)value=view.getUint16(raw,true);
+    else if(base===0x07)value=view.getUint32(raw,false);
+    else if(base===0x05)value=view.getUint16(raw,false);
+    else if(base===0x02)value=bytes[raw];
+    else if(base===0x01)value=bytes[raw];
+    else value=bytes[raw];
+    if(value===0xffffffff||value===0xffff||value===0xff)return null;
+    return (value-(offsetValue||0))/(scale||1);
+  };
+  while(offset<end){
+    const header=bytes[offset++],compressed=(header&0x80)!==0;
+    if(compressed){
+      const local=(header>>5)&3,def=definitions[local];
+      if(!def){offset++;continue;}
+      const fields={};
+      def.fields.filter(field=>field.num!==253).forEach(field=>{const pos=offset;offset+=field.size;fields[field.num]=readValue(pos,field.base,field.size,field.scale,field.offset);});
+      if(lastTimestamp!==null){
+        const delta=header&0x1f;
+        lastTimestamp+=((delta-(lastTimestamp&0x1f)+32)%32);
+        fields[253]=lastTimestamp;
+      }
+      if(def.global===20)records.push(fields);
+      continue;
+    }
+    const isDefinition=(header&0x40)!==0,local=header&0x0f;
+    if(isDefinition){
+      offset+=2;
+      const global=view.getUint16(offset,true); offset+=2;
+      const fieldCount=bytes[offset++],fields=[];
+      for(let i=0;i<fieldCount;i++){
+        const num=bytes[offset++],size=bytes[offset++],base=bytes[offset++];
+        const scale=global===20&&num===5?100:global===20&&num===6?1000:1;
+        fields.push({num,size,base:base&0x1f,scale,offset:0});
+      }
+      definitions[local]={global,fields};
+      continue;
+    }
+    const def=definitions[local];
+    if(!def){offset++;continue;}
+    const fields={};
+    def.fields.forEach(field=>{const pos=offset;offset+=field.size;fields[field.num]=readValue(pos,field.base,field.size,field.scale,field.offset);});
+    if(fields[253]!==null&&fields[253]!==undefined)lastTimestamp=fields[253];
+    if(def.global===20)records.push(fields);
+  }
+  if(!records.length)return [];
+  const distanceMeters=records.reduce((max,r)=>Math.max(max,typeof r[5]==='number'?r[5]:0),0);
+  const firstTime=records.find(r=>r[253])?.[253];
+  const lastTime=records.slice().reverse().find(r=>r[253])?.[253];
+  const durationSec=firstTime&&lastTime?lastTime-firstTime:null;
+  const km=distanceMeters/1000||((records.reduce((sum,r)=>sum+(typeof r[6]==='number'?r[6]:0),0)*(durationSec||0))/3600/1000);
+  if(!km)return [];
+  const pace=durationSec&&km?durationSec/km:null;
+  const hrValues=records.map(r=>r[3]).filter(v=>typeof v==='number'&&v>0&&v<250);
+  const fitEpoch=631065600;
+  return [{source:'fit',name:'Attività FIT',date:firstTime?new Date((firstTime+fitEpoch)*1000).toISOString().split('T')[0]:today(),km:Math.round(km*100)/100,durationSec:durationSec||null,pace:pace?fmtPace(Math.round(pace)):null,hr:hrValues.length?Math.round(hrValues.reduce((a,b)=>a+b,0)/hrValues.length):null}];
 }
 
 function parseGarminCSV(text) {
@@ -3622,20 +4128,23 @@ function importActivities(input) {
   files.forEach(file => {
     const reader = new FileReader();
     reader.onload = e => {
-      const text = e.target.result;
       let acts = [];
       const ext = file.name.split('.').pop().toLowerCase();
       try {
-        if (ext === 'gpx') { const a = parseGPX(text); if (a) acts = [a]; }
-        else if (ext === 'tcx') acts = parseTCX(text);
-        else if (ext === 'csv') acts = parseGarminCSV(text);
-        else if (ext === 'json') acts = parseActivitiesJSON(text);
+        if (ext === 'fit') acts = parseFIT(e.target.result);
+        else {
+          const text = e.target.result;
+          if (ext === 'gpx') { const a = parseGPX(text); if (a) acts = [a]; }
+          else if (ext === 'tcx') acts = parseTCX(text);
+          else if (ext === 'csv') acts = parseGarminCSV(text);
+          else if (ext === 'json') acts = parseActivitiesJSON(text);
+        }
       } catch(err) { console.warn('Parse error', file.name, err); }
       parsed = parsed.concat(acts);
       pending--;
       if (pending === 0) finishImport(parsed);
     };
-    reader.readAsText(file);
+    reader[ext === 'fit' ? 'readAsArrayBuffer' : 'readAsText'](file);
   });
   input.value = '';
 }
@@ -3696,10 +4205,10 @@ function renderCompare() {
   // Per-week aggregation
   const weekData = plan.map(week => {
     const wSessions = week.sessions.filter(s => s.type !== 'rest' && s.type !== 'cross');
-    const planKm = week.runKm;
+    const planKm = getWeekPlanKm(week);
     // Real km from log
     const realKm = week.sessions.filter(s => s.type !== 'cross').reduce((sum, s) => {
-      return sum + dayLogs(log,week.wi,s.day).reduce((a,lg)=>a+(lg?.completed ? num(lg.km||0) : 0),0);
+      return sum + dayLogs(log,week.wi,s.day).reduce((a,lg)=>a+(lg?.completed ? (num(lg.km)||0) : 0),0);
     }, 0);
     // All paces logged this week
     const paces = week.sessions.flatMap(s => dayLogs(log,week.wi,s.day).map(lg => lg?.pace ? parsePaceToSec(lg.pace) : null)).filter(Boolean);
@@ -3708,7 +4217,7 @@ function renderCompare() {
   });
 
   // Global stats
-  const totalPlanKm = weekData.reduce((a,w)=>a+w.planKm,0);
+  const totalPlanKm = getPlanTotalKm();
   const totalRealKm = weekData.reduce((a,w)=>a+w.realKm,0);
   const loggedPaces = Object.values(log).filter(e=>e.completed&&e.pace).map(e=>parsePaceToSec(e.pace)).filter(Boolean);
   const avgGlobalPace = loggedPaces.length ? Math.round(loggedPaces.reduce((a,b)=>a+b,0)/loggedPaces.length) : null;
@@ -3787,10 +4296,11 @@ function renderCompare() {
         <input type="file" accept=".gpx,.tcx,.json,.csv" multiple onchange="importActivities(this)">
         <div style="font-size:1.8rem;margin-bottom:.5rem">📁</div>
         <div style="font-size:.9rem;font-weight:600;color:var(--txt)">Trascina file o clicca per selezionare</div>
-        <div style="font-size:.75rem;color:var(--txt3);margin-top:.25rem">Garmin GPX · TCX · CSV Export · JSON</div>
+        <div style="font-size:.75rem;color:var(--txt3);margin-top:.25rem">Garmin GPX · TCX · FIT · CSV · JSON</div>
         <div class="import-formats">
           <span class="fmt-badge">.GPX</span>
           <span class="fmt-badge">.TCX</span>
+          <span class="fmt-badge">.FIT</span>
           <span class="fmt-badge">Garmin CSV</span>
           <span class="fmt-badge">Strava JSON</span>
         </div>
@@ -3977,8 +4487,8 @@ function renderImportPreview(activities) {
 function actDropHandler(e) {
   e.preventDefault();
   document.getElementById('actDropZone')?.classList.remove('drag-active');
-  const files = [...e.dataTransfer.files].filter(f => /\.(gpx|tcx|json|csv)$/i.test(f.name));
-  if (!files.length) { showToast('Formato non supportato — usa GPX, TCX, CSV o JSON',true); return; }
+  const files = [...e.dataTransfer.files].filter(f => /\.(gpx|tcx|fit|json|csv)$/i.test(f.name));
+  if (!files.length) { showToast('Formato non supportato — usa GPX, TCX, FIT, CSV o JSON',true); return; }
   // Reuse importActivities logic
   const fakeInput = { files };
   importActivities(fakeInput);
@@ -4049,7 +4559,7 @@ function printPlan() {
       <div class="pr-week-hdr">
         <span class="pr-week-n">${week.label}</span>
         <span class="pr-week-date">${week.dateRange}</span>
-        <span class="pr-week-km">~${week.runKm} km</span>
+        <span class="pr-week-km">~${formatPlanKm(getWeekPlanKm(week))} km</span>
         <span class="pr-week-tag ${tagCls(tag)}">${tagLabels[tag]||tag}</span>
       </div>
       <div class="pr-sessions">
@@ -4066,6 +4576,9 @@ function printPlan() {
 
   /* ── cover ── */
   const mpSec = z.mp.lo;
+  const peakWeek = plan.find(week => week.isPeak) || plan[9];
+  const peakLongSession = peakWeek?.sessions.find(session => session.type === 'lungo' && session.km);
+  const peakLongKm = peakLongSession?.km || pd.peakLong;
   const zonePills = [
     {l:'Facile', z:'easy'}, {l:'MP', z:'mp'}, {l:'Soglia', z:'threshold'}, {l:'Ripetute', z:'rep'}
   ].map(({l,zk=z,zone=z}) => {
@@ -4081,8 +4594,8 @@ function printPlan() {
       <div class="pr-cover-stat"><span class="pr-cover-val">${pd.icon} ${pd.name}</span><span class="pr-cover-lbl">Profilo</span></div>
       <div class="pr-cover-stat"><span class="pr-cover-val">${fmtGoal(p.goalMin||210)}</span><span class="pr-cover-lbl">Obiettivo</span></div>
       <div class="pr-cover-stat"><span class="pr-cover-val">${fmtPace(mpSec)} /km</span><span class="pr-cover-lbl">Ritmo MP</span></div>
-      <div class="pr-cover-stat"><span class="pr-cover-val">28 Nov 2026</span><span class="pr-cover-lbl">Data gara</span></div>
-      <div class="pr-cover-stat"><span class="pr-cover-val">${pd.peakLong} km</span><span class="pr-cover-lbl">Lungo picco</span></div>
+      <div class="pr-cover-stat"><span class="pr-cover-val">29 Nov 2026</span><span class="pr-cover-lbl">Data gara</span></div>
+      <div class="pr-cover-stat"><span class="pr-cover-val">${formatPlanKm(peakLongKm)} km</span><span class="pr-cover-lbl">Lungo picco</span></div>
     </div>
     <div class="pr-cover-zones">${zonePills}</div>
   </div>`;
@@ -4122,7 +4635,7 @@ function printPlan() {
     <div class="pr-legend-grid">${legendRows}</div>
     <div class="pr-tip-grid">${tips}</div>
     <div class="pr-footer">
-      Maratona di Firenze · 28 novembre 2026 · Piano generato il ${new Date().toLocaleDateString('it-IT')} ·
+      Maratona di Firenze · 29 novembre 2026 · Piano generato il ${new Date().toLocaleDateString('it-IT')} ·
       ${pd.icon} ${p.name} · Obiettivo ${fmtGoal(p.goalMin||210)} · MP ${fmtPace(mpSec)} /km
     </div>
   </div>`;
@@ -4141,8 +4654,456 @@ function printPlan() {
 // ═══════════════════════════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════════════════════════
-store = loadStore();
-renderProfiles();
+function toggleTheme(){
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = next === 'light' ? '☀️' : '🌙';
+  try { localStorage.setItem('mf-theme', next); } catch {}
+}
+function applyTheme(){
+  const t = localStorage.getItem('mf-theme') || 'dark';
+  if (t === 'light') {
+    document.documentElement.setAttribute('data-theme','light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+
+applyTheme();
+/* ═══ MINDSET — autoipnosi da percorso GPX ═══ */
+let MS={g:null,goalSec:null,strat:'even',speak:false,m:null,msg:'',url:'',loops:1,pid:null};
+MS.sess='relax';MS.sdur=10;
+const MD={rate:.8,pitch:.9,vol:.85,gap:1.3};
+let MV=(()=>{try{return JSON.parse(localStorage.getItem('mf-ms-voice'))||{}}catch(e){return{}}})();
+const mv=k=>MV[k]??MD[k];
+function msSave(){const a=store[activePid];if(!a)return;a.mindset=MS.g?{name:MS.g.name,L:MS.g.L,P:MS.g.P,goalSec:MS.goalSec,strat:MS.strat,loops:MS.loops,url:MS.url}:null;saveStore(store);}
+const msF=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),c=s%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(c).padStart(2,'0');};
+const msG=s=>{s=Math.round(s);return Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+const msSp=s=>{const h=Math.floor(s/3600),m=Math.round(s%3600/60);return(h?(h===1?"un'ora":h+' ore'):'')+(h&&m?' e ':'')+(m?m+' minuti':'');};
+const msPs=p=>{const r=Math.round(p);return Math.floor(r/60)+' e '+String(r%60).padStart(2,'0');};
+const msN=(v,d=1)=>v.toFixed(d).replace('.',',');
+const msCol={start:'#2dd4bf',flat:'#34d399',up:'#fb7185',down:'#38bdf8',late:'#fbbf24',finish:'#a78bfa'};
+const msNm={start:'Partenza',flat:'Scorrevole',up:'Salita',down:'Discesa',late:'Fase critica',finish:'Finale'};
+const msTx={
+start:o=>`Il via è un'onda di energia: la senti, la riconosci, la lasci passare. Le gambe vorrebbero partire più forte, ma tu sorridi e resti a ${o.pc}. Ogni metro che trattieni ora è un regalo che ti fai nel finale. Respiro lungo, spalle morbide, passo leggero.`,
+flat:o=>`Il ritmo è già dentro di te. Respiro regolare, passo leggero, mani rilassate. Non cerchi nulla: mantieni ${o.pc}. Ogni chilometro è uguale al precedente, stessa andatura, stesso respiro. Scorri.`,
+up:o=>`La strada sale per ${o.l} chilometri, ${o.up} metri di dislivello, pendenza media del ${o.ga} per cento. La salita non è un nemico: è il punto in cui cambi marcia. Accorci il passo, alzi la cadenza, busto alto, sguardo pochi metri avanti. Lasci che il ritmo diventi ${o.pc}: è il ritmo giusto, perché il tuo sforzo resta costante. ${o.h?'È un tratto duro, e tu lo dividi in pezzi piccoli: un passo, poi un altro, poi un altro. ':''}In cima ritrovi il fiato e lo trasformi in velocità.`,
+down:o=>`La strada scende per ${o.l} chilometri. Lascia andare, non frenare: gambe elastiche, passi brevi e veloci, piedi sotto il corpo, busto leggermente avanti. ${o.h?'La pendenza è importante: atterraggio morbido, cadenza alta, sguardo avanti. ':''}Recupera il respiro, rilassa spalle e mascella. Scivola verso ${o.pc} senza forzare: proteggi i quadricipiti, ti serviranno nel finale.`,
+late:o=>`Siamo nella parte in cui la gara si decide, ed è la parte per cui ti sei allenato. La stanchezza è un segnale, non un ordine. La riconosci, respiri, torni al corpo: postura, cadenza, ${o.pc}. Ti ripeti una parola sola: forte. Il traguardo si avvicina a ogni passo.`,
+finish:o=>`Ultimo tratto. Tutto ciò che hai costruito è qui. Testa alta, braccia sciolte, sorriso. Non c'è più nulla da risparmiare: dai tutto. Il traguardo è tuo.`};
+const msBr={start:'inspira 4 passi · espira 4',flat:'inspira 3 · espira 3',up:'inspira 2 · espira 2',down:'inspira 3 · espira 3, rilascia',late:'espira lungo, spalle giù',finish:'respiro libero'};
+
+function msParse(x){
+ const d=new DOMParser().parseFromString(x,'application/xml');
+ let n=[...d.getElementsByTagName('trkpt')];if(n.length<2)n=[...d.getElementsByTagName('rtept')];
+ if(n.length<2)throw Error('Nessun punto valido nel file GPX');
+ const R=6371000,rad=Math.PI/180;let D=0,P=[],pl=null;
+ n.forEach(p=>{const la=+p.getAttribute('lat'),lo=+p.getAttribute('lon'),e=p.getElementsByTagName('ele')[0];
+  if(isNaN(la)||isNaN(lo))return;
+  const z=e?+e.textContent:(P.length?P[P.length-1].z:0);
+  if(pl){const a=Math.sin((la-pl[0])*rad/2)**2+Math.cos(la*rad)*Math.cos(pl[0]*rad)*Math.sin((lo-pl[1])*rad/2)**2;D+=2*R*Math.asin(Math.sqrt(a));}
+  P.push({d:D,z});pl=[la,lo];});
+ if(P.length<2||D<500)throw Error('Percorso troppo corto o non valido');
+ const nm=d.getElementsByTagName('name')[0];
+ const Q=[];let j=0;
+ for(let d=0;d<D+100;d+=100){const dd=Math.min(d,D);while(j<P.length-2&&P[j+1].d<dd)j++;const a=P[j],b=P[j+1],t=b.d>a.d?Math.min(1,Math.max(0,(dd-a.d)/(b.d-a.d))):0;Q.push({d:Math.round(dd),z:Math.round((a.z+(b.z-a.z)*t)*10)/10});if(dd>=D)break;}
+ return{P:Q,name:nm?nm.textContent.trim():'Percorso',L:Math.round(D)};
+}
+
+function msModel(goal){
+ const B=MS.g,n=MS.loops||1,L=B.L*n,P=[];for(let r=0;r<n;r++)B.P.forEach(p=>P.push({d:p.d+B.L*r,z:p.z}));const S=20,N=Math.floor(L/S);let z=[],j=0;
+ for(let i=0;i<=N;i++){const d=i*S;while(j<P.length-2&&P[j+1].d<d)j++;const a=P[j],b=P[j+1],t=b.d>a.d?(d-a.d)/(b.d-a.d):0;z.push(a.z+(b.z-a.z)*Math.min(1,Math.max(0,t)));}
+ const s=z.map((_,i)=>{let a=0,c=0;for(let k=Math.max(0,i-5);k<=Math.min(N,i+5);k++){a+=z[k];c++}return a/c});
+ const Lk=N*S/1000,K=Math.ceil(Lk),km=Array.from({length:K},()=>({n:0,up:0,dn:0,c:0}));
+ // costo energetico relativo (Minetti), discesa attenuata
+ const C=g=>{g=Math.max(-.3,Math.min(.3,g));const f=(155.4*g**5-30.4*g**4-43.3*g**3+46.3*g*g+19.5*g+3.6)/3.6;return g<0?1+(f-1)*.55:f};
+ for(let i=0;i<N;i++){const k=km[Math.floor(i*S/1000)],dz=s[i+1]-s[i];k.n++;k.c+=C(dz/S);if(dz>0)k.up+=dz;else k.dn-=dz;}
+ let x=0;
+ km.forEach((k,i)=>{k.i=i;k.len=k.n*S/1000;k.f=k.c/k.n;k.g=(k.up-k.dn)/(k.len*10);k.s0=x;k.x=(x+k.len/2)/Lk;x+=k.len;
+  k.w=k.len*k.f*(MS.strat==='neg'?1-.04*(k.x-.5):1);});
+ const W=km.reduce((a,k)=>a+k.w,0);let t=0;
+ km.forEach(k=>{k.t0=t;k.t=goal*k.w/W;t+=k.t;k.pace=k.t/k.len;
+  k.late=Lk>=21&&k.x>.7&&k.x<.92;k.h=k.g>=5||k.up>=50||k.g<=-6;
+  const mid=k.s0+k.len/2;
+  k.ty=mid>=Lk-1&&K>1?'finish':(k.i===0&&k.g<4)?'start':(k.g>=2.5||k.up>=40)?'up':(k.g<=-2.5||k.dn>=40)?'down':k.late?'late':'flat';
+  k.sc=Math.min(10,Math.max(1,Math.round(1+Math.max(k.g,0)*.9+Math.max(-k.g,0)*.35+(k.late?2+(k.x-.7)*5:0)+(k.h?1:0)+(k.x>.92?1.5:0))));});
+ const PH=[];km.forEach(k=>{const p=PH[PH.length-1];if(p&&p.ty===k.ty)p.k.push(k);else PH.push({ty:k.ty,k:[k]});});
+ const up=km.reduce((a,k)=>a+k.up,0),dn=km.reduce((a,k)=>a+k.dn,0);
+ PH.forEach(p=>{const a=p.k,k0=a[0],k1=a[a.length-1],len=a.reduce((q,k)=>q+k.len,0),u=a.reduce((q,k)=>q+k.up,0),d=a.reduce((q,k)=>q+k.dn,0),tt=a.reduce((q,k)=>q+k.t,0);
+  p.len=len;p.up=u;p.dn=d;p.t0=k0.t0;p.pace=tt/len;p.g=(u-d)/(len*10);p.h=a.some(k=>k.h);
+  const e=k1===km[K-1]?(Lk.toFixed(1).replace(/\.0$/,'')):(k1.i+1);
+  p.label='km '+(k0.i+(k0.i?1:0))+(e!==k0.i+(k0.i?1:0)?'–'+e:'');
+  p.cue=p.ty==='up'?(p.h?'Scalo':'Passi corti'):{start:'Calma',flat:'Ritmo',down:'Libero',late:'Forte',finish:'Tutto'}[p.ty];
+  p.text=msTx[p.ty]({pc:msPs(p.pace)+' al chilometro',l:msN(len),up:Math.round(u),ga:msN(Math.abs(p.g)),h:p.h});});
+ return{s,N,Lk,km,PH,up,dn,n,Ll:B.L/1000};
+}
+
+function msScript(m,goal){
+ const G=msSp(goal),Ls=msN(m.Lk).replace(/,0$/,'');
+ const I=[
+ ['Trova una posizione comoda, seduto o sdraiato. Chiudi gli occhi.',4],
+ ['Inspira lentamente dal naso per quattro secondi. Trattieni un istante. Ed espira piano dalla bocca per sei secondi.',6],
+ ['Ancora una volta. Con ogni espirazione il corpo si fa più pesante e più morbido.',8],
+ ['Senti i piedi, le caviglie, i polpacci. Lascia andare ogni tensione. Sali lungo le cosce, i fianchi, la schiena.',8],
+ ['Rilassa lo stomaco, il petto, le spalle, le braccia fino alle mani. Rilassa il collo, la mascella, la fronte.',8],
+ ['Ora conta lentamente da dieci a uno. A ogni numero scendi in uno stato più profondo di calma e concentrazione. Dieci. Nove. Otto. Sette. Sei. Cinque. Quattro. Tre. Due. Uno.',8],
+ ['Sei in uno stato di calma lucida. Crea il tuo ancoraggio: premi insieme pollice e indice. Ogni volta che lo farai, tornerai a questa forza e a questa calma.',6],
+ [`Immagina la mattina della gara. Sei alla partenza e ti senti pronto. Correrai ${Ls} chilometri${m.n>1?` (${m.n} giri da ${msN(m.Ll)})`:''} in ${G}, e sai come farlo. Ora percorriamo insieme il tracciato, un tratto alla volta.`,6]
+ ].map(([t,p])=>({t,p,l:'Induzione',c:'#a78bfa'}));
+ const F=m.PH.map(p=>{const lp=m.n>1?'Giro '+(Math.floor(p.k[0].s0/m.Ll+.001)+1):'';return{t:`${lp?lp+'. ':''}${p.label.replace('km','Chilometro')}. Siamo a circa ${Math.round(p.t0/60)} minuti dalla partenza. ${p.text} Pollice e indice, e la parola: ${p.cue}.`,p:6,l:(lp?lp+' · ':'')+p.label+' · '+msNm[p.ty],c:msCol[p.ty]}});
+ const E=[{t:`Attraversi il traguardo in ${G}. Senti orgoglio, gratitudine, forza. Ogni volta che premerai pollice e indice, questa sicurezza tornerà da te.`,p:6,l:'Traguardo',c:'#a78bfa'},
+ {t:'Ora inizia a tornare: muovi dita e piedi, respira più profondo. Quando vuoi, apri gli occhi, sveglio, calmo e pieno di energia.',p:2,l:'Emersione',c:'#a78bfa'}];
+ return[...I,...F,...E];
+}
+
+let msTm=null;
+function msStop(){MS.speak=false;clearTimeout(msTm);try{speechSynthesis.cancel()}catch(e){}const b=el('msPlayBtn');if(b)b.textContent='▶ Ascolta la sequenza';const c=el('msSessBtn');if(c)c.textContent='▶ Avvia sessione';msAmbRun(0);}
+function msVoiceList(){const all=window.speechSynthesis?speechSynthesis.getVoices():[];const it=all.filter(x=>x.lang.toLowerCase().startsWith('it'));const v=it.length?it:all;const sc=x=>/natural|neural|premium|enhanced|online/i.test(x.name)?1:0;return v.slice().sort((a,b)=>sc(b)-sc(a));}
+function msFillVoices(){const e=el('msVoice');if(!e)return;e.innerHTML=msVoiceList().map(x=>`<option value="${x.name}"${x.name===MV.voice?' selected':''}>${x.name} (${x.lang})</option>`).join('')||'<option>Voce predefinita</option>';}
+if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=msFillVoices;
+function msVs(){MV={voice:el('msVoice').value,rate:+el('msRate').value,pitch:+el('msPitch').value,vol:+el('msVol').value,gap:+el('msGap').value};try{localStorage.setItem('mf-ms-voice',JSON.stringify(MV))}catch(e){}}
+function msPreset(){msStop();MV={voice:MV.voice,rate:.75,pitch:.85,vol:.8,gap:1.5};try{localStorage.setItem('mf-ms-voice',JSON.stringify(MV))}catch(e){}renderMindset();}
+function msSay(t,end){const u=new SpeechSynthesisUtterance(t),vs=msVoiceList(),v=vs.find(x=>x.name===MV.voice)||vs[0];if(v){u.voice=v;u.lang=v.lang;}else u.lang='it-IT';u.rate=mv('rate');u.pitch=mv('pitch');u.volume=mv('vol');u.onend=end;u.onerror=()=>msStop();speechSynthesis.speak(u);}
+function msTest(){if(!('speechSynthesis'in window))return;msStop();msSay('Respira lentamente. A ogni espirazione, il corpo si fa più morbido e più pesante.');}
+function msDl(){
+ const t=msSessItems(MS.sess,MS.sdur).map(x=>`[${x.l}]\n${x.t}\n`).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));a.download='visual-run.txt';a.click();
+}
+function msLoad(txt){try{MS.g=msParse(txt);MS.msg='';MS.loops=1;MS.sess='race';msSave();}catch(e){MS.msg='⚠ '+e.message;}msStop();renderMindset();}
+function msFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>msLoad(r.result);r.readAsText(f);}
+async function msUrl(){
+ const u=el('msUrl').value.trim();if(!u)return;MS.url=u;MS.msg='Scarico il GPX…';renderMindset();let t=null;
+ for(const x of[u,'https://corsproxy.io/?'+encodeURIComponent(u)]){try{const r=await fetch(x);if(r.ok){const b=await r.text();if(b.includes('<trkpt')||b.includes('<rtept')){t=b;break;}}}catch(e){}}
+ if(t)msLoad(t);else{MS.msg='⚠ Impossibile scaricare il GPX da questo link (molti siti lo bloccano o richiedono login). Scarica il file e caricalo dal dispositivo.';renderMindset();}
+}
+function msLib(){const r=(store&&store._routes)||{};return Object.entries(r).filter(([,v])=>v&&v.P&&v.name).sort((a,b)=>a[1].name.localeCompare(b[1].name));}
+function msShare(){if(!MS.g)return;const n=(prompt('Nome del percorso da condividere con tutti gli atleti:',MS.g.name)||'').trim();if(!n)return;
+ store._routes=store._routes||{};const old=msLib().find(([,r])=>r.name===n);const id=old?old[0]:'r'+Date.now().toString(36);
+ store._routes[id]={name:n,L:MS.g.L,P:MS.g.P,ts:Date.now()};MS.g.name=n;msSave();MS.msg='✓ Percorso condiviso nel catalogo';renderMindset();}
+function msPick(id){const r=store._routes&&store._routes[id];if(!r)return;MS.g={name:r.name,L:r.L,P:r.P};MS.loops=1;MS.url='';MS.msg='';MS.sess='race';msSave();msStop();renderMindset();}
+function msDelLib(id){const r=store._routes&&store._routes[id];if(!r||!confirm('Eliminare "'+r.name+'" dal catalogo condiviso con tutti gli atleti?'))return;delete store._routes[id];saveStore(store);renderMindset();}
+function msGoal(v){const q=v.split(':').map(Number);if(q.some(isNaN)||q.length<2)return;MS.goalSec=q.length===2?q[0]*3600+q[1]*60:q[0]*3600+q[1]*60+q[2];msSave();msStop();renderMindset();}
+function msLoops(v){MS.loops=Math.max(1,Math.min(20,parseInt(v)||1));msSave();msStop();renderMindset();}
+function msClear(){MS.g=null;MS.loops=1;msSave();msStop();renderMindset();}
+function msStrat(v){MS.strat=v;msSave();msStop();renderMindset();}
+
+function msChart(m){
+ const W=800,H=150,s=m.s,mn=Math.min(...s),mx=Math.max(...s),r=(mx-mn)||1,y=z=>10+(1-(z-mn)/r)*(H-42);
+ const pts=s.map((z,i)=>`${(i/(s.length-1)*W).toFixed(1)},${y(z).toFixed(1)}`).join(' ');
+ const bars=m.km.map(k=>`<rect x="${(k.s0/m.Lk*W).toFixed(1)}" y="${H-24}" width="${Math.max(1,k.len/m.Lk*W-1).toFixed(1)}" height="9" fill="${msCol[k.ty]}"/>`).join('');
+ let tk='';for(let k=5;k<m.Lk;k+=5)tk+=`<text x="${(k/m.Lk*W).toFixed(1)}" y="${H-2}" font-size="10" fill="var(--txt3)" text-anchor="middle">${k}</text>`;
+ return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto"><polygon points="0,${H-28} ${pts} ${W},${H-28}" fill="rgba(255,92,53,.18)"/><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="1.6"/>${bars}${tk}<text x="4" y="12" font-size="10" fill="var(--txt3)">${Math.round(mx)} m</text><text x="4" y="${H-32}" font-size="10" fill="var(--txt3)">${Math.round(mn)} m</text></svg>`;
+}
+
+/* ── Sessioni vocali: concentrazione e rilassamento ── */
+const msSS={race:{n:'🏁 Sequenza gara (dal percorso)',d:`Induzione, visualizzazione tratto per tratto di salite, discese e chilometri critici, emersione. La durata dipende dal tempo finale e dalla velocità della voce.`},relax:{n:'Rilassamento profondo',d:`Scansione del corpo, luogo sicuro e calma profonda.`},focus:{n:'Concentrazione',d:`Attenzione stabile sul respiro, fascio di luce e parola-ancora.`},calm:{n:'Calma prima del via',d:`Grounding 5-4-3-2-1 e gestione dell'agitazione pre-gara.`},breath:{n:'Respirazione guidata',d:`Inspira 4 · trattieni 2 · espira 6, a cicli.`}};
+function msDur(it){return Math.round((it.reduce((s,x)=>s+x.t.split(' ').length,0)/2.3/mv('rate')+it.reduce((s,x)=>s+x.p,0)*mv('gap'))/60);}
+function msSessItems(k,min){
+ if(k==='race')return MS.m&&MS.cg?msScript(MS.m,MS.cg):[];
+ if(k.startsWith('txt:'))return msTxtItems(k.slice(4));
+ if(k.startsWith('sh:'))return msTxtItems(k.slice(3),1);
+ const o=[],a=(l,t,p,f,h)=>o.push({l,t,p,f:!!f,h:!!h,c:'#a78bfa'});
+ if(k==='relax'){
+  a('Preparazione',`Trova una posizione comoda. Chiudi gli occhi e lascia che il respiro scenda nella pancia.`,6);
+  a('Preparazione',`Inspira dal naso per quattro secondi, espira dalla bocca per sei. A ogni espirazione lasci andare un po' di peso.`,8);
+  const P=['i piedi e le caviglie','i polpacci','le cosce','i fianchi','la schiena','la pancia','il petto','le spalle','le braccia e le mani','il collo','la mascella','il viso e la fronte'];
+  (min<5?P.filter((_,i)=>i%2===0):P).forEach(x=>a('Corpo',`Porta l'attenzione su ${x}. Senti il contatto e il peso. Con l'espirazione, lascia sciogliere ogni tensione.`,9));
+  if(min>=5){a('Luogo sicuro',`Immagina un luogo in cui ti senti al sicuro e sereno: una spiaggia, un bosco, la tua casa. Guarda i colori, ascolta i suoni, senti la temperatura sulla pelle.`,12);
+   a('Luogo sicuro',`Qui non c'è niente da fare e niente da dimostrare. Ogni respiro porta pace ed energia nuova.`,12);}
+  a('Emersione',`Porta con te questa calma. A ogni respiro ritorni: muovi dita e piedi e, quando sei pronto, apri gli occhi, riposato e presente.`,2,1);
+ }else if(k==='focus'){
+  a('Preparazione',`Siediti con la schiena comoda e dritta. Chiudi gli occhi. Tre respiri profondi: dentro dal naso, fuori dalla bocca.`,8);
+  a('Respiro',`Porta tutta l'attenzione al respiro, nel punto in cui lo senti di più: le narici, il petto o la pancia. Non devi cambiarlo, solo seguirlo.`,12);
+  a('Respiro',`Se la mente si distrae, è normale. Nota il pensiero, lascialo passare come una nuvola e torna al respiro. Ogni ritorno allena la tua concentrazione.`,14);
+  a('Mente chiara',`Immagina la tua mente come un lago. Ogni pensiero è un'onda che si calma. Più respiri, più la superficie diventa limpida.`,14);
+  a('Fascio di luce',`Ora immagina un fascio di luce che illumina solo ciò che conta oggi: il tuo passo, il tuo respiro, il tuo ritmo. Tutto il resto resta nell'ombra.`,14);
+  a('Ancoraggio',`Premi insieme pollice e indice e ripeti dentro di te la parola: concentrato. Senti lo stato di attenzione calma che si fissa. Ogni volta che premerai, tornerà.`,12);
+  a('Gara',`Immagina la gara: ti vedi correre, presente in ogni passo, senza fretta e senza dubbi. Quando arriva la fatica, torni al respiro e alla parola.`,14);
+  a('Gara',`La tua attenzione è stabile come una luce ferma. Sai dove sei, sai cosa fare, e lo fai.`,12);
+  a('Emersione',`Porta con te questa chiarezza. A ogni respiro ritorni: muovi dita e piedi e apri gli occhi, vigile e presente.`,2,1);
+ }else if(k==='calm'){
+  a('Adesso',`Fermati. Sei qui, adesso. Non devi risolvere niente in questo momento.`,6);
+  a('Respiro',`Inspira dal naso per quattro secondi, ed espira dalla bocca per sei, lentamente, come se soffiassi su una candela.`,10);
+  [['Vista',`Guardati intorno e nota cinque cose che vedi.`,8],['Tatto',`Quattro cose che senti sulla pelle: i piedi nelle scarpe, i vestiti, l'aria.`,8],['Udito',`Tre suoni che riesci a sentire.`,8],['Olfatto',`Due odori.`,6],['Gusto',`Un sapore, o semplicemente il respiro in bocca.`,6]].forEach(x=>a(...x));
+  a('Energia',`L'agitazione che senti è energia: il corpo si sta preparando. Non la combatti, la trasformi in carica, e torna sotto il tuo controllo.`,10);
+  a('Ancoraggio',`Premi pollice e indice e ripeti dentro di te: calma. Senti le spalle scendere e le mani sciogliersi.`,10);
+  a('Fiducia',`Ti sei allenato per questo. Il tuo corpo sa cosa fare. Parti con calma e lasci che il ritmo arrivi da solo.`,10);
+  a('Via',`Ora sei pronto. Un ultimo respiro profondo, e sorridi. Buona gara.`,2,1);
+ }else{
+  const n=Math.max(3,Math.floor((min*60-20)/13));
+  a('Preparazione',`Siediti comodo, spalle morbide. Seguiamo insieme un respiro lento: inspira quattro secondi, trattieni due, espira sei.`,5,1);
+  for(let i=0;i<n;i++){const h=i>0,l=`Respiro · ${n} cicli`;a(l,`Inspira.`,3,1,h);a(l,`Trattieni.`,1,1,h);a(l,`Espira lentamente.`,5,1,h);}
+  a('Conclusione',`Lascia che il respiro torni libero. Senti il corpo calmo e lucido. Quando vuoi, apri gli occhi.`,2,1);
+ }
+ const r=mv('rate'),sp=o.reduce((s,x)=>s+x.t.split(' ').length/2.3/r,0),fx=o.reduce((s,x)=>s+(x.f?x.p:0),0),sc=o.reduce((s,x)=>s+(x.f?0:x.p),0);
+ const q=sc?Math.max(.4,Math.min(6,(min*60-sp-fx)/sc)):1;
+ o.forEach(x=>{if(!x.f)x.p=Math.round(x.p*q*10)/10;});
+ return o;
+}
+function msRun(items,pre,btn,useGap){
+ if(MS.speak){msStop();return;}
+ if(!('speechSynthesis'in window)){alert('Sintesi vocale non supportata da questo browser.');return;}
+ let i=0;MS.speak=true;el(btn).textContent='■ Stop';msAmbRun(1);
+ const go=()=>{if(!MS.speak||i>=items.length){msStop();return;}
+  const n=el(pre+i);document.querySelectorAll('.ms-it.hl').forEach(x=>x.classList.remove('hl'));if(n){n.classList.add('hl');n.scrollIntoView({block:'center',behavior:'smooth'});}
+  msSay(items[i].t,()=>{const p=items[i].p;i++;msTm=setTimeout(go,p*1000*(useGap?mv('gap'):1))});};
+ go();
+}
+function msPlay(){msRun(MS.items,'msI','msPlayBtn',1);}
+function msSessPlay(){const it=msSessItems(MS.sess,MS.sdur);if(!it.length){alert('Carica prima un percorso GPX o sceglilo dal catalogo.');return;}msRun(it,'msS','msSessBtn',msFixedS()?1:0);}
+function msSess(v){MS.sess=v;msStop();renderMindset();}
+function msSDur(v){MS.sdur=+v;msStop();renderMindset();}
+function msSessCard(){
+ if(MS.sess.startsWith('txt:')&&!msTxts()[MS.sess.slice(4)])MS.sess='relax';
+ if(MS.sess.startsWith('sh:')&&!msSh()[MS.sess.slice(3)])MS.sess='relax';
+ const its=msSessItems(MS.sess,MS.sdur),sl=(id,l,mn,mx,st,k)=>`<div><label>${l}</label><input id="${id}" type="range" min="${mn}" max="${mx}" step="${st}" value="${mv(k)}" onchange="msVs()"></div>`;
+ return`<div class="ms-card"><div class="ms-h">🎧 Sessioni vocali · concentrazione e rilassamento</div>
+ <div class="ms-row" style="margin-bottom:.6rem">
+  <div><label>Sessione</label><select class="ms-in" onchange="msSess(this.value)">${Object.entries(msSS).map(([k,v])=>`<option value="${k}"${k===MS.sess?' selected':''}>${v.n}</option>`).join('')}${msTxtOpts()}</select></div>
+  ${msFixedS()?`<div><label>Durata</label><div style="padding:.45rem 0;font-size:.85rem">${its.length?'≈ '+msDur(its)+' min':'—'}</div></div>`:`<div><label>Durata</label><select class="ms-in" onchange="msSDur(this.value)">${[3,5,10,15].map(d=>`<option value="${d}"${d===MS.sdur?' selected':''}>${d} min</option>`).join('')}</select></div>`}
+  <button class="ms-btn" id="msSessBtn" onclick="msSessPlay()">▶ Avvia sessione</button>
+  <button class="ms-btn g" onclick="msTest()">Prova voce</button><button class="ms-btn g" onclick="msPreset()">🌙 Preset ipnosi</button><button class="ms-btn g" onclick="msDl()">⬇ Scarica testo</button></div>
+ <div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">${msSessD()}</div>
+ <div class="ms-row" style="margin-bottom:.4rem"><div style="flex:1;min-width:200px"><label>Voce (vale anche per la sequenza del percorso)</label><select id="msVoice" class="ms-in" style="width:100%" onchange="msVs()"></select></div>
+  ${sl('msRate','Velocità',.5,1.1,.05,'rate')}${sl('msPitch','Tono',.5,1.3,.05,'pitch')}${sl('msVol','Volume',.3,1,.05,'vol')}${sl('msGap','Pause (percorso)',1,2.5,.1,'gap')}</div>
+ <div style="font-size:.68rem;color:var(--txt3);margin-bottom:.6rem">Per una voce più morbida scegli quelle «Premium», «Enhanced», «Natural» o «Neural», se presenti. Nelle sessioni le pause si adattano alla durata scelta.</div>
+ ${msAmbRow()}
+ ${MS.sess==='race'&&!its.length?`<div style="font-size:.8rem;color:var(--gold)">Carica un percorso GPX (o scegline uno dal catalogo) per generare la sequenza di gara.</div>`:''}${its.map((x,i)=>x.h?'':`<div class="ms-it" id="msS${i}" style="--c:${x.c}"><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:${x.c};margin-bottom:.15rem">${x.l}</div>${x.t}</div>`).join('')}</div>`;
+}
+
+/* ── Sottofondo multiplo (Web Audio) ── */
+const msAmbNm={rain:'🌧 Pioggia',waves:'🌊 Onde',wind:'🍃 Vento',stream:'💧 Ruscello',fire:'🔥 Camino',forest:'🐦 Bosco e uccelli',bowls:'🔔 Campane tibetane',brown:'Rumore marrone',pink:'Rumore rosa',white:'Rumore bianco',theta:'🎧 Theta 6 Hz (cuffie)'};
+const msAmp=k=>({rain:.45,waves:1,brown:1,pink:.9,white:.25,wind:1,stream:.7,fire:1,forest:1,bowls:.5,theta:.25}[k]||1);
+let msMA=(()=>{let o={};try{o=JSON.parse(localStorage.getItem('mf-ms-amb'))||{}}catch(e){}const k=Array.isArray(o.kinds)?o.kinds:(o.kind?(o.kind==='off'?[]:[o.kind]):['rain']);return{kinds:k.filter(x=>x in msAmbNm),vol:o.vol??.35,auto:o.auto??true};})();
+let msAC=null,msAMB=null,msMR=null,msUrls=[];
+function msAmbSave(){try{localStorage.setItem('mf-ms-amb',JSON.stringify(msMA))}catch(e){}}
+function msCtx(){if(!msAC)msAC=new(window.AudioContext||window.webkitAudioContext)();if(msAC.state==='suspended')msAC.resume();return msAC;}
+function msNoise(type){const c=msCtx(),n=c.sampleRate*4,b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);let l=0,b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+ for(let i=0;i<n;i++){const w=Math.random()*2-1;
+  if(type==='brown'){l=(l+.02*w)/1.02;d[i]=l*3.5;}
+  else if(type==='pink'){b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926;}
+  else d[i]=w;}
+ const s=c.createBufferSource();s.buffer=b;s.loop=true;return s;}
+function msLayer(k,c,out){
+ const g=c.createGain(),o={N:[],tm:null,stop:false,g};g.gain.value=msAmp(k);g.connect(out);
+ const src=t=>{const s=msNoise(t);o.N.push(s);s.start();return s;},
+ flt=(t,f,q)=>{const x=c.createBiquadFilter();x.type=t;x.frequency.value=f;if(q)x.Q.value=q;return x;},
+ lfo=(f,d,tg)=>{const z=c.createOscillator(),lg=c.createGain();z.frequency.value=f;lg.gain.value=d;z.connect(lg);lg.connect(tg);z.start();o.N.push(z);},
+ loop=(fn,a,b)=>{const t=()=>{if(o.stop)return;fn();o.tm=setTimeout(t,a+Math.random()*(b-a));};t();},
+ chain=(...n)=>{for(let i=0;i<n.length-1;i++)n[i].connect(n[i+1]);};
+ if(k==='rain')chain(src('white'),flt('highpass',900),flt('lowpass',7000),g);
+ else if(k==='waves'){const m=c.createGain();m.gain.value=.6;lfo(.09,.4,m.gain);chain(src('brown'),flt('lowpass',700),m,g);}
+ else if(k==='brown')chain(src('brown'),g);
+ else if(k==='pink')chain(src('pink'),g);
+ else if(k==='white')chain(src('white'),flt('lowpass',9000),g);
+ else if(k==='wind'||k==='forest'){const f=flt('bandpass',500,.8),m=c.createGain();m.gain.value=k==='wind'?.6:.25;lfo(.07,300,f.frequency);lfo(.05,k==='wind'?.35:.12,m.gain);chain(src('pink'),f,m,g);}
+ else if(k==='stream'){const m=c.createGain();m.gain.value=.7;lfo(3.1,.15,m.gain);lfo(5.3,.1,m.gain);chain(src('pink'),flt('highpass',500),flt('lowpass',4500),m,g);}
+ else if(k==='fire'){const m=c.createGain();m.gain.value=.5;chain(src('brown'),flt('lowpass',500),m,g);
+  loop(()=>{const n=Math.floor(c.sampleRate*.02),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);const s=c.createBufferSource(),cg=c.createGain();s.buffer=b;cg.gain.value=.15+Math.random()*.6;chain(s,flt('highpass',1200+Math.random()*2500),cg,g);s.start();},60,560);}
+ else if(k==='bowls')loop(()=>{const b=[196,220,261.6,293.7][Math.floor(Math.random()*4)],t=c.currentTime;[[1,.5],[2.76,.25],[5.4,.1]].forEach(([r,a])=>{const z=c.createOscillator(),e=c.createGain();z.frequency.value=b*r;e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(a,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+8);chain(z,e,g);z.start(t);z.stop(t+8.2);});},7000,13000);
+ else if(k==='theta'){[[200,-1],[206,1]].forEach(([f,p])=>{const z=c.createOscillator(),pn=c.createStereoPanner?c.createStereoPanner():c.createGain();z.frequency.value=f;if(pn.pan)pn.pan.value=p;chain(z,pn,g);z.start();o.N.push(z);});}
+ if(k==='forest')loop(()=>{const n=2+Math.floor(Math.random()*3),f0=2400+Math.random()*2200;let t=c.currentTime+.05;for(let i=0;i<n;i++){const z=c.createOscillator(),e=c.createGain();z.frequency.setValueAtTime(f0,t);z.frequency.exponentialRampToValueAtTime(f0*(1.2+Math.random()*.4),t+.09);e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(.06,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+.11);chain(z,e,g);z.start(t);z.stop(t+.12);t+=.14;}},1500,5000);
+ return o;
+}
+function msLayerStop(o,imm){o.stop=true;clearTimeout(o.tm);const kill=()=>{o.N.forEach(n=>{try{n.stop()}catch(e){}});try{o.g.disconnect()}catch(e){}};if(imm)kill();else{o.g.gain.setTargetAtTime(0,msAC.currentTime,.3);setTimeout(kill,1500);}}
+function msAmbBtn(){const b=el('msAmbBtn');if(b)b.textContent=msAMB?'■ Ferma sottofondo':'♪ Ascolta sottofondo';}
+function msAmbStart(by){
+ msAmbStop(true);if(!msMA.kinds.length||!(window.AudioContext||window.webkitAudioContext))return;
+ const c=msCtx(),g=c.createGain();g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(msMA.vol,c.currentTime+2);g.connect(c.destination);
+ msAMB={g,by,L:{}};msMA.kinds.forEach(k=>{msAMB.L[k]=msLayer(k,c,g)});msAmbBtn();
+}
+function msAmbStop(imm){
+ if(!msAMB)return;const a=msAMB;msAMB=null;Object.values(a.L).forEach(o=>msLayerStop(o,imm));
+ if(imm){try{a.g.disconnect()}catch(e){}}else{a.g.gain.cancelScheduledValues(msAC.currentTime);a.g.gain.setTargetAtTime(0,msAC.currentTime,.5);setTimeout(()=>{try{a.g.disconnect()}catch(e){}},2500);}
+ msAmbBtn();
+}
+function msAmbToggle(){if(msAMB)msAmbStop();else{if(!msMA.kinds.length){alert('Seleziona almeno un suono.');return;}msAmbStart('manual');}msAmbBtn();}
+function msAmbRun(on){if(on){if(msMA.auto&&msMA.kinds.length&&!msAMB)msAmbStart('run');}else if(msAMB&&msAMB.by==='run')msAmbStop();}
+function msAmbTog(k){const i=msMA.kinds.indexOf(k);if(i<0)msMA.kinds.push(k);else msMA.kinds.splice(i,1);msAmbSave();
+ if(msAMB){if(i<0)msAMB.L[k]=msLayer(k,msCtx(),msAMB.g);else{msLayerStop(msAMB.L[k]);delete msAMB.L[k];}}
+ document.querySelectorAll('[data-amb]').forEach(b=>b.classList.toggle('on',msMA.kinds.includes(b.dataset.amb)));}
+function msAmbSet(k,v){msMA[k]=v;msAmbSave();if(k==='vol'&&msAMB)msAMB.g.gain.setTargetAtTime(v,msAC.currentTime,.1);}
+function msAmbRow(){return`<div style="margin-bottom:.6rem"><label style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.3rem">Sottofondo · puoi combinare più suoni</label>
+ <div class="ms-row" style="margin-bottom:.6rem">${Object.entries(msAmbNm).map(([k,v])=>`<button class="ms-tg${msMA.kinds.includes(k)?' on':''}" data-amb="${k}" onclick="msAmbTog('${k}')">${v}</button>`).join('')}</div>
+ <div class="ms-row"><div><label>Volume sottofondo</label><input type="range" min=".05" max="1" step=".05" value="${msMA.vol}" oninput="msAmbSet('vol',+this.value)"></div>
+ <button class="ms-btn g" id="msAmbBtn" onclick="msAmbToggle()">${msAMB?'■ Ferma sottofondo':'♪ Ascolta sottofondo'}</button>
+ <label style="display:flex;align-items:center;gap:.4rem;text-transform:none;letter-spacing:0;font-size:.74rem;color:var(--txt2);margin:0"><input type="checkbox" ${msMA.auto?'checked':''} onchange="msAmbSet('auto',this.checked)"> con sessioni e vocali</label></div>
+ <div style="font-size:.66rem;color:var(--txt3);margin-top:.35rem">Theta 6 Hz usa due toni leggermente diversi per orecchio: si percepisce solo con le cuffie.</div></div>`;}
+/* vocali: archivio locale (IndexedDB) per atleta */
+function msDB(){return new Promise((ok,ko)=>{if(MS._db)return ok(MS._db);const r=indexedDB.open('mf-mindset',1);r.onupgradeneeded=()=>r.result.createObjectStore('rec',{keyPath:'id'});r.onsuccess=()=>{MS._db=r.result;ok(r.result)};r.onerror=()=>ko(r.error);});}
+async function msRecAll(){const db=await msDB();return new Promise(ok=>{const q=db.transaction('rec').objectStore('rec').getAll();q.onsuccess=()=>ok(q.result.filter(x=>x.pid===activePid).sort((a,b)=>b.ts-a.ts));q.onerror=()=>ok([]);});}
+async function msRecPut(o){const db=await msDB();return new Promise((ok,ko)=>{const t=db.transaction('rec','readwrite');t.objectStore('rec').put(o);t.oncomplete=ok;t.onerror=()=>ko(t.error);});}
+async function msRecDel(id){if(!confirm('Eliminare questo vocale?'))return;const db=await msDB();const t=db.transaction('rec','readwrite');t.objectStore('rec').delete(id);t.oncomplete=msRecsRender;}
+async function msRecFile(i){const f=i.files[0];if(!f)return;if(f.size>25e6){alert('File troppo grande (max 25 MB).');return;}
+ const n=prompt('Nome del vocale:',f.name.replace(/\.[^.]+$/,''));if(n===null)return;
+ try{await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:(n||f.name).trim(),ts:Date.now(),type:f.type,blob:f});}catch(e){alert('Impossibile salvare il vocale su questo dispositivo.');}
+ i.value='';msRecsRender();}
+async function msRecToggle(){
+ if(msMR){msMR.stop();return;}
+ try{const st=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[],r=new MediaRecorder(st);
+  r.ondataavailable=e=>{if(e.data.size)ch.push(e.data)};
+  r.onstop=async()=>{st.getTracks().forEach(t=>t.stop());msMR=null;const b=new Blob(ch,{type:r.mimeType||'audio/webm'});
+   if(b.size){const n=prompt('Nome del vocale:','Vocale '+new Date().toLocaleDateString('it-IT'));if(n!==null)try{await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:n.trim()||'Vocale',ts:Date.now(),type:b.type,blob:b});}catch(e){alert('Impossibile salvare il vocale.');}}
+   msRecsRender();};
+  msMR=r;r.start();msRecsRender();
+ }catch(e){alert('Microfono non disponibile o permesso negato.');}
+}
+function msRecCard(){return`<div class="ms-card"><div class="ms-h">🎙 I miei vocali</div><div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Registra o carica un vocale con la tua voce (o quella del coach): lo riascolti con il sottofondo. I tuoi vocali restano su questo dispositivo; con ⇪ puoi condividerli con tutti gli atleti (max 1,5 MB ciascuno, circa 1-3 minuti).</div><div id="msRecs"></div><div id="msShA" style="margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--b1)"></div></div>`;}
+async function msRecsRender(){
+ const e=el('msRecs');if(!e)return;msShAInit();msShARender();msCdStart();let L=[];
+ try{L=await msRecAll();}catch(x){e.innerHTML='<div style="font-size:.75rem;color:var(--gold)">Archivio locale non disponibile in questo browser.</div>';return;}
+ msUrls.forEach(u=>URL.revokeObjectURL(u));msUrls=[];
+ e.innerHTML=`<div class="ms-row" style="margin-bottom:.6rem"><button class="ms-btn g" onclick="this.nextElementSibling.click()">⬆ Carica vocale</button><input type="file" accept="audio/*" style="display:none" onchange="msRecFile(this)"><button class="ms-btn${msMR?'':' g'}" onclick="msRecToggle()">${msMR?'■ Ferma registrazione':'● Registra'}</button></div>`+
+ (L.length?L.map(r=>{const u=URL.createObjectURL(r.blob);msUrls.push(u);return`<div class="ms-rec"><div class="ms-rec-h"><b>${r.name.replace(/</g,'&lt;')}</b><span>${new Date(r.ts).toLocaleDateString('it-IT')}</span><i onclick="msRecShare('${r.id}')" title="Condividi con tutti gli atleti">⇪</i><i onclick="msRecDel('${r.id}')" title="Elimina">✕</i></div><audio controls preload="none" src="${u}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio></div>`}).join(''):'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale per questo atleta.</div>');
+}
+function msTabRender(){if(MS.speak||[...document.querySelectorAll('#msRecs audio,#msShA audio')].some(a=>!a.paused))return;renderMindset();}
+
+/* ── I miei testi (per atleta, sincronizzati) ── */
+const msEsc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const msTxts=()=>(store[activePid]&&store[activePid].mtexts)||{};
+const msFixedS=()=>MS.sess==='race'||MS.sess.startsWith('txt:')||MS.sess.startsWith('sh:');
+const msSessD=()=>(msSS[MS.sess]||{d:'Il tuo testo, letto con la voce, il sottofondo e le impostazioni scelte.'}).d;
+function msTxtOpts(){const o=(t,pre,lab)=>{const e=Object.entries(t);return e.length?`<optgroup label="${lab}">${e.map(([id,x])=>`<option value="${pre}${id}"${MS.sess===pre+id?' selected':''}>✍ ${msEsc(x.name)}</option>`).join('')}</optgroup>`:'';};return o(msTxts(),'txt:','I miei testi')+o(msSh(),'sh:','Catalogo testi condiviso');}
+function msTxtItems(id,sh){
+ const t=(sh?msSh():msTxts())[id],o=[];if(!t)return o;
+ t.text.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).forEach(par=>{
+  const ss=[];par.split('\n').forEach(line=>{(line.match(/[^.!?…]+[.!?…]*/g)||[]).forEach(x=>{x=x.trim();if(x)ss.push(x);});});
+  ss.forEach((x,i)=>o.push({l:t.name,t:x,p:i===ss.length-1?4:1.2,f:false,h:false,c:'#a78bfa'}));});
+ return o;
+}
+function msTxtEdit(id){MS.tedit=id;renderMindset();}
+function msTxtDel(id){const t=msTxts()[id];if(!t||!confirm('Eliminare "'+t.name+'"?'))return;delete store[activePid].mtexts[id];if(MS.sess==='txt:'+id)MS.sess='relax';saveStore(store);renderMindset();}
+function msTxtGo(id){MS.sess='txt:'+id;msStop();renderMindset();const b=el('msSessBtn');if(b)b.scrollIntoView({block:'center',behavior:'smooth'});msSessPlay();}
+const msSh=()=>(store&&store._texts)||{};
+function msTxtSave(){
+ const n=el('msTxtName').value.trim(),b=el('msTxtBody').value.trim();if(!b){alert('Scrivi un testo.');return;}
+ const a=store[activePid],ed=MS.tedit;if(!a)return;
+ if(ed&&ed.startsWith('sh:')){const x=(store._texts||{})[ed.slice(3)];if(x){x.name=n||x.name;x.text=b;x.ts=Date.now();}}
+ else{a.mtexts=a.mtexts||{};const id=ed==='new'?'t'+Date.now().toString(36):ed;a.mtexts[id]={name:n||'Il mio testo',text:b,ts:Date.now()};}
+ saveStore(store);MS.tedit=null;renderMindset();
+}
+function msTxtShare(id){const t=msTxts()[id];if(!t)return;const n=(prompt('Nome con cui condividere il testo con tutti gli atleti:',t.name)||'').trim();if(!n)return;
+ store._texts=store._texts||{};const old=Object.entries(store._texts).find(([,x])=>x.name===n),k=old?old[0]:'s'+Date.now().toString(36);
+ store._texts[k]={name:n,text:t.text,ts:Date.now(),by:(store[activePid]||{}).name||''};saveStore(store);showToast('✓ Testo condiviso nel catalogo');renderMindset();}
+function msShCopy(id){const x=msSh()[id],a=store[activePid];if(!x||!a)return;a.mtexts=a.mtexts||{};a.mtexts['t'+Date.now().toString(36)]={name:x.name,text:x.text,ts:Date.now()};saveStore(store);showToast('✓ Copiato nei tuoi testi');renderMindset();}
+function msShDel(id){const x=msSh()[id];if(!x||!confirm('Eliminare "'+x.name+'" dal catalogo condiviso per tutti gli atleti?'))return;delete store._texts[id];if(MS.sess==='sh:'+id)MS.sess='relax';saveStore(store);renderMindset();}
+function msShGo(id){MS.sess='sh:'+id;msStop();renderMindset();const b=el('msSessBtn');if(b)b.scrollIntoView({block:'center',behavior:'smooth'});msSessPlay();}
+function msTxtCard(){
+ const L=Object.entries(msTxts()).sort((a,b)=>b[1].ts-a[1].ts),S=Object.entries(msSh()).sort((a,b)=>a[1].name.localeCompare(b[1].name)),ed=MS.tedit;
+ const cur=ed&&ed!=='new'?(ed.startsWith('sh:')?msSh()[ed.slice(3)]:msTxts()[ed]):null;
+ const row=(x,sub,btns)=>`<div class="ms-txt"><div><b>${msEsc(x.name)}</b><small>${msEsc(sub)}</small></div>${btns}</div>`;
+ const pv=x=>x.text.replace(/\s+/g,' ').slice(0,90);
+ return`<div class="ms-card"><div class="ms-h">✍ I miei testi</div>
+ <div style="font-size:.74rem;color:var(--txt2);margin-bottom:.6rem">Scrivi o incolla un testo: lo ascolti con la voce, il sottofondo e le impostazioni scelte, anche dal menu «Sessione». Usa frasi brevi; una riga vuota crea una pausa più lunga. I tuoi testi sono salvati per atleta; quelli del catalogo sono visibili a tutti.</div>
+ ${L.map(([id,x])=>row(x,pv(x),`<button class="ms-btn" onclick="msTxtGo('${id}')">▶ Ascolta</button><button class="ms-btn g" onclick="msTxtShare('${id}')" title="Condividi nel catalogo">⇪</button><button class="ms-btn g" onclick="msTxtEdit('${id}')">✎</button><button class="ms-btn g" onclick="msTxtDel('${id}')">✕</button>`)).join('')||(ed?'':'<div style="font-size:.75rem;color:var(--txt3);margin-bottom:.5rem">Nessun testo personale.</div>')}
+ ${ed?`<div style="margin-top:.6rem"><input id="msTxtName" class="ms-in" style="width:100%;margin-bottom:.4rem" placeholder="Titolo (es. Il mio mantra)" value="${cur?msEsc(cur.name):''}"><textarea id="msTxtBody" class="ms-in" style="width:100%;min-height:150px;resize:vertical;line-height:1.5" maxlength="4000" placeholder="Respiro piano. Le gambe sono leggere.&#10;&#10;Ogni passo mi porta al traguardo.">${cur?msEsc(cur.text):''}</textarea>
+  <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">${ed.startsWith('sh:')?'Stai modificando un testo del catalogo: la modifica vale per tutti gli atleti.':''}</div>
+  <div class="ms-row" style="margin-top:.5rem"><button class="ms-btn" onclick="msTxtSave()">Salva</button><button class="ms-btn g" onclick="msTxtEdit(null)">Annulla</button></div></div>`:`<button class="ms-btn g" onclick="msTxtEdit('new')">＋ Nuovo testo</button>`}
+ <div style="margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--b1)"><div class="ms-h" style="font-size:.88rem">Catalogo testi · condiviso con tutti gli atleti</div>
+ ${S.map(([id,x])=>row(x,(x.by?x.by+' · ':'')+pv(x),`<button class="ms-btn" onclick="msShGo('${id}')">▶ Ascolta</button><button class="ms-btn g" onclick="msShCopy('${id}')" title="Copia nei miei testi">⧉</button><button class="ms-btn g" onclick="msTxtEdit('sh:${id}')">✎</button><button class="ms-btn g" onclick="msShDel('${id}')">✕</button>`)).join('')||'<div style="font-size:.75rem;color:var(--txt3)">Nessun testo condiviso: premi ⇪ su uno dei tuoi testi per aggiungerlo.</div>'}</div></div>`;
+}
+
+/* ── Countdown gara ── */
+MS.aCache={};MS.shA={};
+const MS_RACE={at:'2026-11-29T08:30',name:'Estra Firenze Marathon'};
+function msCdCard(){const a=store[activePid]||{};
+ return`<div class="ms-card"><div class="ms-h">🏁 Countdown maratona</div><div id="msCd"></div>
+ <div class="ms-row"><div><label>Data e ora della gara</label><input type="datetime-local" class="ms-in" value="${msEsc(a.raceAt||MS_RACE.at)}" onchange="msRaceSet(this.value)"></div>
+ <div style="flex:1;min-width:180px"><label>Nome gara</label><input class="ms-in" style="width:100%" placeholder="es. Maratona di …" value="${msEsc(a.raceName!==undefined?a.raceName:MS_RACE.name)}" onchange="msRaceName(this.value)"></div></div></div>`;}
+function msRaceSet(v){const a=store[activePid];if(!a)return;a.raceAt=v;saveStore(store);msCdTick();}
+function msRaceName(v){const a=store[activePid];if(!a)return;a.raceName=v.trim();saveStore(store);msCdTick();}
+function msCdTick(){const e=el('msCd');if(!e){clearInterval(MS.cdT);return;}
+ const a=store[activePid]||{},nm=a.raceName!==undefined?a.raceName:MS_RACE.name,t=new Date(a.raceAt||MS_RACE.at).getTime();
+ if(isNaN(t)){e.innerHTML='<div class="ms-cdn" style="margin-bottom:.8rem">Imposta data e ora della gara per avviare il countdown.</div>';return;}
+ const d=t-Date.now();
+ if(d<=0){e.innerHTML=`<div class="ms-cdn" style="margin-bottom:.8rem">🎉 ${msEsc(nm||'La gara')} è iniziata o conclusa. Buona corsa!</div>`;return;}
+ const s=Math.floor(d/1000),D=Math.floor(s/86400),p=n=>String(n).padStart(2,'0');
+ e.innerHTML=`<div class="ms-cdv">${[[D,'giorni'],[p(Math.floor(s%86400/3600)),'ore'],[p(Math.floor(s%3600/60)),'min'],[p(s%60),'sec']].map(([v,l])=>`<div class="ms-cdb"><b>${v}</b><span>${l}</span></div>`).join('')}</div><div class="ms-cdn" style="margin-bottom:.8rem">${msEsc(nm||'Gara')} · ${new Date(t).toLocaleString('it-IT',{dateStyle:'full',timeStyle:'short'})} · ${Math.floor(D/7)} settimane e ${D%7} giorni</div>`;}
+function msCdStart(){clearInterval(MS.cdT);msCdTick();MS.cdT=setInterval(msCdTick,1000);}
+/* ── Vocali condivisi (Firebase Realtime Database, percorsi separati dai profili) ── */
+const msFB=()=>import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+const msPl=()=>[...document.querySelectorAll('#msShA audio')].some(a=>!a.paused);
+async function msShAInit(){
+ if(MS.shAInit||!_fbInitialized){if(!_fbInitialized){clearTimeout(MS.shAt);MS.shAt=setTimeout(()=>{if(_fbInitialized){msShAInit();msShARender();}},2500);}return;}
+ MS.shAInit=true;
+ try{const FB=await msFB();FB.onValue(FB.ref(_db,'vr_audio_meta'),s=>{MS.shA=s.val()||{};MS.shAErr='';if(!msPl())msShARender();},()=>{MS.shAErr='Accesso ai vocali condivisi negato: controlla le regole del database Firebase.';msShARender();});}
+ catch(e){MS.shAInit=false;}
+}
+function msShARender(auto){
+ const e=el('msShA');if(!e)return;
+ let h='<div class="ms-h" style="font-size:.88rem">Vocali condivisi · visibili a tutti gli atleti</div>';
+ if(!_fbInitialized)h+='<div style="font-size:.75rem;color:var(--txt3)">Condivisione non disponibile: Firebase non è connesso.</div>';
+ else if(MS.shAErr)h+=`<div style="font-size:.75rem;color:var(--gold)">${MS.shAErr}</div>`;
+ else{const L=Object.entries(MS.shA||{}).sort((a,b)=>b[1].ts-a[1].ts);
+  h+=L.map(([id,m])=>`<div class="ms-rec"><div class="ms-rec-h"><b>${msEsc(m.name)}</b><span>${msEsc(m.by||'')} · ${Math.round((m.size||0)/1000)} KB</span><i onclick="msShACopy('${id}')" title="Copia nei miei vocali">⧉</i><i onclick="msShADel('${id}')" title="Elimina per tutti">✕</i></div>${MS.aCache[id]?`<audio id="msShAa${id}" controls src="${MS.aCache[id]}" onplay="msAmbRun(1)" onpause="msAmbRun(0)" onended="msAmbRun(0)"></audio>`:`<button class="ms-btn g" id="msShAb${id}" onclick="msShAPlay('${id}')">▶ Carica e ascolta</button>`}</div>`).join('')||'<div style="font-size:.75rem;color:var(--txt3)">Nessun vocale condiviso: premi ⇪ su uno dei tuoi vocali.</div>';}
+ e.innerHTML=h;
+ if(auto){const a=el('msShAa'+auto);if(a)a.play().catch(()=>{});}
+}
+async function msShALoad(id){
+ if(MS.aCache[id])return MS.aCache[id];const m=MS.shA[id];
+ const FB=await msFB(),v=(await FB.get(FB.ref(_db,'vr_audio/'+id))).val();if(!v)throw Error('vuoto');
+ const bin=atob(v),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+ return MS.aCache[id]=URL.createObjectURL(new Blob([u8],{type:(m&&m.type)||'audio/webm'}));
+}
+async function msShAPlay(id){const b=el('msShAb'+id);if(b)b.textContent='Carico…';try{await msShALoad(id);msShARender(id);}catch(e){alert('Impossibile scaricare il vocale.');msShARender();}}
+async function msShACopy(id){const m=MS.shA[id];if(!m)return;try{const u=await msShALoad(id),b=await(await fetch(u)).blob();await msRecPut({id:'v'+Date.now().toString(36),pid:activePid,name:m.name,ts:Date.now(),type:m.type,blob:b});showToast('✓ Copiato nei tuoi vocali');msRecsRender();}catch(e){alert('Copia non riuscita.');}}
+async function msShADel(id){const m=MS.shA[id];if(!m||!confirm('Eliminare "'+m.name+'" dal catalogo condiviso per tutti gli atleti?'))return;try{const FB=await msFB();await FB.remove(FB.ref(_db,'vr_audio/'+id));await FB.remove(FB.ref(_db,'vr_audio_meta/'+id));delete MS.aCache[id];}catch(e){alert('Eliminazione non riuscita: '+(e.code||e.message));}}
+async function msRecShare(id){
+ if(!_fbInitialized){alert('Condivisione non disponibile: Firebase non è connesso.');return;}
+ const r=(await msRecAll()).find(x=>x.id===id);if(!r)return;
+ if(r.blob.size>1.5e6){alert('Vocale troppo grande per la condivisione (max 1,5 MB, circa 1-3 minuti). Registralo più breve.');return;}
+ const n=(prompt('Nome con cui condividere il vocale con tutti gli atleti:',r.name)||'').trim();if(!n)return;
+ try{const b64=await new Promise((ok,ko)=>{const f=new FileReader();f.onload=()=>ok(String(f.result).split(',')[1]);f.onerror=ko;f.readAsDataURL(r.blob);});
+  const FB=await msFB(),k='a'+Date.now().toString(36);
+  await FB.set(FB.ref(_db,'vr_audio/'+k),b64);
+  await FB.set(FB.ref(_db,'vr_audio_meta/'+k),{name:n,by:(store[activePid]||{}).name||'',ts:Date.now(),type:r.blob.type||'audio/webm',size:r.blob.size});
+  showToast('✓ Vocale condiviso');
+ }catch(e){alert('Condivisione non riuscita: '+(e.code||e.message)+'. Controlla le regole del database Firebase.');}
+}
+
+function renderMindset(){
+ const box=el('mindContent');if(!box)return;
+ if(MS.pid!==activePid){MS.pid=activePid;const d=(store[activePid]||{}).mindset;MS.g=d?{name:d.name,L:d.L,P:d.P}:null;MS.goalSec=d?d.goalSec||null:null;MS.strat=d?d.strat||'even':'even';MS.loops=d?d.loops||1:1;MS.url=d?d.url||'':'';MS.msg='';if(MS.g)MS.sess='race';msStop();}
+ const lib=msLib(),a=store[activePid]||{},goal=MS.goalSec||(a.goalMin||210)*60;
+ let m=null;
+ if(MS.g){try{m=msModel(goal);}catch(e){MS.msg='⚠ '+e.message;}}
+ MS.m=m;MS.cg=goal;
+ let h=msCdCard()+`<div class="ms-card"><div class="ms-h">🧠 Visual Run · preparazione mentale per la gara</div>
+ <div style="font-size:.8rem;color:var(--txt2);margin-bottom:.8rem">Carica il percorso: il tempo obiettivo viene distribuito tra salite, discese e chilometri critici, e ne nasce una sequenza vocale di visualizzazione da ascoltare prima della gara.</div>
+ <div class="ms-row">
+  <div><label>File GPX</label><input type="file" accept=".gpx,.xml" class="ms-in" onchange="msFile(this)"></div>
+  <div style="flex:1;min-width:200px"><label>…oppure link a un GPX</label><input id="msUrl" class="ms-in" style="width:100%" placeholder="https://…/percorso.gpx" value="${MS.url.replace(/"/g,'&quot;')}"></div>
+  <button class="ms-btn g" onclick="msUrl()">Carica da web</button>
+ </div>
+ <div class="ms-row" style="margin-top:.8rem">
+  <div><label>Tempo finale (h:mm:ss)</label><input class="ms-in" style="width:110px" value="${msG(goal)}" onchange="msGoal(this.value)"></div>
+  <div><label>Strategia</label><select class="ms-in" onchange="msStrat(this.value)"><option value="even"${MS.strat==='even'?' selected':''}>Sforzo costante</option><option value="neg"${MS.strat==='neg'?' selected':''}>Negative split</option></select></div>
+  <div><label>Giri</label><input type="number" min="1" max="20" class="ms-in" style="width:70px" value="${MS.loops}" onchange="msLoops(this.value)"></div>
+  ${MS.g?`<button class="ms-btn g" onclick="msClear()">Rimuovi percorso</button>`:''}
+  <div style="font-size:.7rem;color:var(--txt3)">${MS.g?'Giro: '+msN(MS.g.L/1000)+' km · ':''}tempo di default = obiettivo atleta (${fmtGoal(a.goalMin||210)}) · percorso salvato per atleta.</div>
+ </div><div style="margin-top:.8rem"><label style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:.3rem">Catalogo percorsi · condiviso con tutti gli atleti</label>
+ <div class="ms-row">${lib.map(([id,r])=>`<span class="ms-lib" onclick="msPick('${id}')">${r.name.replace(/</g,'&lt;')} <em>${msN(r.L/1000)} km</em><b onclick="event.stopPropagation();msDelLib('${id}')" title="Elimina dal catalogo">✕</b></span>`).join('')||'<span style="font-size:.75rem;color:var(--txt3)">Nessun percorso condiviso: carica un GPX e premi «Condividi nel catalogo».</span>'}
+ ${MS.g?`<button class="ms-btn g" onclick="msShare()">⇪ Condividi nel catalogo</button>`:''}</div></div>
+ ${MS.msg?`<div style="margin-top:.7rem;font-size:.78rem;color:var(--gold)">${MS.msg}</div>`:''}</div>`;
+ if(!m){h+=msSessCard()+msRecCard()+msTxtCard();box.innerHTML=h+`<div class="ms-card" style="text-align:center;color:var(--txt3);font-size:.85rem">Nessun percorso caricato.</div>`;msFillVoices();msRecsRender();return;}
+ const hard=[...m.km].sort((x,y)=>y.sc-x.sc).slice(0,4).map(k=>k.i+1).sort((x,y)=>x-y).join(', ');
+ const chip=(l,v)=>`<div class="ms-chip"><span>${l}</span><b>${v}</b></div>`;
+ h+=`<div class="ms-card"><div class="ms-h">${MS.g.name.replace(/</g,'&lt;')}</div>
+ <div class="ms-row" style="margin-bottom:.8rem">${chip('Distanza',msN(m.Lk)+' km')}${chip('Dislivello +',Math.round(m.up)+' m')}${chip('Dislivello −',Math.round(m.dn)+' m')}${chip('Ritmo medio',msF(goal/m.Lk)+'/km')}${chip('Km più duri',hard)}</div>
+ ${msChart(m)}
+ <div class="ms-row" style="margin-top:.4rem;font-size:.68rem;color:var(--txt2)">${Object.keys(msNm).map(k=>`<span><i style="display:inline-block;width:9px;height:9px;background:${msCol[k]};border-radius:2px;margin-right:4px"></i>${msNm[k]}</span>`).join('')}</div></div>`;
+ h+=msSessCard()+msRecCard()+msTxtCard();
+ h+=`<div class="ms-card"><div class="ms-h">Cue card di gara</div><div style="overflow-x:auto"><table class="ms-tbl"><tr><th>Tratto</th><th>Tipo</th><th>Tempo</th><th>Ritmo</th><th>Parola</th><th>Respiro</th></tr>
+ ${m.PH.map(p=>`<tr><td>${p.label}</td><td style="color:${msCol[p.ty]}">${msNm[p.ty]}${p.ty==='up'||p.ty==='down'?' '+(p.g>0?'+':'')+msN(p.g)+'%':''}</td><td>${msF(p.t0)}</td><td>${msF(p.pace)}/km</td><td><b>${p.cue}</b></td><td>${msBr[p.ty]}</td></tr>`).join('')}</table></div></div>`;
+ h+=`<div class="ms-card"><div class="ms-h">Dettaglio per chilometro</div><div style="overflow-x:auto"><table class="ms-tbl"><tr><th>Km</th><th>Tipo</th><th>D+/D−</th><th>Pend.</th><th>Ritmo</th><th>Passaggio</th><th style="width:90px">Difficoltà</th></tr>
+ ${m.km.map(k=>`<tr><td>${k.i+1}</td><td style="color:${msCol[k.ty]}">${msNm[k.ty]}</td><td>+${Math.round(k.up)} −${Math.round(k.dn)}</td><td>${msN(k.g)}%</td><td>${msF(k.pace)}</td><td>${msF(k.t0+k.t)}</td><td><div style="height:6px;border-radius:3px;width:${k.sc*10}%;background:${msCol[k.ty]}"></div></td></tr>`).join('')}</table></div></div>`;
+ box.innerHTML=h;msFillVoices();msRecsRender();
+}
+
+store = loadStore();   // carica localStorage come fallback
+syncFromFirebase();    // Firebase carica i dati e poi chiama renderProfiles()
 </script>
 </body>
 </html>
