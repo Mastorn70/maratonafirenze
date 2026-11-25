@@ -671,7 +671,16 @@ const TARGET_PRESETS = [
 // ═══════════════════════════════════════════════════════════════
 // STORAGE
 // ═══════════════════════════════════════════════════════════════
-function loadStore(){ try{return JSON.parse(localStorage.getItem('mfv3')||'{}')}catch{return{}} }
+// Accepts both "10,8" and "10.8" (and trailing text such as "10,8 km")
+function num(v){ const n=parseFloat(String(v??'').trim().replace(',','.')); return isNaN(n)?NaN:n; }
+function loadStore(){
+  let st; try{st=JSON.parse(localStorage.getItem('mfv3')||'{}')}catch{st={}}
+  // repair logs saved earlier with a decimal comma
+  Object.values(st).forEach(a=>Object.values(a?.log||{}).forEach(l=>{
+    if(l&&typeof l.km==='string'&&l.km.includes(',')){ const n=num(l.km); l.km=isNaN(n)?'':String(n); }
+  }));
+  return st;
+}
 function saveStore(s){ try{localStorage.setItem('mfv3',JSON.stringify(s))}catch{} }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1059,7 +1068,7 @@ function computeAdaptation(orig, log){
     orig[wi].sessions.forEach(s => {
       const L = dayLogs(log, wi, s.day).filter(l => l.completed);
       if (s.type!=='rest' && s.type!=='cross'){ planned++; planKm += s.km||0; if (L.length) done++; }
-      L.forEach(l => { realKm += parseFloat(l.km)||0; if (l.feel) feels.push(l.feel); });
+      L.forEach(l => { realKm += num(l.km)||0; if (l.feel) feels.push(l.feel); });
     });
   });
   info.evalWeeks = ws; info.from = evalMax+1;
@@ -1517,7 +1526,7 @@ function renderDashboard(){
   const entries  = Object.values(log);
   const completed= entries.filter(e=>e.completed);
   const skipped  = entries.filter(e=>!e.completed);
-  const totalRealKm = completed.reduce((a,e)=>a+(parseFloat(e.km)||0),0);
+  const totalRealKm = completed.reduce((a,e)=>a+(num(e.km)||0),0);
   const totalPlanKm = plan.reduce((a,w)=>a+w.runKm,0);
   const loggedDays = new Set(Object.keys(log).map(baseKey)).size;
   const adh = allS.length ? Math.min(100,Math.round(loggedDays/allS.length*100)) : 0;
@@ -1537,7 +1546,7 @@ function renderDashboard(){
       else if(s.type==='rep'||s.type==='test')        rep+=(s.km||0);
       else if(s.type==='lungo'||s.type==='race')      lng+=(s.km||0);
       else if(s.type==='cross')                        crs+=(s.dur||0)/6; // approx km equiv
-      dayLogs(log,w.wi,s.day).forEach(lg=>{ if(lg?.completed) real+=parseFloat(lg.km||0); });
+      dayLogs(log,w.wi,s.day).forEach(lg=>{ if(lg?.completed) real+=num(lg.km||0); });
     });
     wkEasy.push(Math.round(easy*10)/10);
     wkMed.push(Math.round(med*10)/10);
@@ -1728,7 +1737,7 @@ let _phPts=[];
 function paceHrPoints(){
   const log=store[activePid].log||{};
   return Object.entries(log).filter(([,e])=>e.completed&&e.pace&&e.hr&&e.date)
-    .map(([k,e])=>({k,date:e.date,pace:parsePaceToSec(e.pace),hr:parseFloat(e.hr),km:parseFloat(e.km)||0}))
+    .map(([k,e])=>({k,date:e.date,pace:parsePaceToSec(e.pace),hr:parseFloat(e.hr),km:num(e.km)||0}))
     .filter(x=>x.pace&&x.hr).sort((a,b)=>a.date.localeCompare(b.date)||a.k.localeCompare(b.k));
 }
 function paceHrPanel(){
@@ -1862,7 +1871,7 @@ function openLog(key,wi,day){
         <div><label class="field-label">Data</label>
           <input class="text-input" type="date" id="mDate" value="${existing?.date||slotDate(wi,day)}"></div>
         <div><label class="field-label">Km percorsi</label>
-          <input class="text-input" type="number" id="mKm" value="${existing?.km||''}" placeholder="${session.km||''}"></div>
+          <input class="text-input" type="text" inputmode="decimal" id="mKm" value="${existing?.km||''}" placeholder="${session.km||''}"></div>
         <div><label class="field-label">Ritmo medio (mm:ss)</label>
           <input class="text-input" type="text" id="mPace" value="${existing?.pace||''}" placeholder="5:10"></div>
         <div><label class="field-label">FC media (bpm)</label>
@@ -1936,7 +1945,7 @@ function saveLog(key,wi,day){
   const entry={
     completed,
     date:dateVal,
-    km:el('mKm')?.value||'',
+    km:(()=>{const n=num(el('mKm')?.value);return isNaN(n)?'':String(Math.round(n*100)/100);})(),
     pace:el('mPace')?.value||'',
     hr:el('mHr')?.value||'',
     feel:window._currentFeel||3,
@@ -2280,7 +2289,7 @@ function openSessionEditor(key,wi,day){
       <div class="editor-row">
         <div>
           <label class="field-label">Km</label>
-          <input class="text-input" type="number" id="editKm" value="${cur.km||''}" placeholder="es. 12" min="1" max="50" step="0.5">
+          <input class="text-input" type="text" inputmode="decimal" id="editKm" value="${cur.km||''}" placeholder="es. 12,5">
         </div>
         <div>
           <label class="field-label">Zona ritmo</label>
@@ -2348,7 +2357,7 @@ function saveSessionEdit(edKey,wi,day){
   const type=window._editType||(document.querySelector('.etype-btn.sel')?.getAttribute('onclick').match(/'([^']+)'/)?.[1])||'easy';
   const edit={
     type,
-    km:      parseFloat(el('editKm')?.value)||undefined,
+    km:      num(el('editKm')?.value)||undefined,
     dur:     parseInt(el('editDur')?.value)||undefined,
     desc:    el('editDesc')?.value||'',
     zone:    el('editZone')?.value||'easy',
@@ -2637,8 +2646,7 @@ function renderEditorPanel(session, wi, day) {
              <div class="ed-field">
                <label>Distanza (km)</label>
                <div style="display:flex;gap:.4rem;align-items:center">
-                 <input class="ed-input" type="number" id="edKmInput"
-                   min="1" max="50" step="0.5"
+                 <input class="ed-input" type="text" inputmode="decimal" id="edKmInput"
                    value="${session.km||''}" placeholder="es. 12"
                    oninput="edSetKm(${wi},${day},this.value)"
                    onchange="edSetKm(${wi},${day},this.value)"
@@ -2738,7 +2746,7 @@ function edKmStep(wi, day, delta) {
 }
 
 function edSetKm(wi, day, v) {
-  const val = parseFloat(v);
+  const val = num(v);
   if (isNaN(val) || val <= 0) return;
   const e = edGetOrCreateEdit(wi, day);
   e.km = val;
@@ -3691,7 +3699,7 @@ function renderCompare() {
     const planKm = week.runKm;
     // Real km from log
     const realKm = week.sessions.filter(s => s.type !== 'cross').reduce((sum, s) => {
-      return sum + dayLogs(log,week.wi,s.day).reduce((a,lg)=>a+(lg?.completed ? parseFloat(lg.km||0) : 0),0);
+      return sum + dayLogs(log,week.wi,s.day).reduce((a,lg)=>a+(lg?.completed ? num(lg.km||0) : 0),0);
     }, 0);
     // All paces logged this week
     const paces = week.sessions.flatMap(s => dayLogs(log,week.wi,s.day).map(lg => lg?.pace ? parsePaceToSec(lg.pace) : null)).filter(Boolean);
@@ -3718,7 +3726,7 @@ function renderCompare() {
         const planPaceSec = z[s.zone]?.lo;
         const realPaceSec = parsePaceToSec(lg.pace);
         const planKm = s.km || (s.dur ? s.dur/60*10 : 0);
-        const realKm = parseFloat(lg.km) || 0;
+        const realKm = num(lg.km) || 0;
         const kmDelta = realKm - planKm;
         const paceDelta = (planPaceSec && realPaceSec) ? realPaceSec - planPaceSec : null;
         const sm = SESS_META[s.type] || SESS_META.easy;
